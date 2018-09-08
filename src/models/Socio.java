@@ -2,7 +2,7 @@ package models;
 
 public class Socio {
 
-	private int id_socio; 
+	private int idSocio; 
 	private String password;
 	private String apellido;
 	private String nombre;
@@ -10,28 +10,40 @@ public class Socio {
 	private String mail;
 	private String usuario; 
 	private String rol;
-	private int id_tarjeta;
+	private int idTarjeta;
 	
 	
 
-	public Socio(int id_socio, String usuario,String password, String apellido, String nombre, String estado, String mail,String rol,int id_tarjeta) {
-		
-		this.id_socio = id_socio;
+	public Socio(int idSocio, String usuario,String password, String apellido, String nombre, String estado, String mail,String rol,int idTarjeta) {
+		this.idSocio = idSocio;
 		this.usuario = usuario;
 		this.password = password;
 		this.apellido = apellido;
 		this.nombre = nombre;
 		this.estado = estado;
 		this.mail = mail;
-		this.rol=rol;
-		this.id_tarjeta=id_tarjeta;
+		this.rol = rol;
+		this.idTarjeta = idTarjeta;
 	}
 	
-	public int getId_socio() {
-		return id_socio;
+	
+	public Socio(String usuario,String password, String apellido, String nombre, String estado, String mail,String rol,int idTarjeta) {
+		this.password = password;
+		this.apellido = apellido;
+		this.nombre = nombre;
+		this.estado = estado;
+		this.mail = mail;
+		this.usuario = usuario;
+		this.rol = rol;
+		this.idTarjeta = idTarjeta;
 	}
-	public void setId_socio(int id_socio) {
-		this.id_socio = id_socio;
+
+
+	public int getIdSocio() {
+		return idSocio;
+	}
+	public void setIdSocio(int idSocio) {
+		this.idSocio = idSocio;
 	}
 	
 	public String getUsername() {
@@ -80,19 +92,19 @@ public class Socio {
 		this.rol = rol;
 	}
     
-	public int getId_tarjeta() {
-		return id_tarjeta;
+	public int getIdTarjeta() {
+		return idTarjeta;
 	}
 
-	public void setId_tarjeta(int id_tarjeta) {
-		this.id_tarjeta = id_tarjeta;
+	public void setIdTarjeta(int idTarjeta) {
+		this.idTarjeta = idTarjeta;
 	}
 
 	@Override
 	public String toString() {
-		return "Socio [id_socio=" + id_socio + ", password=" + password + ", apellido=" + apellido + ", nombre="
+		return "Socio [id_socio=" + idSocio + ", password=" + password + ", apellido=" + apellido + ", nombre="
 				+ nombre + ", estado=" + estado + ", mail=" + mail + ", usuario=" + usuario + ", rol=" + rol
-				+ ", id_tarjeta=" + id_tarjeta + "]";
+				+ ", id_tarjeta=" + idTarjeta + "]";
 	}
 		
 	

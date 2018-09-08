@@ -1,11 +1,14 @@
 package controlers;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.logging.Logger;
 
 import data.DataSocio;
 import models.Socio;
@@ -16,6 +19,7 @@ import models.Socio;
 @WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger("Register");
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,16 +51,14 @@ public class Register extends HttpServlet {
 		String usuario=request.getParameter("Username");
 	    String password=request.getParameter("Password");
 	    
-	    Socio socio=new Socio(0, usuario, password, apellido, nombre, "activo", correo,"socio",0);
+	    Socio socio=new Socio(usuario, password, apellido, nombre, "activo", correo,"socio",1);
 	    
-	    DataSocio ds=new DataSocio();
-	    boolean status=ds.register(socio);
+	    DataSocio ds = new DataSocio();
+	    boolean status = ds.register(socio);
 	    String msj="";
 	    
 	    if(status) {
-	    	
 	    	msj="Se ha registrado correctamente";
-	    	
 	    }else {
 	    	msj="Error al registrarse";
 	    }
@@ -65,7 +67,7 @@ public class Register extends HttpServlet {
 	    request.getRequestDispatcher("/mensaje.jsp").forward(request, response);
 		
 		}catch(Exception e) {
-            e.printStackTrace();			
+			LOGGER.severe("ERROR: "+e);
 		}
 	    
 	}

@@ -2,29 +2,29 @@ package data;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import models.Socio;
 
 public class DataSocio {
-	
+	private static final Logger LOGGER = Logger.getLogger("DataSocio");
 	public boolean register(Socio socio) {
 		
-		String sql="INSERT INTO 'socios' VALUES(?,?,?,?,?,?,?,?,?)";
-		PreparedStatement ps=null;  
+		String query = "INSERT INTO socios (nombre, apellido, usuario, password, estado, correo, rol, id_Tarjeta)"
+			        + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement ps = null;  
 		
 		try {
-		
-			ps=FactoryConnection.getInstancia().getConn().prepareStatement(sql);
-			ps.setInt(1, socio.getId_socio());
-			ps.setString(2, socio.getNombre());
-			ps.setString(3, socio.getApellido());
-			ps.setString(4, socio.getUsername());
-			ps.setString(5, socio.getPassword());
-			ps.setString(6, socio.getEstado());
-			ps.setString(7, socio.getMail());
-			ps.setString(8,socio.getRol());
-			ps.setInt(9, socio.getId_tarjeta());
-			ps.executeUpdate();
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, socio.getNombre());
+			ps.setString(2, socio.getApellido());
+			ps.setString(3, socio.getUsername());
+			ps.setString(4, socio.getPassword());
+			ps.setString(5, socio.getEstado());
+			ps.setString(6, socio.getMail());
+			ps.setString(7,socio.getRol());
+			ps.setInt(8, socio.getIdTarjeta());
+			ps.execute();
 			return true;
 		} catch (SQLException e) {
 			return false;
@@ -35,8 +35,7 @@ public class DataSocio {
 					ps.close();
 					FactoryConnection.getInstancia().releaseConn();
 				} catch (SQLException e) {
-					
-					e.printStackTrace();
+					LOGGER.severe("ERROR: "+e);
 				}
 			
 		}
