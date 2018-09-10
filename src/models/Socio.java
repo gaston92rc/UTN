@@ -10,11 +10,11 @@ public class Socio {
 	private String mail;
 	private String usuario; 
 	private String rol;
-	private int idTarjeta;
+	private Tarjeta tarjeta;
 	
 	
 
-	public Socio(int idSocio, String usuario,String password, String apellido, String nombre, String estado, String mail,String rol,int idTarjeta) {
+	public Socio(int idSocio, String usuario,String password, String apellido, String nombre, String estado, String mail,String rol, Tarjeta tarjeta) {
 		this.idSocio = idSocio;
 		this.usuario = usuario;
 		this.password = password;
@@ -23,11 +23,11 @@ public class Socio {
 		this.estado = estado;
 		this.mail = mail;
 		this.rol = rol;
-		this.idTarjeta = idTarjeta;
+		this.tarjeta = tarjeta;
 	}
 	
 	
-	public Socio(String usuario,String password, String apellido, String nombre, String estado, String mail,String rol,int idTarjeta) {
+	public Socio(String usuario,String password, String apellido, String nombre, String estado, String mail,String rol,Tarjeta tarjeta) {
 		this.password = password;
 		this.apellido = apellido;
 		this.nombre = nombre;
@@ -35,7 +35,7 @@ public class Socio {
 		this.mail = mail;
 		this.usuario = usuario;
 		this.rol = rol;
-		this.idTarjeta = idTarjeta;
+		this.tarjeta = tarjeta;
 	}
 
 
@@ -91,21 +91,26 @@ public class Socio {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-    
-	public int getIdTarjeta() {
-		return idTarjeta;
+
+
+	public Tarjeta getTarjeta() {
+		return tarjeta;
 	}
 
-	public void setIdTarjeta(int idTarjeta) {
-		this.idTarjeta = idTarjeta;
+
+	public void setTarjeta(Tarjeta tarjeta) {
+		this.tarjeta = tarjeta;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Socio [id_socio=" + idSocio + ", password=" + password + ", apellido=" + apellido + ", nombre="
-				+ nombre + ", estado=" + estado + ", mail=" + mail + ", usuario=" + usuario + ", rol=" + rol
-				+ ", id_tarjeta=" + idTarjeta + "]";
+		return "Socio [idSocio=" + idSocio + ", password=" + password + ", apellido=" + apellido + ", nombre=" + nombre
+				+ ", estado=" + estado + ", mail=" + mail + ", usuario=" + usuario + ", rol=" + rol + ", tarjeta="
+				+ tarjeta + "]";
 	}
+    
+	
 		
 	
 }

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import data.DataSocio;
 import models.Socio;
+import models.Tarjeta;
 
 /**
  * Servlet implementation class Register
@@ -50,8 +51,10 @@ public class Register extends HttpServlet {
 	    String correo=request.getParameter("Email");
 		String usuario=request.getParameter("Username");
 	    String password=request.getParameter("Password");
+	    Tarjeta tarjeta = new Tarjeta();
+	    tarjeta.setIdTarjeta(1);
 	    
-	    Socio socio=new Socio(usuario, password, apellido, nombre, "activo", correo,"socio",1);
+	    Socio socio=new Socio(usuario, password, apellido, nombre, "activo", correo,"socio",tarjeta);
 	    
 	    DataSocio ds = new DataSocio();
 	    boolean status = ds.register(socio);

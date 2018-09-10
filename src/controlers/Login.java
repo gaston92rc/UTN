@@ -37,8 +37,9 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		String nombre=request.getParameter("Username");
-		String clave=request.getParameter("Password");
+		String nombre = request.getParameter("Username");
+		String clave = request.getParameter("Password");
+		
 		
 		
 	}

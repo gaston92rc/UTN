@@ -1847,7 +1847,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a href="faq.html">FAQ</a>
 					</li>
 					<li>
-						<a href="horror.html">Action</a>
+						<a href="horror.html">Horror</a>
 					</li>
 					<li>
 						<a href="genres.html">Adventure</a>
