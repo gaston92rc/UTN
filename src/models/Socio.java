@@ -26,16 +26,19 @@ public class Socio {
 		this.tarjeta = tarjeta;
 	}
 	
-	
-	public Socio(String usuario,String password, String apellido, String nombre, String estado, String mail,String rol,Tarjeta tarjeta) {
+	public Socio(String usuario,String password, String apellido, String nombre, String estado, String mail,String rol, Tarjeta tarjeta) {
+		this.usuario = usuario;
 		this.password = password;
 		this.apellido = apellido;
 		this.nombre = nombre;
 		this.estado = estado;
 		this.mail = mail;
-		this.usuario = usuario;
 		this.rol = rol;
 		this.tarjeta = tarjeta;
+	}
+	
+	public Socio(int idSocio) {
+		this.idSocio=idSocio;
 	}
 
 

@@ -104,7 +104,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							  </div>
 							  <div class="form">
 								<h3>Login to your account</h3>
-								<form action="Login" method="post">
+								<form action="Login" method="post" id="formulario">
 								  <input type="text" name="Username" placeholder="Username" required="">
 								  <input type="password" name="Password" placeholder="Password" required="">
 								  <input type="submit" value="Login">
@@ -129,6 +129,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 	</div>
+	
+	 <!--  <script>
+    $(document).ready(function(){
+        var form = $("#formulario");
+        form.submit(function(){
+            form.find('.label-danger').text('');
+
+            $.ajax({
+                url: "Login",
+                method: "POST",
+                data: form.serialize(),
+                success: function(r){
+                    if(!r.response) {
+                        for(var k in r.errors){
+                            $("span[data-key='" + k + "']").text(r.errors[k]);
+                        }
+                    }
+                },  
+                dataType: "json"
+            });
+            
+            return false;
+        })
+    })
+    </script>-->
+    
 	<script>
 		$('.toggle').click(function(){
 		  // Switches the Icon

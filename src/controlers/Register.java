@@ -67,7 +67,7 @@ public class Register extends HttpServlet {
 	    }
 	    
 	    request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/mensaje.jsp").forward(request, response);
+	    request.getRequestDispatcher("/mensajeRegister.jsp").forward(request, response);
 		
 		}catch(Exception e) {
 			LOGGER.severe("ERROR: "+e);

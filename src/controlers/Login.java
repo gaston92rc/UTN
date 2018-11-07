@@ -1,11 +1,18 @@
 package controlers;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
+
+import data.DataSocio;
+import models.Socio;
 
 /**
  * Servlet implementation class Login
@@ -13,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet({ "/Login", "/login", "/LOGIN", "/lOGIN" })
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final Logger LOGGER = Logger.getLogger("Login");  
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,13 +42,33 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		try { 
+		String usuario = request.getParameter("Username");
+		String password = request.getParameter("Password");
 		
-		String nombre = request.getParameter("Username");
-		String clave = request.getParameter("Password");
+		HttpSession session=request.getSession();
+		DataSocio ds=new DataSocio();
+		Socio socio=ds.login(usuario, password);
+		JOptionPane.showInputDialog("Funca");
+		//Si devuelve null, entonces idSocio=0.
 		
+		String msj;
+				if(socio.getIdSocio()>0) {
+					session.setAttribute("socio", socio);
+					LOGGER.info(socio.getUsername());
+					//msj="Bienvenido "+ socio.getUsername();
+				    request.getRequestDispatcher("/mensajeLogin.jsp").forward(request, response);
+				}else {
+					msj="Usuario y/o clave incorrecto/s"; 
+					LOGGER.warning(msj);
+				    request.setAttribute("mensaje", msj);
+				    request.getRequestDispatcher("/mensajeRegister.jsp").forward(request, response);
 		
-		
+				}
+				
+	        }catch(Exception e) {
+	        	   LOGGER.severe("ERROR: "+e);
+	        }
 	}
-
 }
