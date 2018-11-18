@@ -64,7 +64,7 @@ public class DataSocio {
 	
 	public Socio login(String usuario, String password) {
 		PreparedStatement ps = null;
-		String query="SELECT s.id, s.nombre,apellido,password,estado,correo,rol, id_tarjeta FROM socios s inner join tarjeta t ON id_tarjeta=t.id AND usuario=? AND password=md5(?) AND estado='activo'LIMIT 1";
+		String query="SELECT s.id, s.nombre,apellido,password,estado,correo,rol, id_tarjeta FROM socios s inner join tarjetas t ON id_tarjeta=t.id AND usuario=? AND password=md5(?) AND estado='activo'LIMIT 1";
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
 			ps.setString(1, usuario);

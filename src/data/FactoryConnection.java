@@ -9,7 +9,7 @@ public class FactoryConnection {
 	private static final Logger LOGGER = Logger.getLogger("FactoryConnection");
 	private String driver = "com.mysql.jdbc.Driver";
 	private String user = "root";
-	private String password = "root";
+	private String password = "";
 	private Connection conn;
 	private int cantConn = 0;
 	private static FactoryConnection instancia;

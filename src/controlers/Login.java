@@ -50,7 +50,6 @@ public class Login extends HttpServlet {
 		HttpSession session=request.getSession();
 		DataSocio ds=new DataSocio();
 		Socio socio=ds.login(usuario, password);
-		JOptionPane.showInputDialog("Funca");
 		//Si devuelve null, entonces idSocio=0.
 		
 		String msj;

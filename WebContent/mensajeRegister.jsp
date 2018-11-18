@@ -330,9 +330,8 @@ $(document).ready(function(){
 								
 			});
 	</script>
-<!-- //here ends scrolling icon -->
-	<!-- <script>
-	  		setTimeout("window.history.go(-1)",5000);
-	  </script>--> 
+	<script>
+	  		setTimeout("window.history.go(-1)",2000);
+	</script>
 </body>
 </html>
