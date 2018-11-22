@@ -104,10 +104,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							  </div>
 							  <div class="form">
 								<h3>Login to your account</h3>
-								<form action="Login" method="post" id="formulario">
+								<form id="formulario" action="Login" method="post">
 								  <input type="text" name="Username" placeholder="Username" required="">
 								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="submit" value="Login">
+								  <input type="submit"  id="btn-login" value="Login">
+								  <div id="resp"></div>
 								</form>
 							  </div>
 							  <div class="form">
@@ -130,29 +131,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	
-	 <!--  <script>
-    $(document).ready(function(){
-        var form = $("#formulario");
-        form.submit(function(){
-            form.find('.label-danger').text('');
+ 	<!-- <script>
+ 	$(document).on('ready',function(){
 
-            $.ajax({
-                url: "Login",
-                method: "POST",
-                data: form.serialize(),
-                success: function(r){
-                    if(!r.response) {
-                        for(var k in r.errors){
-                            $("span[data-key='" + k + "']").text(r.errors[k]);
-                        }
-                    }
-                },  
-                dataType: "json"
-            });
-            
-            return false;
-        })
-    })
+ 	      $('#btn-login').click(function(){
+ 	        var url = "Login";                                      
+
+ 	        $.ajax({                        
+ 	           type: "POST",                 
+ 	           url: url,                    
+ 	           data: $("#formulario").serialize(),
+ 	           success: function(data)            
+ 	           {
+ 	             $('#resp').html(data);           
+ 	           }
+
+ 	        });
+ 	      });
+ 	    });
     </script>-->
     
 	<script>

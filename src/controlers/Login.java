@@ -63,7 +63,6 @@ public class Login extends HttpServlet {
 					LOGGER.warning(msj);
 				    request.setAttribute("mensaje", msj);
 				    request.getRequestDispatcher("/mensajeRegister.jsp").forward(request, response);
-		
 				}
 				
 	        }catch(Exception e) {
