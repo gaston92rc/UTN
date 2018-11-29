@@ -72,9 +72,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a href="index.html"><h1>One<span>Movies</span></h1></a>
 			</div>
 			<div class="w3_search">
-				<form action="#" method="post">
-					<input type="text" name="Search" placeholder="Search" required="">
-					<input type="submit" value="Go">
+				<form action="Busqueda" method="post">
+					<input type="text" name="buscar" placeholder="Buscar" required="">
+					<input type="submit" value="Ir">
 				</form>
 			</div>
 			<div class="w3l_sign_in_register">

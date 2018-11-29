@@ -167,33 +167,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<li>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Action</a></li>
-												<li><a href="genres.html">Biography</a></li>
-												<li><a href="genres.html">Crime</a></li>
-												<li><a href="genres.html">Family</a></li>
+												<li><a href="genres.html">Acción</a></li>
+												<li><a href="genres.html">Biografía</a></li>
+												<li><a href="genres.html">Crimen</a></li>
+												<li><a href="genres.html">Familia</a></li>
 												<li><a href="horror.html">Horror</a></li>
 												<li><a href="genres.html">Romance</a></li>
-												<li><a href="genres.html">Sports</a></li>
-												<li><a href="genres.html">War</a></li>
+												<li><a href="genres.html">Deportes</a></li>
+												<li><a href="genres.html">Guerra</a></li>
 											</ul>
 										</div>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Adventure</a></li>
-												<li><a href="comedy.html">Comedy</a></li>
-												<li><a href="genres.html">Documentary</a></li>
-												<li><a href="genres.html">Fantasy</a></li>
-												<li><a href="genres.html">Thriller</a></li>
+												<li><a href="genres.html">Aventura</a></li>
+												<li><a href="comedy.html">Comedia</a></li>
+												<li><a href="genres.html">Documental</a></li>
+												<li><a href="genres.html">Fantasía</a></li>
+												<li><a href="genres.html">Suspenso</a></li>
 											</ul>
 										</div>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Animation</a></li>
-												<li><a href="genres.html">Costume</a></li>
+												<li><a href="genres.html">Animación</a></li>
+												<li><a href="genres.html">Vestuario</a></li>
 												<li><a href="genres.html">Drama</a></li>
-												<li><a href="genres.html">History</a></li>
+												<li><a href="genres.html">Historia</a></li>
 												<li><a href="genres.html">Musical</a></li>
-												<li><a href="genres.html">Psychological</a></li>
+												<li><a href="genres.html">Psicológica</a></li>
 											</ul>
 										</div>
 										<div class="clearfix"></div>

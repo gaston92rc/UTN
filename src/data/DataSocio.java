@@ -58,8 +58,17 @@ public class DataSocio {
 
 		} catch (Exception e) {
 			LOGGER.severe(""+e);
+			return false;
+		}finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}
+			}
 		}
-		return false;
 	}
 	
 	public Socio login(String usuario, String password) {
