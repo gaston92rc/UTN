@@ -5,15 +5,14 @@ public class Genero {
 	private int id;
 	private String denominacion;
 	
+	public Genero(int id) {
+		this.id = id;
+	}
+	
 	public Genero() {
-	}
 		
-	
-	
-	
-	public Genero(String denominacion) {
-		this.denominacion = denominacion;
 	}
+	
 	public int getId() {
 		return id;
 	}

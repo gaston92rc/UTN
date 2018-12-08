@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import data.DataSocio;
 import models.Socio;
@@ -51,13 +50,17 @@ public class Login extends HttpServlet {
 		DataSocio ds=new DataSocio();
 		Socio socio=ds.login(usuario, password);
 		//Si devuelve null, entonces idSocio=0.
-		
-		String msj;
-				if(socio.getIdSocio()>0) {
+		String msj="";
+				if(socio.getIdSocio()>0 && socio.getTarjeta().getId()==1) {
+					session.setAttribute("admin", socio);
+					LOGGER.info(socio.getUsername());
+					//msj="Bienvenido "+ socio.getUsername();
+		           request.getRequestDispatcher("/mensajeLoginAdmin.jsp").forward(request, response);					
+				}else if(socio.getIdSocio()>0 && socio.getRol().equals("socio")) {
 					session.setAttribute("socio", socio);
 					LOGGER.info(socio.getUsername());
 					//msj="Bienvenido "+ socio.getUsername();
-				    request.getRequestDispatcher("/mensajeLogin.jsp").forward(request, response);
+				    request.getRequestDispatcher("/mensajeLoginSocio.jsp").forward(request, response);
 				}else {
 					msj="Usuario y/o clave incorrecto/s"; 
 					LOGGER.warning(msj);

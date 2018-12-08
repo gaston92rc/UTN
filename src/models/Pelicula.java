@@ -7,11 +7,17 @@ public class Pelicula {
 	private String descripcion;
 	private String duracion;
 	private Genero genero;
+	private String imagen; //de tipo String de momento
 	
-	public Pelicula() {
-		
-	}	
 	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 	public Pelicula(String titulo, String descripcion, String duracion, Genero genero) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -22,6 +28,11 @@ public class Pelicula {
 	public Pelicula(int id) {
 		this.setId(id);
 	}
+	
+	public Pelicula(String titulo) {
+		this.setTitulo(titulo);
+	}
+
 	public int getId() {
 		return id;
 	}

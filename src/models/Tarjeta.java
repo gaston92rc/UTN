@@ -2,17 +2,22 @@ package models;
 
 public class Tarjeta {
 	
-	private int idTarjeta;
+	private int id;
 	private String nombre;
 	
-	
-	
-	
-	public int getIdTarjeta() {
-		return idTarjeta;
+	public Tarjeta(int id) {
+		super();
+		this.id = id;
 	}
-	public void setIdTarjeta(int idTarjeta) {
-		this.idTarjeta = idTarjeta;
+	
+	public Tarjeta() {
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setIdTarjeta(int id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;

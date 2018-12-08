@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import models.Socio;
+import models.Tarjeta;
 
 public class DataSocio {
 	private static final Logger LOGGER = Logger.getLogger("DataSocio");
@@ -24,7 +25,7 @@ public class DataSocio {
 				ps.setString(5, socio.getEstado());
 				ps.setString(6, socio.getMail());
 				ps.setString(7, socio.getRol());
-				ps.setInt(8, socio.getTarjeta().getIdTarjeta());
+				ps.setInt(8, socio.getTarjeta().getId());
 				ps.execute();
 				return true;
 			} catch (SQLException e) {
@@ -73,7 +74,7 @@ public class DataSocio {
 	
 	public Socio login(String usuario, String password) {
 		PreparedStatement ps = null;
-		String query="SELECT s.id, s.nombre,apellido,password,estado,correo,rol, id_tarjeta FROM socios s inner join tarjetas t ON id_tarjeta=t.id AND usuario=? AND password=md5(?) AND estado='activo'LIMIT 1";
+		String query="SELECT s.id, s.nombre,apellido, usuario, password,estado,correo,rol, id_tarjeta FROM socios s inner join tarjetas t ON id_tarjeta=t.id AND usuario=? AND password=? AND estado='activo'LIMIT 1";
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
 			ps.setString(1, usuario);
@@ -90,7 +91,8 @@ public class DataSocio {
 				s.setEstado(rs.getString("estado"));
 				s.setUsername(rs.getString("correo"));
 				s.setUsername(rs.getString("rol"));
-				s.getTarjeta().setIdTarjeta(rs.getInt("id_tarjeta"));
+				Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
+				s.setTarjeta(tarjeta);
 				
 			}
 			return s;

@@ -41,7 +41,10 @@ public class Socio {
 		this.idSocio=idSocio;
 	}
 
-
+	public Socio() {
+		
+	}
+	
 	public int getIdSocio() {
 		return idSocio;
 	}
