@@ -69,7 +69,7 @@
 				 <button class="btn btn-dark btn-block" type=submit>Agregar</button>
 				 <br> <br>
 				 <p>${mensaje}</p>
-				  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculas.jsp" class="glyphicon"> Volver</a>
+				  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>
 			  </div>
 			  </form>
 			  </div>

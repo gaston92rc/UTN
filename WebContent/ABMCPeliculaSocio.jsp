@@ -3,8 +3,11 @@
 <%@ page import='java.util.*' %>
 <%@ page import='models.Genero' %>
 <%@ page import='models.Pelicula' %>
+<%@ page import='models.Socio' %>
+<%@ page import='models.Tarjeta' %>
 <%@ page import='data.DataGenero' %>
 <%@ page import='data.DataPelicula' %>
+<%@ page import='data.DataSocio' %>
 <!DOCTYPE html>
 <html lang="es">
 <head> 
@@ -25,22 +28,17 @@
 			   <h1 style="font-weight: bold; margin-button:100px;"> Películas</h1>
 			    <table class="table">
 			        <tbody>
-			        <% DataPelicula dataPel= new DataPelicula();
-			        	ArrayList<Pelicula> p;
-						p = dataPel.getAll(); 
-			            
-						for(Pelicula pel: p){
-			        %>
+			       
 			          <tr>
 			    	    <td>
-			    	      <a href="AltaPelicula.jsp?id=<%=pel.getId() %>" class="btn btn-primary" role="button" name="actualizar">Alta</a>
-			    	       <a href="BajaPelicula.jsp?id=<%=pel.getId() %>" class="btn btn-danger" role="button" name="baja">Baja</a>
-				    	  <a href="ModificarPelicula.jsp?id=<%=pel.getId() %>" class="btn btn-success" role="button" name="actualizar">Modificación</a>
-				    	  <a href="ConsultarPelicula.jsp?id=<%=pel.getId() %>" class="btn btn-info" role="button" name="baja">Consulta</a>
+			    	      <p style="font-weight:bold;"></p><a href="AltaPelicula.jsp" class="btn btn-primary" role="button" name="actualizar">Alta</a>
+			    	       <a href="BajaPelicula.jsp" class="btn btn-danger" role="button" name="baja">Baja</a>
+				    	  <a href="ModificarPelicula.jsp" class="btn btn-success" role="button" name="actualizar">Modificación</a>
+				    	  <a href="ConsultarPelicula.jsp" class="btn btn-info" role="button" name="baja">Consulta</a>
 			    	  </td>
 			    	  </tr>
-	   			      <% }
-	   			      %>
+	   			      
+	   			     
 			        </tbody>
 			    </table>
 			  </div>
@@ -48,6 +46,31 @@
  		
  	</div>
  </div>
+ 
+   
+  <div class="container" style="padding-top:20px; padding-bottom:20px;">
+
+  	<div class="row">
+			  </form>
+			  </div>
+			   <div class="col-sm-8" style="margin:auto">
+			   <h1 style="font-weight: bold; margin-button:100px;"> Socios</h1>
+			    <table class="table">
+			        <tbody>		     
+			          <tr>
+			    	    <td>
+			    	      <p style="font-weight:bold;"></p><a href="AltaSocio.jsp" class="btn btn-primary" role="button" name="actualizar">Alta</a>
+			    	      <a href="BajaSocio.jsp" class="btn btn-danger" role="button" name="baja">Baja</a>
+				    	  <a href="SancionarSocio.jsp" class="btn btn-success" role="button" name="actualizar">Modificación</a>
+				    	  <a href="ConsultarSocio.jsp" class="btn btn-info" role="button" name="consultar">Consulta</a>
+			    	  </td>
+			    	  </tr>
+			        </tbody>
+			    </table>
+			  </div>
+ 	</div>
+ </div>
+ 
  
  	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

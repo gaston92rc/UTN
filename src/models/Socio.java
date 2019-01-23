@@ -40,11 +40,25 @@ public class Socio {
 	public Socio(int idSocio) {
 		this.idSocio=idSocio;
 	}
+	
+	public Socio(int idSocio, String estado) {
+		this.idSocio=idSocio;
+		this.estado=estado;
+	}
 
 	public Socio() {
 		
 	}
 	
+	public Socio (String usuario, String estado){
+		this.usuario=usuario;
+		this.estado=estado;
+	}
+	
+	public Socio(String usuario) {
+		this.usuario = usuario;
+	}
+
 	public int getIdSocio() {
 		return idSocio;
 	}

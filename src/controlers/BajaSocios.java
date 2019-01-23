@@ -8,23 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import data.DataPelicula;
-import models.Genero;
-import models.Pelicula;
+import data.DataSocio;
+import models.Socio;
 
 /**
- * Servlet implementation class ABMCPelicula
+ * Servlet implementation class BajaSocios
  */
-@WebServlet({ "/ABMCPelicula", "/abmcpelicula", "/ABMCpelicula" })
-public class ABMCPelicula extends HttpServlet {
+@WebServlet("/BajaSocios")
+public class BajaSocios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final static Logger LOGGER = Logger.getLogger("ABMCPelicula");
-       
+	private static final Logger LOGGER=Logger.getLogger("BajaSocios");
+   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ABMCPelicula() {
+    public BajaSocios() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,33 +41,25 @@ public class ABMCPelicula extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		String usuario=request.getParameter("usuario");
 		
-		String titulo=request.getParameter("titulo");
-		String descripcion=request.getParameter("descripcion");
-		String duracion=request.getParameter("duracion");
-		String genero=request.getParameter("genero");
-		String imagen=request.getParameter("imagen");
+		DataSocio ds=new DataSocio();
+		Socio s=new Socio(usuario);
 		
-		String img=imagen.substring(42, imagen.length()); //57-76
-		
-		Genero gen=new Genero(Integer.parseInt(genero));
-		DataPelicula dp=new DataPelicula();
-		Pelicula pelicula=new Pelicula(titulo, descripcion, duracion, gen, img);
-			
+		boolean b=ds.eliminarSocio(s);		
 		String msj=null;
 
-		if(!titulo.isEmpty() && !descripcion.isEmpty() && !duracion.isEmpty() && !genero.isEmpty() && dp.altaPelicula(pelicula)){
-			
-			
-			msj="Se añadió película correctamente"; 
+		if(b){
+						
+			msj="Se eliminó socio correctamente"; 
 			
 		}else {
-			msj="No se pudo añadir película"; 
-			LOGGER.warning(msj);
+			msj="No se pudo eliminar socio"; 
+			LOGGER.severe(msj);
 		}
 		
 		request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/ABMCPeliculas.jsp").forward(request, response);	
+	    request.getRequestDispatcher("/BajaSocio.jsp").forward(request, response);	
 	}	
 
 }

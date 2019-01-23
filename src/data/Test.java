@@ -1,26 +1,27 @@
 package data;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Genero;
 import models.Pelicula;
+import models.Socio;
 
 
 public class Test {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		DataPelicula data= new DataPelicula();
-		Genero g=new Genero();
+		DataSocio data= new DataSocio();
+		ArrayList<Socio> s= data.getSancionado();
 		
-		Pelicula p=new Pelicula("aaaaa","aaaa","aaaa",g);
-		data.altaPelicula(p);
-		boolean  lista= data.eliminarPelicula(p); 
-		
+		for(Socio soc: s) {
 			
-			System.out.println(lista);
-		
+			System.out.println(soc.toString()+" \n "+soc.getTarjeta().toString());
+
+			
+		}		
 	} 
 
 }

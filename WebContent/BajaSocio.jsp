@@ -1,10 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language='java' contentType='text/html;charset=iso-8859-1'%>
 <%@ page import='java.util.*' %>
-<%@ page import='models.Genero' %>
-<%@ page import='models.Pelicula' %>
-<%@ page import='data.DataGenero' %>
-<%@ page import='data.DataPelicula' %>
+<%@ page import='models.Tarjeta' %>
+<%@ page import='models.Socio' %>
+<%@ page import='data.DataSocio' %>
 <!DOCTYPE html>
 <html lang="es">
 <head> 
@@ -12,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
-    <title>AMBC Peliculas Administrador</title>
+    <title>AMBC Socios Administrador</title>
 </head>
 <body>
   
@@ -20,34 +19,39 @@
 
   	<div class="row">
 	  	<div class="col-sm-4" style="margin:auto;">
-	  		  <h1 style="font-weight: bold; margin-button:100px;">Eliminar Pelicula</h1>
+	  		  <h1 style="font-weight: bold; margin-button:100px;">Eliminar socio</h1>
 	  		  <br><br>
-			  <form  action="BajaPeliculas" method="POST" role=form>
+			  <form  action="BajaSocios" method="POST" role=form>
 				  
 				  <div class="form-group">
-				  	<label>Lista de películas</label><br>
+				  	<label>Lista de socios</label><br>
 				  	  <%
-				    DataPelicula dataP = new DataPelicula();	
-					ArrayList<Pelicula> p;
-					p = dataP.getAll();  
+				    DataSocio dataS = new DataSocio();	
+					ArrayList<Socio> s;
+					s = dataS.getAll();  
 					
 					%>
 				  <div class="form-group">
 				
 					<select>
-                            <option>Lista de películas...
- 								<% for(Pelicula pel:p){%>
+                            <option>Lista de socios...
+ 								<% for(Socio soc:s){
+ 								     
+ 									 if(!soc.getRol().equals("admin")){
+ 									 
+ 								%>
+ 								   
  									
- 									<option value="<%= pel.getId() %>"><%= pel.getTitulo() %></option>
+ 									<option value="<%= soc.getIdSocio() %>"><%= soc.getUsername() %></option>
  								<%
- 								    }
+ 								    }}
  								%>     
                     </select>
 				  </div>
 				  
 				  <div class="form-group">
-				  	<label>Título de película a eliminar</label>
-				  	 <input type="text" class="form-group" name="titulo">
+				  	<label>Usuario a eliminar</label>
+				  	 <input type="text" class="form-group" name="usuario">
 				  </div>
 				 <button class="btn btn-dark btn-block" type=submit>Eliminar</button>
 			  </form> <br><br>

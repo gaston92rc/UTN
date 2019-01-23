@@ -58,7 +58,7 @@ public class DataPelicula {
 	
 	public boolean altaPelicula(Pelicula pelicula) {
 
-		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero) VALUES (?,?,?,?)";
+		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero,imagen) VALUES (?,?,?,?,?)";
 		PreparedStatement ps=null;
 		try {
 			
@@ -69,6 +69,7 @@ public class DataPelicula {
 			ps.setString(2, pelicula.getTitulo());
 			ps.setString(3, pelicula.getDescripcion());
 			ps.setInt(4,pelicula.getGenero().getId());
+			ps.setString(5, pelicula.getImagen());
 			row =ps.executeUpdate();
 			
 			if(row>0) {
@@ -100,7 +101,7 @@ public class DataPelicula {
 		ArrayList<Pelicula> p= new ArrayList<Pelicula>();
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion FROM peliculas p inner join generos g ON id_genero = g.id");
+			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen FROM peliculas p inner join generos g ON id_genero = g.id");
 			
 			if(rs!=null){
 				while(rs.next()){
@@ -111,6 +112,8 @@ public class DataPelicula {
 					Genero genero=new Genero(rs.getInt("id_genero"));
 					genero.setDenominacion(rs.getString("denominacion"));
 					pelicula.setGenero(genero);
+					pelicula.setImagen(rs.getString("imagen"));
+					System.out.println("Es "+pelicula.getImagen());
 					p.add(pelicula);
 				}
 			}
@@ -168,6 +171,7 @@ public class DataPelicula {
 		}
 		
 	}
+	
 	
 	public boolean eliminarPelicula(Pelicula pelicula) {
 		PreparedStatement ps=null;

@@ -15,67 +15,19 @@
     <title>AMBC Peliculas Administrador</title>
 </head>
 <body>
+
+ <% 
+			    	    int i=1;
+			    	    DataPelicula dataPel= new DataPelicula();
+			        	ArrayList<Pelicula> p;
+						p = dataPel.getAll(); 
+			            
+						for(Pelicula pel: p){
+						
+			        %>
   
-  <div class="container" style="padding-top:20px; padding-bottom:20px;">
-
-  	<div class="row">
-	  	<div class="col-sm-4" style="margin:auto;">
-	  		  <h1 style="font-weight: bold; margin-button:100px;">Actualizar Pelicula</h1>
-	  		  <hr>
-	  		  <br><br>
-			  <form  action="ActualizarPeliculass" method="POST" role=form>
-				  
-				  <div class="form-group">
-				  	<label>Título Película</label><br>
-				  	 <input type="text" class="form-group" name="titulo">
-				  </div>
-	
-				  <%
-				    DataGenero data = new DataGenero();	
-					ArrayList<Genero> g;
-					g = data.getAll();  
-					
-					%>
-				  <div class="form-group">
-				  	<label>Género Película</label><br>
-				  			
-
-					<select name="genero">
-                            <option>Elegir...
- 								<% for(Genero gen:g){%>
- 									
- 									<option value="<%= gen.getId() %>"><%= gen.getDenominacion() %></option>
- 								<%
- 								    }
- 								%>     
-                    </select>
-				  
-				  </div>
-				  
-				 <div class="form-group">
-				  	<label>Imagen Película</label>
-				  	 <input type="file" class="form-group" name="imagen">
-				  </div>
-				  
-				  <div class="form-group">
-				  	<label>Descripción Película</label><br>
-				  	<textarea class="form-control" style="max-width: 174px;"  id="Textarea" name="descripcion" rows="2"></textarea>
-				  </div>
-				  
-				  <div class="form-group">
-				  	<label>Duración Película</label><br>
-				  	 <input type="text" class="form-group" name="duracion">
-				  </div>
-				 
-				 <button class="btn btn-dark btn-block" type=submit>Actualizar</button>
-			  </form> <br>
-			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculas.jsp" class="glyphicon"> Volver</a>
-			  </div>
- 	</div>
- </div>
- 
- 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<a target='_blank' href="<%= request.getContextPath()%>/images/<%= pel.getImagen() %>"><img src="<%= request.getContextPath()%>/images/<%= pel.getImagen() %>" /></a></td>
+  <% }
+	   			      %>
 </body>
 </html>

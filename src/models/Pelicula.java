@@ -1,5 +1,6 @@
 package models;
 
+
 public class Pelicula {
 	
 	private int id;
@@ -7,7 +8,7 @@ public class Pelicula {
 	private String descripcion;
 	private String duracion;
 	private Genero genero;
-	private String imagen; //de tipo String de momento
+	private String imagen;
 	
 	
 	public String getImagen() {
@@ -18,11 +19,12 @@ public class Pelicula {
 		this.imagen = imagen;
 	}
 
-	public Pelicula(String titulo, String descripcion, String duracion, Genero genero) {
+	public Pelicula(String titulo, String descripcion, String duracion, Genero genero, String imagen) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.duracion = duracion;
 		this.genero = genero;
+		this.imagen = imagen;
 	}
 	
 	public Pelicula(int id) {

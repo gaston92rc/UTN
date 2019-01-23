@@ -76,6 +76,7 @@
 				 <div class="form-group">
 				  	<label>Imagen Película</label>
 				  	 <input type="file" class="form-group" name="imagen">
+				  	 <input type="submit" name="enviar">	
 				  </div>
 				  
 				  <div class="form-group">
@@ -90,7 +91,7 @@
 				 
 				 <button class="btn btn-dark btn-block" type=submit>Actualizar</button>
 			  </form> <br>
-			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculas.jsp" class="glyphicon"> Volver</a>
+			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>
 			  </div>
  	</div>
  </div>
