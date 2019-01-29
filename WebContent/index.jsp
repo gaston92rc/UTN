@@ -290,7 +290,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- banner-bottom -->
 	<div class="banner-bottom">
 		<div class="container">
-			<div class="w3_agile_banner_bottom_grid">
+			<form class="w3_agile_banner_bottom_grid" action="Alquiler" method="POST">
 				<div id="owl-demo" class="owl-carousel owl-theme">
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
@@ -545,7 +545,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 					</div>
 				</div>
-			</div>			
+			</form>			
 		</div>
 	</div>
 <!-- //banner-bottom -->

@@ -49,12 +49,14 @@ public class ABMCPelicula extends HttpServlet {
 		String duracion=request.getParameter("duracion");
 		String genero=request.getParameter("genero");
 		String imagen=request.getParameter("imagen");
+		String anio=request.getParameter("anio");
+		String detalle=request.getParameter("detalle");
 		
 		String img=imagen.substring(42, imagen.length()); //57-76
 		
 		Genero gen=new Genero(Integer.parseInt(genero));
 		DataPelicula dp=new DataPelicula();
-		Pelicula pelicula=new Pelicula(titulo, descripcion, duracion, gen, img);
+		Pelicula pelicula=new Pelicula(titulo, descripcion, duracion, gen, img,Integer.parseInt(anio),detalle);
 			
 		String msj=null;
 

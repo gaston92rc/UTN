@@ -9,6 +9,8 @@ public class Pelicula {
 	private String duracion;
 	private Genero genero;
 	private String imagen;
+	private int anio;
+	private String detalle;
 	
 	
 	public String getImagen() {
@@ -19,12 +21,14 @@ public class Pelicula {
 		this.imagen = imagen;
 	}
 
-	public Pelicula(String titulo, String descripcion, String duracion, Genero genero, String imagen) {
+	public Pelicula(String titulo, String descripcion, String duracion, Genero genero, String imagen, int anio, String detalle) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.duracion = duracion;
 		this.genero = genero;
 		this.imagen = imagen;
+		this.anio = anio;
+		this.detalle=detalle;
 	}
 	
 	public Pelicula(int id) {
@@ -64,6 +68,22 @@ public class Pelicula {
 	}
 	public void setGenero(Genero genero) {
 		this.genero = genero;
+	}
+
+	public int getAnio() {
+		return anio;
+	}
+
+	public void setAnio(int anio) {
+		this.anio = anio;
+	}
+
+	public String getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
 	
 	

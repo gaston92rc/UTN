@@ -89,6 +89,17 @@
 				  	 <input type="text" class="form-group" name="duracion">
 				  </div>
 				 
+				   <div class="form-group">
+				  	<label>Año Película</label><br>
+				  	 <input type="text" class="form-group" name="anio">
+				  </div>
+				  
+				   <div class="form-group">
+				  	<label>Detalle Película</label><br>
+				  	 <input type="text" class="form-group" name="detalle">
+				  	 <p>Principal/popular/"sin detalle"</p>
+				  </div>
+				  
 				 <button class="btn btn-dark btn-block" type=submit>Actualizar</button>
 			  </form> <br>
 			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>

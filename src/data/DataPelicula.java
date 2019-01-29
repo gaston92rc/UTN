@@ -36,6 +36,9 @@ public class DataPelicula {
 				pelicula.setDuracion(rs.getString("duracion"));
 				pelicula.setTitulo(rs.getString("titulo"));
 				Genero genero = new Genero(rs.getInt("id_genero"));
+				pelicula.setImagen(rs.getString("imagen"));
+				pelicula.setAnio(rs.getInt("anio"));
+				pelicula.setDetalle(rs.getString("detalle"));
 				pelicula.setGenero(genero);
 				lista.add(pelicula);	
 			}
@@ -56,9 +59,49 @@ public class DataPelicula {
 		}	
 	}
 	
+	public ArrayList<Pelicula> getByDetalle(String detalle){
+		
+		String query="SELECT * FROM peliculas WHERE detalle=?";
+		PreparedStatement ps=null;
+		try {
+			
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, detalle );
+			ArrayList<Pelicula> lista=new ArrayList<>();
+			ResultSet rs=ps.executeQuery();
+			Pelicula pelicula;
+			while(rs.next()) {
+				pelicula=new Pelicula(rs.getInt("id"));
+				pelicula.setDescripcion(rs.getString("descripcion"));
+				pelicula.setDuracion(rs.getString("duracion"));
+				pelicula.setTitulo(rs.getString("titulo"));
+				Genero genero = new Genero(rs.getInt("id_genero"));
+				pelicula.setImagen(rs.getString("imagen"));
+				pelicula.setAnio(rs.getInt("anio"));
+				pelicula.setDetalle(rs.getString("detalle"));
+				pelicula.setGenero(genero);
+				lista.add(pelicula);		
+			}
+			return lista;
+			
+		}catch(Exception e){
+			
+			LOGGER.severe("ERROR: "+e);	
+			return null;
+		}finally {
+			if (ps != null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}		
+		}	
+	}
+	
 	public boolean altaPelicula(Pelicula pelicula) {
 
-		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero,imagen) VALUES (?,?,?,?,?)";
+		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero,imagen,anio,detalle) VALUES (?,?,?,?,?,?)";
 		PreparedStatement ps=null;
 		try {
 			
@@ -70,6 +113,8 @@ public class DataPelicula {
 			ps.setString(3, pelicula.getDescripcion());
 			ps.setInt(4,pelicula.getGenero().getId());
 			ps.setString(5, pelicula.getImagen());
+			ps.setInt(6, pelicula.getAnio());
+			ps.setString(7, pelicula.getDetalle());
 			row =ps.executeUpdate();
 			
 			if(row>0) {
@@ -101,7 +146,7 @@ public class DataPelicula {
 		ArrayList<Pelicula> p= new ArrayList<Pelicula>();
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen FROM peliculas p inner join generos g ON id_genero = g.id");
+			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, anio, detalle FROM peliculas p inner join generos g ON id_genero = g.id");
 			
 			if(rs!=null){
 				while(rs.next()){
@@ -113,7 +158,8 @@ public class DataPelicula {
 					genero.setDenominacion(rs.getString("denominacion"));
 					pelicula.setGenero(genero);
 					pelicula.setImagen(rs.getString("imagen"));
-					System.out.println("Es "+pelicula.getImagen());
+					pelicula.setAnio(rs.getInt("anio"));
+					pelicula.setDetalle(rs.getString("detalle"));
 					p.add(pelicula);
 				}
 			}
@@ -136,10 +182,51 @@ public class DataPelicula {
 		
 	}
 	
+	public ArrayList<Pelicula> getByInicial(String inicial) throws Exception{
+		
+		String query="SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, anio, detalle FROM peliculas p inner join generos g ON (id_genero = g.id AND titulo LIKE ?)";
+		PreparedStatement ps=null;
+		try {
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, inicial + "%");
+			ArrayList<Pelicula> lista=new ArrayList<>();
+			ResultSet rs=ps.executeQuery();
+			Pelicula pelicula;
+			while(rs.next()) {
+				pelicula=new Pelicula(rs.getInt("id"));
+				pelicula.setDescripcion(rs.getString("descripcion"));
+				pelicula.setDuracion(rs.getString("duracion"));
+				pelicula.setTitulo(rs.getString("titulo"));
+				Genero genero = new Genero(rs.getInt("id_genero"));
+				pelicula.setImagen(rs.getString("imagen"));
+				pelicula.setAnio(rs.getInt("anio"));
+				pelicula.setDetalle(rs.getString("detalle"));
+				pelicula.setGenero(genero);
+				lista.add(pelicula);	
+			}
+			
+			return lista;
+			
+		}catch(Exception e){
+			
+			LOGGER.severe("ERROR: "+e);	
+			return null;
+		}finally {
+			if (ps != null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}		
+		}	
+	}
+	
+	
 	public boolean actualizarPelicula(Pelicula pelicula) {
 		
 		PreparedStatement ps=null;
-		String query="UPDATE peliculas p INNER JOIN generos g ON titulo=? SET duracion=?, descripcion=?, id_genero=?";
+		String query="UPDATE peliculas p INNER JOIN generos g ON titulo=? SET duracion=?, descripcion=?, id_genero=?, anio=?, detalle=?";
 		try {
 			int row=0;
 			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
@@ -147,6 +234,8 @@ public class DataPelicula {
 			ps.setString(2, pelicula.getDuracion());
 			ps.setString(3, pelicula.getDescripcion());
 			ps.setInt(4,pelicula.getGenero().getId());
+			ps.setInt(5,pelicula.getAnio());
+			ps.setString(6, pelicula.getDetalle());
 			
 			row=ps.executeUpdate();
 			if(row>0) {
@@ -167,6 +256,82 @@ public class DataPelicula {
 			FactoryConnection.getInstancia().releaseConn();
 		} catch (SQLException e) {
 						LOGGER.severe("Error "+e);		}
+		
+		}
+		
+	}
+	
+	public int getByCantPeliculas() {
+		
+		Statement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("SELECT * FROM peliculas");			
+			 int contador = 0;
+			 
+			 if(rs!=null){
+				 while(rs.next()){ 
+					 contador++;	
+				 }
+			 }
+			 return contador;
+			 
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			return 0;
+			
+		}finally {
+		try {
+			if(rs!=null) rs.close();
+			if(stmt!=null) stmt.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);		}
+		
+		}
+		
+	}
+	
+	public ArrayList<Pelicula> getByOrdenAlfabetico(){	
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Pelicula> p= new ArrayList<Pelicula>();
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("SELECT * FROM peliculas ORDER BY titulo ASC");
+			
+			if(rs!=null){
+				while(rs.next()){
+					Pelicula pelicula=new Pelicula(rs.getInt("id"));					
+					pelicula.setDuracion(rs.getString("duracion"));
+					pelicula.setTitulo(rs.getString("titulo"));
+					pelicula.setDescripcion(rs.getString("descripcion"));
+					Genero genero=new Genero(rs.getInt("id_genero"));
+					genero.setDenominacion(rs.getString("denominacion"));
+					pelicula.setGenero(genero);
+					pelicula.setImagen(rs.getString("imagen"));
+					pelicula.setAnio(rs.getInt("anio"));
+					pelicula.setDetalle(rs.getString("detalle"));
+					p.add(pelicula);
+				}
+			}
+		    return p;
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			return null;
+			
+		}finally {
+		try {
+			if(rs!=null) rs.close();
+			if(stmt!=null) stmt.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);		}
 		
 		}
 		

@@ -51,12 +51,13 @@ public class ActualizarPeliculas extends HttpServlet {
 		String duracion=request.getParameter("duracion");
 		String genero=request.getParameter("genero");
 		String imagen=request.getParameter("imagen");
-		
+		String anio=request.getParameter("anio");
+		String detalle=request.getParameter("detalle");
 		String img=imagen.substring(42, imagen.length());
 		
 		Genero g=new Genero(Integer.parseInt(genero));
 		DataPelicula dp=new DataPelicula();
-		Pelicula p=new Pelicula(titulo,descripcion,duracion,g,img);
+		Pelicula p=new Pelicula(titulo,descripcion,duracion,g,img,Integer.parseInt(anio),detalle);
 		
 		boolean b=dp.actualizarPelicula(p);		
 		String msj=null;
