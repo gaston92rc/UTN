@@ -38,6 +38,8 @@ public class DataPelicula {
 				Genero genero = new Genero(rs.getInt("id_genero"));
 				pelicula.setImagen(rs.getString("imagen"));
 				pelicula.setAnio(rs.getInt("anio"));
+				pelicula.setPais(rs.getString("pais"));
+				pelicula.setTrailer(rs.getString("trailer"));
 				pelicula.setDetalle(rs.getString("detalle"));
 				pelicula.setGenero(genero);
 				lista.add(pelicula);	
@@ -61,7 +63,7 @@ public class DataPelicula {
 	
 	public ArrayList<Pelicula> getByDetalle(String detalle){
 		
-		String query="SELECT * FROM peliculas WHERE detalle=?";
+		String query="SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, pais, trailer, anio, detalle FROM peliculas p inner join generos g ON (id_genero = g.id AND detalle=?)";
 		PreparedStatement ps=null;
 		try {
 			
@@ -76,8 +78,11 @@ public class DataPelicula {
 				pelicula.setDuracion(rs.getString("duracion"));
 				pelicula.setTitulo(rs.getString("titulo"));
 				Genero genero = new Genero(rs.getInt("id_genero"));
+				genero.setDenominacion(rs.getString("denominacion"));
 				pelicula.setImagen(rs.getString("imagen"));
 				pelicula.setAnio(rs.getInt("anio"));
+				pelicula.setPais(rs.getString("pais"));
+				pelicula.setTrailer(rs.getString("trailer"));
 				pelicula.setDetalle(rs.getString("detalle"));
 				pelicula.setGenero(genero);
 				lista.add(pelicula);		
@@ -101,7 +106,7 @@ public class DataPelicula {
 	
 	public boolean altaPelicula(Pelicula pelicula) {
 
-		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero,imagen,anio,detalle) VALUES (?,?,?,?,?,?)";
+		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero,imagen,anio,pais,trailer,detalle) VALUES (?,?,?,?,?,?)";
 		PreparedStatement ps=null;
 		try {
 			
@@ -114,7 +119,9 @@ public class DataPelicula {
 			ps.setInt(4,pelicula.getGenero().getId());
 			ps.setString(5, pelicula.getImagen());
 			ps.setInt(6, pelicula.getAnio());
-			ps.setString(7, pelicula.getDetalle());
+			ps.setString(7,pelicula.getTrailer());
+			ps.setString(8,pelicula.getPais());
+			ps.setString(9, pelicula.getDetalle());
 			row =ps.executeUpdate();
 			
 			if(row>0) {
@@ -146,7 +153,7 @@ public class DataPelicula {
 		ArrayList<Pelicula> p= new ArrayList<Pelicula>();
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, anio, detalle FROM peliculas p inner join generos g ON id_genero = g.id");
+			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, anio, pais, trailer, detalle FROM peliculas p inner join generos g ON id_genero = g.id");
 			
 			if(rs!=null){
 				while(rs.next()){
@@ -159,6 +166,8 @@ public class DataPelicula {
 					pelicula.setGenero(genero);
 					pelicula.setImagen(rs.getString("imagen"));
 					pelicula.setAnio(rs.getInt("anio"));
+					pelicula.setPais(rs.getString("pais"));
+					pelicula.setTrailer(rs.getString("trailer"));
 					pelicula.setDetalle(rs.getString("detalle"));
 					p.add(pelicula);
 				}
@@ -184,7 +193,7 @@ public class DataPelicula {
 	
 	public ArrayList<Pelicula> getByInicial(String inicial) throws Exception{
 		
-		String query="SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, anio, detalle FROM peliculas p inner join generos g ON (id_genero = g.id AND titulo LIKE ?)";
+		String query="SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, pais, trailer, anio, detalle FROM peliculas p inner join generos g ON (id_genero = g.id AND titulo LIKE ?)";
 		PreparedStatement ps=null;
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
@@ -198,8 +207,11 @@ public class DataPelicula {
 				pelicula.setDuracion(rs.getString("duracion"));
 				pelicula.setTitulo(rs.getString("titulo"));
 				Genero genero = new Genero(rs.getInt("id_genero"));
+				genero.setDenominacion(rs.getString("denominacion"));
 				pelicula.setImagen(rs.getString("imagen"));
 				pelicula.setAnio(rs.getInt("anio"));
+				pelicula.setPais(rs.getString("pais"));
+				pelicula.setTrailer(rs.getString("trailer"));
 				pelicula.setDetalle(rs.getString("detalle"));
 				pelicula.setGenero(genero);
 				lista.add(pelicula);	
@@ -226,7 +238,7 @@ public class DataPelicula {
 	public boolean actualizarPelicula(Pelicula pelicula) {
 		
 		PreparedStatement ps=null;
-		String query="UPDATE peliculas p INNER JOIN generos g ON titulo=? SET duracion=?, descripcion=?, id_genero=?, anio=?, detalle=?";
+		String query="UPDATE peliculas p INNER JOIN generos g ON titulo=? SET duracion=?, descripcion=?, id_genero=?, anio=?, pais=?, trailer=?, detalle=?";
 		try {
 			int row=0;
 			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
@@ -235,7 +247,9 @@ public class DataPelicula {
 			ps.setString(3, pelicula.getDescripcion());
 			ps.setInt(4,pelicula.getGenero().getId());
 			ps.setInt(5,pelicula.getAnio());
-			ps.setString(6, pelicula.getDetalle());
+			ps.setString(6, pelicula.getPais());
+			ps.setString(7, pelicula.getTrailer());
+			ps.setString(8, pelicula.getDetalle());
 			
 			row=ps.executeUpdate();
 			if(row>0) {
@@ -313,8 +327,44 @@ public class DataPelicula {
 					genero.setDenominacion(rs.getString("denominacion"));
 					pelicula.setGenero(genero);
 					pelicula.setImagen(rs.getString("imagen"));
+					pelicula.setPais(rs.getString("pais"));
+					pelicula.setTrailer(rs.getString("trailer"));
 					pelicula.setAnio(rs.getInt("anio"));
 					pelicula.setDetalle(rs.getString("detalle"));
+					p.add(pelicula);
+				}
+			}
+		    return p;
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			return null;
+			
+		}finally {
+		try {
+			if(rs!=null) rs.close();
+			if(stmt!=null) stmt.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);		}
+		
+		}
+		
+	}
+	
+	public ArrayList<Pelicula> getByPaisPelicula(){	
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Pelicula> p= new ArrayList<Pelicula>();
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("SELECT DISTINCT pais FROM peliculas");
+			
+			if(rs!=null){
+				while(rs.next()){
+					Pelicula pelicula=new Pelicula();					
+					pelicula.setPais(rs.getString("pais"));
 					p.add(pelicula);
 				}
 			}

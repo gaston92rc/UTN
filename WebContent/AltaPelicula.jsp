@@ -72,6 +72,17 @@
 				  </div>
 				  
 				   <div class="form-group">
+				  	<label>País Película</label><br>
+				  	 <input type="text" class="form-group" name="pais">
+				  </div>
+				  
+				   <div class="form-group">
+				  	<label>Trailer Película</label><br>
+				  	 <input type="text" class="form-group" name="trailer">
+				  	 <p>URL de Youtube</p>
+				  </div>
+				  
+				   <div class="form-group">
 				  	<label>Detalle Película</label><br>
 				  	 <input type="text" class="form-group" name="detalle">
 				  	 <p>Principal/popular/"sin detalle"</p>

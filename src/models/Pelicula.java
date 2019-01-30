@@ -10,6 +10,8 @@ public class Pelicula {
 	private Genero genero;
 	private String imagen;
 	private int anio;
+	private String trailer;
+	private String pais;
 	private String detalle;
 	
 	
@@ -21,13 +23,15 @@ public class Pelicula {
 		this.imagen = imagen;
 	}
 
-	public Pelicula(String titulo, String descripcion, String duracion, Genero genero, String imagen, int anio, String detalle) {
+	public Pelicula(String titulo, String descripcion, String duracion, Genero genero, String imagen, int anio, String detalle, String trailer, String pais) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.duracion = duracion;
 		this.genero = genero;
 		this.imagen = imagen;
 		this.anio = anio;
+		this.pais=pais;
+		this.trailer=trailer;
 		this.detalle=detalle;
 	}
 	
@@ -39,6 +43,9 @@ public class Pelicula {
 		this.setTitulo(titulo);
 	}
 
+	public Pelicula() {
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -84,6 +91,22 @@ public class Pelicula {
 
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
+	}
+
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 	
 	

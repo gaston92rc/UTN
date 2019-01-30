@@ -71,7 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="index.html"><h1>One<span>Movies</span></h1></a>
+				<a href="index.jsp"><h1>One<span>Movies</span></h1></a>
 			</div>
 			<div class="w3_search">
 				<form action="#" method="post">
@@ -160,14 +160,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="w3_home_act"><a href="index.html">Home</a></li>
+							<li class="w3_home_act"><a href="index.jsp">Home</a></li>
 							<li class="dropdown active">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Acción</a></li>
+												<li><a href="genres.jsp">Acción</a></li>
 												<li><a href="genres.html">Biografía</a></li>
 												<li><a href="genres.html">Crimen</a></li>
 												<li><a href="genres.html">Familia</a></li>
@@ -306,12 +306,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>	
 									</div>
 								   <div class="col-md-2 w3l-movie-gride-agile">
-										 <a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m8.jpg" title="album-name" alt=" " />
+										 <a href="single.jsp" class="hvr-shutter-out-horizontal"><img src="images/m8.jpg" title="album-name" alt=" " />
 									     <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
 									</a>
 									  <div class="mid-1">
 										<div class="w3l-movie-text">
-											<h6><a href="single.html">The BFG</a></h6>							
+											<h6><a href="single.jsp">The BFG</a></h6>							
 										</div>
 										<div class="mid-2">
 										

@@ -148,18 +148,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="index.html"><h1>One<span>Movies</span></h1></a>
+				<a href="index.jsp"><h1>One<span>Movies</span></h1></a>
 			</div>
 			<div class="w3_search">
-				<form action="#" method="post">
-					<input type="text" name="Search" placeholder="Search" required="">
-					<input type="submit" value="Go">
+				<form action="Busqueda" method="post">
+					<input type="text" name="buscar" placeholder="Buscar" required="">
+					<input type="submit" value="Ir">
 				</form>
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
 					<li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
-					<li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#myModal">Loguin</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -171,7 +171,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					Sign In & Sign Up
+					Registro
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
 				</div>
 				<section>
@@ -182,24 +182,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="tooltip">Click Me</div>
 							  </div>
 							  <div class="form">
-								<h3>Login to your account</h3>
-								<form action="#" method="post">
+								<h3>Loguear tu cuenta</h3>
+								<form id="formulario" action="Login" method="post">
 								  <input type="text" name="Username" placeholder="Username" required="">
 								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="submit" value="Login">
+								  <input type="submit"  id="btn-login" value="Login">
+								  <div id="resp"></div>
 								</form>
 							  </div>
 							  <div class="form">
-								<h3>Create an account</h3>
-								<form action="#" method="post">
+								<h3>Crear una cuenta</h3>
+								<form action="Register" method="post">
 								  <input type="text" name="Username" placeholder="Username" required="">
 								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="email" name="Email" placeholder="Email Address" required="">
-								  <input type="text" name="Phone" placeholder="Phone Number" required="">
-								  <input type="submit" value="Register">
+								  <input type="email" name="Email" placeholder="Email" required="">
+								  <input type="text" name="Name" placeholder="Nombre" required="">
+								   <input type="text" name="LastName" placeholder="Apellido" required="">
+								  <input type="submit" value="Registro">
 								</form>
 							  </div>
-							  <div class="cta"><a href="#">Forgot your password?</a></div>
+							  <div class="cta"><a href="#">He olvidado mi clave</a></div>
 							</div>
 						</div>
 					</div>
@@ -237,82 +239,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="w3_home_act"><a href="index.html">Home</a></li>
+							<li class="active"><a href="index.jsp">Inicio</a></li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Generos <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
+									
+									 <% 
+										    	DataGenero dataGen= new DataGenero();
+										        ArrayList<Genero> g;
+												g = dataGen.getAll(); 
+										            
+												for(Genero gen: g){
+													
+									 %>
+									<div class="col-sm-4">
+										<ul class="multi-column-dropdown">
+											<li><a href="genres.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
+										</ul>
+									</div>
+									<% }
+	   								%>
+									<div class="clearfix"></div>
+									</li>
+								</ul>
+							</li>
+							<li><a href="news.jsp">Nuevas</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pais <b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column columns-3">
+									<li>
+									<% 
+							 			DataPelicula dataPel= new DataPelicula();
+							 			ArrayList<Pelicula> p0;
+										p0 = dataPel.getByPaisPelicula(); 
+								            
+										for(Pelicula pel0: p0){
+										
+						 			%>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Action</a></li>
-												<li><a href="genres.html">Biography</a></li>
-												<li><a href="genres.html">Crime</a></li>
-												<li><a href="genres.html">Family</a></li>
-												<li><a href="horror.html">Horror</a></li>
-												<li><a href="genres.html">Romance</a></li>
-												<li><a href="genres.html">Sports</a></li>
-												<li><a href="genres.html">War</a></li>
+												<li><a href="genres.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
 											</ul>
 										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Adventure</a></li>
-												<li><a href="comedy.html">Comedy</a></li>
-												<li><a href="genres.html">Documentary</a></li>
-												<li><a href="genres.html">Fantasy</a></li>
-												<li><a href="genres.html">Thriller</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Animation</a></li>
-												<li><a href="genres.html">Costume</a></li>
-												<li><a href="genres.html">Drama</a></li>
-												<li><a href="genres.html">History</a></li>
-												<li><a href="genres.html">Musical</a></li>
-												<li><a href="genres.html">Psychological</a></li>
-											</ul>
-										</div>
+										<% }
+	   									%>
 										<div class="clearfix"></div>
 									</li>
 								</ul>
 							</li>
-							<li><a href="series.html">tv - series</a></li>
-							<li><a href="news.html">news</a></li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
-								<ul class="dropdown-menu multi-column columns-3">
-									<li>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Asia</a></li>
-												<li><a href="genres.html">France</a></li>
-												<li><a href="genres.html">Taiwan</a></li>
-												<li><a href="genres.html">United States</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">China</a></li>
-												<li><a href="genres.html">HongCong</a></li>
-												<li><a href="genres.html">Japan</a></li>
-												<li><a href="genres.html">Thailand</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Euro</a></li>
-												<li><a href="genres.html">India</a></li>
-												<li><a href="genres.html">Korea</a></li>
-												<li><a href="genres.html">United Kingdom</a></li>
-											</ul>
-										</div>
-										<div class="clearfix"></div>
-									</li>
-								</ul>
-							</li>
-							<li><a href="short-codes.html">Short Codes</a></li>
-							<li class="active"><a href="list.html">A - z list</a></li>
+							<li><a href="short-codes.jsp">Short Codes</a></li>
+							<li><a href="list.jsp">Lista A - z</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -336,14 +313,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="container">
 				<div class="agileits-news-top">
 					<ol class="breadcrumb">
-					  <li><a href="index.html">Home</a></li>
+					  <li><a href="index.jsp">Home</a></li>
 					  <li class="active">List</li>
 					</ol>
 				</div>
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					 <% 
-					    	int i=1;
-					 		DataPelicula dataPel= new DataPelicula();
+					    	int i=1;					 	
 					
 					%>
 						<div id="myTabContent" class="tab-content">
@@ -378,10 +354,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						
 										  <tr>
 											<td><%= i++%></td>
-											<td class="w3-list-img"><a href="single.html"><img src="<%= request.getContextPath()%>/images/<%= pel.getImagen() %>" alt="" /> <span><%=pel.getTitulo() %></span></a></td>
+											<td class="w3-list-img"><a href="single.jsp"><img src="<%= request.getContextPath()%>/images/<%= pel.getImagen() %>" alt="" /> <span><%=pel.getTitulo() %></span></a></td>
 											<td><%= pel.getAnio() %></td>
-											<td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-											<td class="w3-list-info"><a href="comedy.html"><%= pel.getGenero() %></a></td>
+											<td class="w3-list-info"><a href="genres.jsp"><%=pel.getPais() %></a></td>
+											<td class="w3-list-info"><a href="comedy.jsp"><%= pel.getGenero().getDenominacion() %></a></td>
 											<td>7.0</td>
 										  </tr>
 										  	<% }
@@ -424,17 +400,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="w3ls_footer_grid">
 				<div class="col-md-6 w3ls_footer_grid_left">
 					<div class="w3ls_footer_grid_left1">
-						<h2>Subscribe to us</h2>
+						<h2>Subscribirse</h2>
 						<div class="w3ls_footer_grid_left1_pos">
 							<form action="#" method="post">
-								<input type="email" name="email" placeholder="Your email..." required="">
-								<input type="submit" value="Send">
+								<input type="email" name="subscripcion" placeholder="Tu email..." required="">
+								<input type="submit" value="Enviar">
 							</form>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6 w3ls_footer_grid_right">
-					<a href="index.html"><h2>One<span>Movies</span></h2></a>
+					<a href="index.jsp"><h2>One<span>Movies</span></h2></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -444,25 +420,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-7 w3ls_footer_grid1_right">
 				<ul>
 					<li>
-						<a href="genres.html">Movies</a>
+						<a href="genres.jsp">Peliculas</a>
 					</li>
 					<li>
-						<a href="faq.html">FAQ</a>
+						<a href="faq.jsp">FAQ</a>
 					</li>
 					<li>
-						<a href="horror.html">Action</a>
+						<a href="horror.jsp">Horror</a>
 					</li>
 					<li>
-						<a href="genres.html">Adventure</a>
+						<a href="genres.jsp">Aventura</a>
 					</li>
 					<li>
-						<a href="comedy.html">Comedy</a>
+						<a href="comedy.jsp">Comedia</a>
 					</li>
 					<li>
-						<a href="icons.html">Icons</a>
-					</li>
-					<li>
-						<a href="contact.html">Contact Us</a>
+						<a href="contact.jsp">Contacto</a>
 					</li>
 				</ul>
 			</div>
