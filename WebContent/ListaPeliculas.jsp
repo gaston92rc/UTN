@@ -1,19 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language='java' contentType='text/html;charset=iso-8859-1'%>
 <%@ page import='java.util.*' %>
-<%@ page import='java.sql.Date ' %>
-<%@ page import='java.text.SimpleDateFormat' %>
 <%@ page import='models.Genero' %>
-<%@ page import='models.Tarjeta' %>
 <%@ page import='models.Pelicula' %>
 <%@ page import='data.DataGenero' %>
 <%@ page import='data.DataPelicula' %>
-<%@ page import='data.DataTarjeta' %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>One Movies an Entertainment Category Flat Bootstrap Responsive Website Template | Contact :: w3layouts</title>
+<title>One Movies an Entertainment Category Flat Bootstrap Responsive Website Template | List :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -28,6 +24,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="css/medile.css" rel='stylesheet' type='text/css' />
 <link href="css/single.css" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" />
+<!-- news-css -->
+<link rel="stylesheet" href="news-css/news.css" type="text/css" media="all" />
+<!-- //news-css -->
+<!-- list-css -->
+<link rel="stylesheet" href="list-css/list.css" type="text/css" media="all" />
+<!-- //list-css -->
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="css/font-awesome.min.css" />
 <!-- //font-awesome icons -->
@@ -47,6 +49,98 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!-- start-smoth-scrolling -->
+<!-- tables -->
+<link rel="stylesheet" type="text/css" href="list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="list-css/basictable.css" />
+<script type="text/javascript" src="list-js/jquery.basictable.min.js"></script>
+ <script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+	   $('#table-breakpoint1').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint2').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint3').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint4').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint5').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint6').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint7').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint8').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint9').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint10').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint11').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint12').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint13').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint14').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint15').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint16').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint17').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint18').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint19').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint20').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint21').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint22').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint23').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint24').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint25').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint26').basictable({
+        breakpoint: 768
+      });
+    });
+  </script>
+<!-- //tables -->
 </head>
 	
 <body>
@@ -61,24 +155,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="text" name="buscar" placeholder="Buscar" required="">
 					<input type="submit" value="Ir">
 				</form>
-					<% 
-					if((request.getSession(false).getAttribute("socio")== null) )
-					{
-					%>
-					<div class="w3l_sign_in_register">
-						<ul>
-							<li><a href="#" data-toggle="modal" style="text-align:center;" data-target="#myModal">Login</a></li>
-						</ul>
-					</div>
-					<%}else{%>	
-					
-				<div class="w3l_sign_in_register">
-					<ul>
-						<li><a href="PeliculasSocios.jsp" style="text-align:center;" name="AdminPeliculas">Mis películas</a></li><a href="<%=request.getContextPath()%>/SalirController">Salir</a><br><br>				
-					</ul>
-				</div>
-					<% }
-					%>
+			</div>
+			<div class="w3l_sign_in_register">
+				<ul>
+					<li><a href="#" data-toggle="modal" data-target="#myModal">Loguin</a></li>
+				</ul>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -142,7 +223,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 <!-- //bootstrap-pop-up -->
 <!-- nav -->
-<div class="movies_nav">
+	<div class="movies_nav">
 		<div class="container">
 			<nav class="navbar navbar-default">
 				<div class="navbar-header navbar-left">
@@ -157,7 +238,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="IndexSocio.jsp">Inicio</a></li>
+							<li class="active"><a href="index.jsp">Inicio</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Generos <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -173,7 +254,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 %>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="ListaPeliculas.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
+											<li><a href="genres.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
 										</ul>
 									</div>
 									<% }
@@ -182,7 +263,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</li>
 								</ul>
 							</li>
-							<li><a href="ListaPeliculas.jsp">Nuevas</a></li>
+							<li><a href="news.jsp">Nuevas</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pais <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -197,7 +278,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						 			%>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="ListaPeliculas.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
+												<li><a href="genres.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
 											</ul>
 										</div>
 										<% }
@@ -207,7 +288,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</ul>
 							</li>
 							<li><a href="list.jsp">Lista A - z</a></li>
-							<li><a href="contact.jsp">Contacto</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -225,88 +305,83 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</ul>
   </nav>
 </div>
-<!-- contact -->
-	<div class="contact-agile">
-		<div id="map"></div>
-		<div class="faq">
-			<h4 class="latest-text w3_latest_text">Contáctenos</h4>
+<!-- faq-banner -->
+	<div class="faq">
+		<h4 class="latest-text w3_faq_latest_text w3_latest_text">LISTA DE PELÍCULAS</h4>
 			<div class="container">
-				<div class="col-md-3 location-agileinfo">
-					<div class="icon-w3">
-						<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-					</div>
-					<h3>Dirección 1341</h3>
-					<h4>Zeballos,</h4>
-					<h4>Rosario, Santa Fe</h4>
-					<h4>Argentina.</h4>
+				<div class="agileits-news-top">
+					<ol class="breadcrumb">
+					  <li><a href="IndexSocio.jsp">Inicio</a></li>
+					  <li class="active">Lista</li>
+					</ol>
 				</div>
-				<div class="col-md-3 call-agileits">
-					<div class="icon-w3">
-						<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-					</div>
-					<h3>Teléfonos</h3>
-					<h4>+0341 448-0102</h4>
-					<h4>+0341 448-0103</h4>
+				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+					 <% 
+					    	int i=1;					 	
+					
+					%>
+						<div id="myTabContent" class="tab-content">
+							<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+								<div class="agile-news-table">
+									<div class="w3ls-news-result">
+										<h4>Resultados : <span> <%= dataPel.getByCantPeliculas() %></span></h4>
+									</div>
+									<table id="table-breakpoint">
+										<thead>
+										  <tr>
+											<th>Nº.</th>
+											<th>Titulo</th>
+											<th>Año</th>
+											<th>Pais</th>
+											<th>Genero</th>
+										  </tr>
+										</thead>
+										<tbody>
+										<%
+										
+											ArrayList<Pelicula> p;				
+											p = dataPel.getAll(); 
+											for(Pelicula pel: p){
+										
+										 %>
+						
+										  <tr>
+											<td><%= i++%></td>
+											<td class="w3-list-img"><a href="single.jsp"><img src="<%= request.getContextPath()%>/images/<%= pel.getImagen() %>" alt="" /> <span><%=pel.getTitulo() %></span></a></td>
+											<td><%= pel.getAnio() %></td>
+											<td class="w3-list-info"><a href="genres.jsp"><%=pel.getPais() %></a></td>
+											<td class="w3-list-info"><a href="comedy.jsp"><%= pel.getGenero().getDenominacion() %></a></td>
+										  </tr>
+										  	<% }%>
+										
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+							</div>
+						</div>
 				</div>
-				<div class="col-md-3 mail-wthree">
-					<div class="icon-w3">
-						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-					</div>
-					<h3>Correo electrónico</h3>
-					<h4><a href="mailto:info@example.com">ejemplo@gmail.com</a></h4>
-				</div>
-				<div class="col-md-3 social-w3l">
-					<div class="icon-w3">
-						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-					</div>
-					<h3>Síguenos</h3>
-					<ul>
-						<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span class="text">Facebook</span></a></li>
-						<li class="twt"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span class="text">Twitter</span></a></li>
-						<li class="ggp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span class="text">Google+</span></a></li>	
-					</ul>
-				</div>
-				<div class="clearfix"></div>
-				<form action="Contact" method="post">
-					<input type="text" name="nombre" placeholder="NOMBRE" required="">
-					<input type="text" name="apellido" placeholder="APELLIDO" required="">
-					<input type="text" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="mail@example.com" name="correo" placeholder="EMAIL" required="">
-					<input type="text" name="asunto" placeholder="ASUNTO" required="">
-					<textarea  name="mensaje" placeholder="TU MENSAJE" required=""></textarea>
-					<input type="submit" value="ENVIAR MENSAJE">
-				</form>
 			</div>
-		</div>
 	</div>
-				<!-- Map-JavaScript -->
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>        
-			<script type="text/javascript">
-				google.maps.event.addDomListener(window, 'load', init);
-				function init() {
-					var mapOptions = {
-						zoom: 11,
-						center: new google.maps.LatLng(40.6700, -73.9400),
-						styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}]
-					};
-					var mapElement = document.getElementById('map');
-					var map = new google.maps.Map(mapElement, mapOptions);
-					var marker = new google.maps.Marker({
-						position: new google.maps.LatLng(40.6700, -73.9400),
-						map: map,
-					});
-				}
-			</script>
-		<!-- //Map-JavaScript -->
-<!-- //contact -->
+<!-- //faq-banner -->
 <!-- footer -->
 	<div class="footer">
 		<div class="container">
 			<div class="w3ls_footer_grid">
 				<div class="col-md-6 w3ls_footer_grid_left">
-		
+					<div class="w3ls_footer_grid_left1">
+						<h2>Subscribirse</h2>
+						<div class="w3ls_footer_grid_left1_pos">
+							<form action="#" method="post">
+								<input type="email" name="subscripcion" placeholder="Tu email..." required="">
+								<input type="submit" value="Enviar">
+							</form>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-6 w3ls_footer_grid_right">
-					<a href="IndexSocio.jsp"><h2>One<span>Movies</span></h2></a>
+					<a href="index.jsp"><h2>One<span>Movies</span></h2></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -316,16 +391,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-7 w3ls_footer_grid1_right">
 				<ul>
 					<li>
-						<a href="ListaPeliculas.jsp">Peliculas</a>
+						<a href="genres.jsp">Peliculas</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Horror</a>
+						<a href="faq.jsp">FAQ</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Aventura</a>
+						<a href="horror.jsp">Horror</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Comedia</a>
+						<a href="genres.jsp">Aventura</a>
+					</li>
+					<li>
+						<a href="comedy.jsp">Comedia</a>
 					</li>
 					<li>
 						<a href="contact.jsp">Contacto</a>

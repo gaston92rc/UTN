@@ -6,7 +6,6 @@
 <%@ page import='data.DataGenero' %>
 <%@ page import='data.DataPelicula' %>
 <%@ page import='data.DataTarjeta' %>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -80,12 +79,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="w3_search">
 				<form action="Busqueda" method="post">
 					<input type="text" name="buscar" placeholder="Buscar" required="">
-					<input type="submit" value="Ir">
+					<input type="submit" value="Ir"><br><br>
 				</form>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
+<!-- //header -->
 	<script>
 		$('.toggle').click(function(){
 		  // Switches the Icon
@@ -116,7 +116,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="IndexSocio.jsp">Inicio</a></li>
+							<li class="active"><a href="index.jsp">Inicio</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Generos <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -132,7 +132,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 %>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="ListaPeliculas.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
+											<li><a href="genres.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
 										</ul>
 									</div>
 									<% }
@@ -141,7 +141,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</li>
 								</ul>
 							</li>
-							<li><a href="ListaPeliculas.jsp">Nuevas</a></li>
+							<li><a href="news.jsp">Nuevas</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pais <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -156,7 +156,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						 			%>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="ListaPeliculas.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
+												<li><a href="genres.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
 											</ul>
 										</div>
 										<% }
@@ -173,16 +173,70 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</nav>	
 		</div>
 	</div>
-	
-	<div class="panel-body">
-		<h4>${mensaje}</h4>
-	</div>
 	<br><br>
-	<script>
-	  		setTimeout("window.history.go(-2)",2000);
-	</script>
+		<ul>
+			<h4 style="text-align: center;">Regístrate o inicia sesión para realizar este paso, haciendo click<a href="#" data-toggle="modal" data-target="#myModal"> aquí</a></h4>
+		</ul>
+	<br><br>
+<a style="display:flex; justify-content: center;" href="Index.jsp">Volver a página principal</a>
+	<br><br><br>
+<div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					Registro
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+				</div>
+				<section>
+					<div class="modal-body">
+						<div class="w3_login_module">
+							<div class="module form-module">
+							  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+								<div class="tooltip">Click Me</div>
+							  </div>
+							  <div class="form">
+								<h3>Loguear tu cuenta</h3>
+								<form id="formulario" action="Login" method="post">
+								  <input type="text" name="Username" placeholder="Username" required="">
+								  <input type="password" name="Password" placeholder="Password" required="">
+								  <input type="submit"  id="btn-login" value="Login">
+								  <div id="resp"></div>
+								</form>
+							  </div>
+							  <div class="form">
+								<h3>Crear una cuenta</h3>
+								<form action="Register" method="post">
+								  <input type="text" name="Username" placeholder="Username" required="">
+								  <input type="password" name="Password" placeholder="Password" required="">
+								  <input type="email" name="Email" placeholder="Email" required="">
+								  <input type="text" name="Name" placeholder="Nombre" required="">
+								   <input type="text" name="LastName" placeholder="Apellido" required="">
+								  <input type="submit" value="Registro">
+								</form>
+							  </div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+  	<script>
+		$('.toggle').click(function(){
+		  // Switches the Icon
+		  $(this).children('i').toggleClass('fa-pencil');
+		  // Switches the forms  
+		  $('.form').animate({
+			height: "toggle",
+			'padding-top': 'toggle',
+			'padding-bottom': 'toggle',
+			opacity: "toggle"
+		  }, "slow");
+		});
+	</script> 
 <!-- //Latest-tv-series -->
 <!-- footer -->
+	
 	<div class="footer">
 		<div class="container">
 			<div class="w3ls_footer_grid">
@@ -198,7 +252,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
 				<div class="col-md-6 w3ls_footer_grid_right">
-					<a href="IndexSocio.jsp"><h2>One<span>Movies</span></h2></a>
+					<a href="index.jsp"><h2>One<span>Movies</span></h2></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -208,16 +262,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-7 w3ls_footer_grid1_right">
 				<ul>
 					<li>
-						<a href="ListaPeliculas.jsp">Peliculas</a>
+						<a href="genres.jsp">Peliculas</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Horror</a>
+						<a href="faq.jsp">FAQ</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Aventura</a>
+						<a href="horror.jsp">Horror</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Comedia</a>
+						<a href="genres.jsp">Aventura</a>
+					</li>
+					<li>
+						<a href="comedy.jsp">Comedia</a>
 					</li>
 					<li>
 						<a href="contact.jsp">Contacto</a>

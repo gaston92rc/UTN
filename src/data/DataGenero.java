@@ -32,7 +32,6 @@ public class DataGenero {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return null;
 			
 		}finally {
 		try {
@@ -41,10 +40,11 @@ public class DataGenero {
 			FactoryConnection.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			LOGGER.severe("Error "+e);
 		}
 		
 		}
+		return null;
 		
 	}
 }

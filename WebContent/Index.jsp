@@ -106,30 +106,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="IndexAdmin.jsp"><h1>One<span>Movies</span></h1></a>
+				<a href="Index.jsp"><h1>One<span>Movies</span></h1></a>
 			</div>
 			<div class="w3_search">
 				<form action="Busqueda" method="post">
 					<input type="text" name="buscar" placeholder="Buscar" required="">
 					<input type="submit" value="Ir"><br><br>
-					<% 
-					if((request.getSession(false).getAttribute("admin")== null) )
-						{
-						%>
-						<jsp:forward page="Index.jsp"></jsp:forward>
-						<%}else if(request.getAttribute("nombreUsuario")!=null){ %>
-						<div class="alert alert-success alert-dismissible">
-    						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    						Bienvenido <strong><%=request.getAttribute("nombreUsuario") %></strong>.
-    					</div>	
-    						
-    					<%}%>
+					<span id="mensaje" style="color:red; display:block"><%=(request.getAttribute("error") == null) ? "" : request.getAttribute("error")%></span>
+					<script>
+						setTimeout("document.getElementById('mensaje').style.display='none';", 3000);	
+					</script>
 				</form>
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
-					<li><a href="ABMCPeliculaSocio.jsp" name="AdminPeliculas">ABMC peliculas/socios</a></li><a href="<%=request.getContextPath()%>/SalirController">Salir</a><br><br>
-									
+					<li><a href="#" data-toggle="modal" data-target="#myModal">Loguin</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -210,7 +201,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="IndexAdmin.jsp">Inicio</a></li>
+							<li class="active"><a href="Index.jsp">Inicio</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Generos <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -313,7 +304,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
 							<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">
-							<a href="single.jsp.jsp">
+							<a href="single.jsp">
 								<img src="<%= request.getContextPath()%>/images/<%= pel1.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
 							</a>
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
@@ -357,6 +348,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<h6><a href="single.jsp"><%= pel2.getTitulo() %></a></h6>							
 								</div>
 								<div class="mid-2 agile_mid_2_home">
+								<input type="hidden" name="titulo" value="<%= pel2.getTitulo() %>">
 									<div class="clearfix"></div>
 								</div>
 							</div>
@@ -387,6 +379,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<h6><a href="single.jsp"><%= pel3.getTitulo() %></a></h6>							
 								</div>
 								<div class="mid-2 agile_mid_2_home">
+									<input type="hidden" name="titulo" value="<%= pel3.getTitulo() %>">
 									<div class="clearfix"></div>
 								</div>
 							</div>
@@ -511,7 +504,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 				</div>
 				<div class="col-md-6 w3ls_footer_grid_right">
-					<a href="IndexAdmin.jsp"><h2>One<span>Movies</span></h2></a>
+					<a href="Index.jsp"><h2>One<span>Movies</span></h2></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -533,7 +526,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a href="ListaPeliculas.jsp">Comedia</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Contacto</a>
+						<a href="contact.jsp">Contacto</a>
 					</li>
 				</ul>
 			</div>

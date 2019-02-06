@@ -6,7 +6,6 @@
 <%@ page import='data.DataGenero' %>
 <%@ page import='data.DataPelicula' %>
 <%@ page import='data.DataTarjeta' %>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -80,12 +79,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="w3_search">
 				<form action="Busqueda" method="post">
 					<input type="text" name="buscar" placeholder="Buscar" required="">
-					<input type="submit" value="Ir">
+					<input type="submit" value="Ir"><br><br>
 				</form>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
+<!-- //header -->
 	<script>
 		$('.toggle').click(function(){
 		  // Switches the Icon
@@ -178,11 +178,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<h4>${mensaje}</h4>
 	</div>
 	<br><br>
-	<script>
-	  		setTimeout("window.history.go(-2)",2000);
-	</script>
 <!-- //Latest-tv-series -->
 <!-- footer -->
+	<script>
+		setTimeout("window.history.go(-1)",3000);
+	</script>	
 	<div class="footer">
 		<div class="container">
 			<div class="w3ls_footer_grid">

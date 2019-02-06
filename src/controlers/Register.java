@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.util.logging.Logger;
 
@@ -54,20 +55,23 @@ public class Register extends HttpServlet {
 	    Tarjeta tarjeta = new Tarjeta();
 	    tarjeta.setIdTarjeta(1);
 	    
-	    Socio socio=new Socio(usuario, password, apellido, nombre, "activo", correo,"socio",tarjeta);
+	    Socio socio=new Socio(usuario.toLowerCase(), password, apellido, nombre, "activo", correo,"socio",tarjeta, 0);
 	    
 	    DataSocio ds = new DataSocio();
-	    boolean status = ds.register(socio);
-	    String msj="";
+	    String validacion=ds.register(socio);;
 	    
-	    if(status) {
-	    	msj="Se ha registrado correctamente";
+	    if(validacion.equalsIgnoreCase("ok")) {
+	    	HttpSession session = request.getSession();
+			session.setMaxInactiveInterval(600); //10 minutos
+			session.setAttribute("socio", usuario);
+			request.setAttribute("nombreUsuario", usuario);
+			request.getRequestDispatcher("/IndexSocio.jsp").forward(request, response);
 	    }else {
-	    	msj="Error al registrarse";
+	    	 request.setAttribute("error", validacion); 
+			 request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	    }
 	    
-	    request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/mensajeRegister.jsp").forward(request, response);
+	    
 		
 		}catch(Exception e) {
 			LOGGER.severe("ERROR: "+e);

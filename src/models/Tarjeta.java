@@ -6,10 +6,16 @@ public class Tarjeta {
 	private String nombre;
 	
 	public Tarjeta(int id) {
-		super();
 		this.id = id;
 	}
 	
+	
+	public Tarjeta(int id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
+
+
 	public Tarjeta() {
 	}
 	

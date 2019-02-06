@@ -1,6 +1,7 @@
 package controlers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -44,12 +45,16 @@ public class Busqueda extends HttpServlet {
 		//doGet(request, response);		
 		String busqueda=request.getParameter("buscar");
 		
-		List<Pelicula> lista=null;
+		ArrayList<Pelicula> lista=null;
 		DataPelicula dp=new DataPelicula();
 		lista=dp.getByQuery(busqueda);
-	
-		request.setAttribute("peliculas", lista);
-		request.getRequestDispatcher("/ResultadoBusqueda.jsp").forward(request, response);
+		if(busqueda!=null) {
+			request.setAttribute("peliculas", lista);
+			request.getRequestDispatcher("/ResultadoBusqueda.jsp").forward(request, response);
+		}else {
+			request.setAttribute("peliculas", lista);
+			request.getRequestDispatcher("/ResultadoBusquedaGeneral.jsp").forward(request, response);
+		}
 		
 	}
 

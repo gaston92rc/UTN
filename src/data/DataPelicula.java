@@ -18,7 +18,7 @@ public class DataPelicula {
 	
 	private static final Logger LOGGER=Logger.getLogger("DataPelicula");
 
-	public List<Pelicula> getByQuery(String busqueda){
+	public ArrayList<Pelicula> getByQuery(String busqueda){
 		
 		String query="SELECT * FROM peliculas WHERE (titulo LIKE ? OR descripcion LIKE ?)";
 		PreparedStatement ps=null;
@@ -27,7 +27,7 @@ public class DataPelicula {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
 			ps.setString(1, "%" + busqueda + "%");
 			ps.setString(2, "%" + busqueda + "%");
-			List<Pelicula> lista=new LinkedList<>();
+			ArrayList<Pelicula> lista=new ArrayList<Pelicula>();
 			ResultSet rs=ps.executeQuery();
 			Pelicula pelicula;
 			while(rs.next()) {
@@ -49,7 +49,6 @@ public class DataPelicula {
 		}catch(Exception e){
 			
 			LOGGER.severe("ERROR: "+e);	
-			return null;
 		}finally {
 			if (ps != null)
 				try {
@@ -59,6 +58,48 @@ public class DataPelicula {
 					LOGGER.severe("ERROR: " + e);
 				}		
 		}	
+		return null;
+
+	}
+	
+	public Pelicula getByTitulo(String titulo) {
+		String query="SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, pais, trailer, anio, detalle FROM peliculas p inner join generos g ON (id_genero = g.id AND titulo=?)";
+		PreparedStatement ps=null;
+		try {
+			
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, titulo );
+			ResultSet rs=ps.executeQuery();
+			Pelicula pelicula = null;
+			while(rs.next()) {
+				pelicula=new Pelicula(rs.getInt("id"));
+				pelicula.setDescripcion(rs.getString("descripcion"));
+				pelicula.setDuracion(rs.getString("duracion"));
+				pelicula.setTitulo(rs.getString("titulo"));
+				Genero genero = new Genero(rs.getInt("id_genero"));
+				genero.setDenominacion(rs.getString("denominacion"));
+				pelicula.setImagen(rs.getString("imagen"));
+				pelicula.setAnio(rs.getInt("anio"));
+				pelicula.setPais(rs.getString("pais"));
+				pelicula.setTrailer(rs.getString("trailer"));
+				pelicula.setDetalle(rs.getString("detalle"));
+				pelicula.setGenero(genero);		
+			}
+			return pelicula;
+			
+		}catch(Exception e){
+			
+			LOGGER.severe("ERROR: "+e);	
+		}finally {
+			if (ps != null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}		
+		}	
+		return null;
 	}
 	
 	public ArrayList<Pelicula> getByDetalle(String detalle){
@@ -69,7 +110,7 @@ public class DataPelicula {
 			
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
 			ps.setString(1, detalle );
-			ArrayList<Pelicula> lista=new ArrayList<>();
+			ArrayList<Pelicula> lista=new ArrayList<Pelicula>();
 			ResultSet rs=ps.executeQuery();
 			Pelicula pelicula;
 			while(rs.next()) {
@@ -92,7 +133,6 @@ public class DataPelicula {
 		}catch(Exception e){
 			
 			LOGGER.severe("ERROR: "+e);	
-			return null;
 		}finally {
 			if (ps != null)
 				try {
@@ -102,6 +142,8 @@ public class DataPelicula {
 					LOGGER.severe("ERROR: " + e);
 				}		
 		}	
+		return null;
+
 	}
 	
 	public boolean altaPelicula(Pelicula pelicula) {
@@ -133,7 +175,7 @@ public class DataPelicula {
 			
 		}catch(Exception e) {
 			LOGGER.severe("ERROR: "+e);
-			return false;
+			
 		}finally {
 			if (ps!= null)
 				try {
@@ -143,6 +185,7 @@ public class DataPelicula {
 					LOGGER.severe("ERROR: " + e);
 				}		
 		}	
+		return false;
 		
 	}
 	
@@ -176,7 +219,6 @@ public class DataPelicula {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return null;
 			
 		}finally {
 		try {
@@ -188,6 +230,7 @@ public class DataPelicula {
 			LOGGER.severe("Error "+e);		}
 		
 		}
+		return null;
 		
 	}
 	
@@ -198,7 +241,7 @@ public class DataPelicula {
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
 			ps.setString(1, inicial + "%");
-			ArrayList<Pelicula> lista=new ArrayList<>();
+			ArrayList<Pelicula> lista=new ArrayList<Pelicula>();
 			ResultSet rs=ps.executeQuery();
 			Pelicula pelicula;
 			while(rs.next()) {
@@ -222,7 +265,6 @@ public class DataPelicula {
 		}catch(Exception e){
 			
 			LOGGER.severe("ERROR: "+e);	
-			return null;
 		}finally {
 			if (ps != null)
 				try {
@@ -232,6 +274,7 @@ public class DataPelicula {
 					LOGGER.severe("ERROR: " + e);
 				}		
 		}	
+		return null;
 	}
 	
 	
@@ -262,7 +305,6 @@ public class DataPelicula {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return false;
 			
 		}finally {
 		try {
@@ -272,6 +314,8 @@ public class DataPelicula {
 						LOGGER.severe("Error "+e);		}
 		
 		}
+		return false;
+
 		
 	}
 	
@@ -294,7 +338,6 @@ public class DataPelicula {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return 0;
 			
 		}finally {
 		try {
@@ -306,6 +349,7 @@ public class DataPelicula {
 			LOGGER.severe("Error "+e);		}
 		
 		}
+		return 0;
 		
 	}
 	
@@ -338,7 +382,6 @@ public class DataPelicula {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return null;
 			
 		}finally {
 		try {
@@ -350,6 +393,7 @@ public class DataPelicula {
 			LOGGER.severe("Error "+e);		}
 		
 		}
+		return null;
 		
 	}
 	
@@ -372,7 +416,6 @@ public class DataPelicula {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return null;
 			
 		}finally {
 		try {
@@ -384,6 +427,7 @@ public class DataPelicula {
 			LOGGER.severe("Error "+e);		}
 		
 		}
+		return null;
 		
 	}
 	
@@ -407,7 +451,6 @@ public class DataPelicula {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return false;
 			
 		}finally {
 		try {
@@ -417,6 +460,7 @@ public class DataPelicula {
 						LOGGER.severe("Error "+e);		}
 		
 		}
+		return false;
 		
 	}
 

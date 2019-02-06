@@ -6,18 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
-import models.Genero;
-import models.Pelicula;
 import models.Socio;
 import models.Tarjeta;
 
 public class DataSocio {
 	private static final Logger LOGGER = Logger.getLogger("DataSocio");
 
-	public boolean register(Socio socio) {
-		String query = "INSERT INTO socios (nombre, apellido, usuario, password, estado, correo, rol, id_Tarjeta)"
-				+ " values (?, ?, ?, ?, ?, ?, ?, ?)";
+	public String register(Socio socio) {
+		String query = "INSERT INTO socios (nombre, apellido, usuario, password, estado, correo, rol, id_Tarjeta,subscripcion)"
+				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = null;
 		if (!existSocio(socio)) {
 			try {
@@ -30,11 +27,12 @@ public class DataSocio {
 				ps.setString(6, socio.getMail());
 				ps.setString(7, socio.getRol());
 				ps.setInt(8, socio.getTarjeta().getId());
+				ps.setInt(9, socio.getSubscripcion());
 				ps.execute();
-				return true;
+				return "ok";
 			} catch (SQLException e) {
 				LOGGER.severe("ERROR: " + e);
-				return false;
+				return "fallo";
 			} finally {
 				if (ps != null)
 					try {
@@ -46,7 +44,7 @@ public class DataSocio {
 
 			}
 		}
-		return false;
+		return "fallo";
 	}
 
 	public boolean existSocio(Socio socio) {
@@ -76,34 +74,59 @@ public class DataSocio {
 		}
 	}
 	
-	public Socio login(String usuario, String password) {
+	
+	public boolean addSubscripcion(Socio socio) {
+
+		String query = "SELECT 1 FROM socios WHERE correo = ?";
+
 		PreparedStatement ps = null;
-		String query="SELECT s.id, s.nombre,apellido, usuario, password,estado,correo,rol, id_tarjeta FROM socios s inner join tarjetas t ON id_tarjeta=t.id AND usuario=? AND password=? AND estado='activo'LIMIT 1";
+
+		try {
+			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, socio.getMail());
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+
+		} catch (Exception e) {
+			LOGGER.severe(""+e);
+			return false;
+		}finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}
+			}
+		}
+	}
+	
+	public String login(Socio socio) {
+		PreparedStatement ps = null;
+		String usuario = null;
+		String clave = null;
+		String rol = null;
+		String query="SELECT usuario, password, rol FROM socios WHERE usuario=? AND password=? AND estado='activo' LIMIT 1";
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
-			ps.setString(1, usuario);
-			ps.setString(2, password);
+			ps.setString(1, socio.getUsername());
+			ps.setString(2, socio.getPassword());
 			ResultSet rs=ps.executeQuery();
-			Socio s=new Socio(0); //Si existe le asigno luego su Id.
-			while(rs.next() && rs!=null) {	
-				
-				s.setIdSocio(rs.getInt("id"));
-				s.setNombre(rs.getString("nombre"));
-				s.setApellido(rs.getString("apellido"));
-				s.setUsername(rs.getString("usuario"));
-				s.setPassword(rs.getString("password"));
-				s.setEstado(rs.getString("estado"));
-				s.setUsername(rs.getString("correo"));
-				s.setUsername(rs.getString("rol"));
-				Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
-				s.setTarjeta(tarjeta);
-				
+			while(rs.next() && rs!=null) {					
+				usuario=rs.getString("usuario");
+				clave=rs.getString("password");	
+				rol=rs.getString("rol");	
+			
+			System.out.println("ES "+usuario+clave+rol);
+			if(usuario.equalsIgnoreCase(socio.getUsername()) && clave.equals(socio.getPassword()) && rol.equalsIgnoreCase("admin"))
+				return "admin";
+			else if (usuario.equalsIgnoreCase(socio.getUsername()) && clave.equals(socio.getPassword()) && rol.equalsIgnoreCase("socio")){
+				return "socio";
 			}
-			return s;
-				
-		} catch (SQLException e) {
-			LOGGER.severe("ERROR: " + e);
-			return null;
+			}
+		} catch (Exception e) {
+			LOGGER.severe("ERROR: " + e.getMessage());
 		} finally {
 			if (ps != null)
 				try {
@@ -113,52 +136,79 @@ public class DataSocio {
 					LOGGER.severe("ERROR: " + e);
 				}
 		}
+		return "Usuario y/o contraseña inválido/s";
 	}
 	
-	public ArrayList<Socio> getAll() throws Exception{
+	
+	public Socio getSubscriptores(String email){
 		
-		Statement stmt=null;
-		ResultSet rs=null;
-		ArrayList<Socio> s= new ArrayList<Socio>();
+		String query="SELECT s.id, s.nombre,apellido, usuario, password,estado,correo,rol, id_tarjeta,subscripcion FROM socios s inner join tarjetas t ON id_tarjeta=t.id AND correo=? AND estado='activo'";
+		PreparedStatement ps=null;
 		try {
-			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT s.id, s.nombre, apellido, usuario, password, estado, correo, rol, id_tarjeta, t.nombre FROM socios s inner join tarjetas t ON id_tarjeta = t.id");
 			
-			if(rs!=null){
-				while(rs.next()){
-					Socio socio=new Socio(rs.getInt("id"));					
-					socio.setNombre(rs.getString("s.nombre"));
-					socio.setApellido(rs.getString("apellido"));
-					socio.setEstado(rs.getString("estado"));
-					socio.setMail(rs.getString("correo"));
-					socio.setRol(rs.getString("rol"));
-					socio.setUsername(rs.getString("usuario"));
-					socio.setPassword(rs.getString("password"));
-					Tarjeta tarjeta=new Tarjeta(rs.getInt("id_tarjeta"));
-					tarjeta.setNombre(rs.getString("t.nombre"));
-					socio.setTarjeta(tarjeta);
-					s.add(socio);
-				}
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, email );
+			ResultSet rs=ps.executeQuery();
+			Socio s=new Socio(0);
+			while(rs.next()) {
+				s.setIdSocio(rs.getInt("id"));
+				s.setNombre(rs.getString("nombre"));
+				s.setApellido(rs.getString("apellido"));
+				s.setUsername(rs.getString("usuario"));
+				s.setPassword(rs.getString("password"));
+				s.setEstado(rs.getString("estado"));
+				s.setUsername(rs.getString("correo"));
+				s.setUsername(rs.getString("rol"));
+				s.setSubscripcion(rs.getInt("subscripcion"));
+				Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
+				s.setTarjeta(tarjeta);
 			}
-		    return s;
-		} catch (SQLException e) {
+			return s;
 			
-			LOGGER.severe("Error "+e);
+		}catch(Exception e){
+			
+			LOGGER.severe("ERROR: "+e);	
 			return null;
-			
 		}finally {
-		try {
-			if(rs!=null) rs.close();
-			if(stmt!=null) stmt.close();
-			FactoryConnection.getInstancia().releaseConn();
-		} catch (SQLException e) {
-			
-			LOGGER.severe("Error "+e);		}
-		
-		}
-		
+			if (ps != null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}		
+		}	
 	}
 	
+	public Socio getSocioByNombreUsuario(String nombreUsuario){
+		
+		String query="SELECT id FROM socios WHERE usuario=?";
+		PreparedStatement ps=null;
+		try {
+			
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, nombreUsuario );
+			ResultSet rs=ps.executeQuery();
+			Socio s=new Socio(0);
+			while(rs.next()) {
+				s.setIdSocio(rs.getInt("id"));
+			}
+			return s;
+			
+		}catch(Exception e){
+			
+			LOGGER.severe("ERROR: "+e);	
+			return null;
+		}finally {
+			if (ps != null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}		
+		}	
+	}
 	
 	public ArrayList<Socio> getSancionado(){
 		
@@ -181,6 +231,7 @@ public class DataSocio {
 					socio.setPassword(rs.getString("password"));
 					Tarjeta tarjeta=new Tarjeta(rs.getInt("id_tarjeta"));
 					tarjeta.setNombre(rs.getString("t.nombre"));
+					socio.setSubscripcion(rs.getInt("subscripcion"));
 					socio.setTarjeta(tarjeta);
 					s.add(socio);
 				}
@@ -189,7 +240,6 @@ public class DataSocio {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return null;
 			
 		}finally {
 		try {
@@ -202,7 +252,8 @@ public class DataSocio {
 		
 		}
 		
-		
+		return null;
+
 	}
 
 	public boolean altaSancionados(Socio socio) {
@@ -217,7 +268,6 @@ public class DataSocio {
 
 			} catch (Exception e) {
 				LOGGER.severe("Error "+e);
-				return false;
 			}finally {
 				if(ps!=null) {
 					try {
@@ -228,6 +278,7 @@ public class DataSocio {
 					}
 				}
 			}
+		    return false;
 	}
 	
 	public boolean actualizarEstadoSocio(Socio socio) {
@@ -251,7 +302,6 @@ public class DataSocio {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return true;
 			
 		}finally {
 		try {
@@ -262,6 +312,7 @@ public class DataSocio {
 			}
 		
 		}
+		return true;
 		
 	}
 	
@@ -286,7 +337,6 @@ public class DataSocio {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return false;
 			
 		}finally {
 		try {
@@ -296,7 +346,7 @@ public class DataSocio {
 						LOGGER.severe("Error "+e);		}
 		
 		}
-		
+		return false;
 	}
 	
 	public boolean eliminarSocio(Socio socio) {
@@ -318,7 +368,6 @@ public class DataSocio {
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return false;
 			
 		}finally {
 		try {
@@ -329,7 +378,126 @@ public class DataSocio {
 			}
 		
 		}
-		
+		return false;
 	}
+	
+	public boolean existeSubscripcion(String correo) {
+		PreparedStatement ps = null;
+		String query="SELECT * FROM socios WHERE correo=?";
+		try {
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, correo);
+			boolean existe=false;
+			ResultSet rs=ps.executeQuery();
+			while(rs.next() && rs!=null) {			
+				existe=true;
+			}
+			return existe;
+				
+		} catch (SQLException e) {
+			LOGGER.severe("ERROR: " + e);
+		} finally {
+			if (ps != null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}
+		}
+		return false;
+	}
+	
+public ArrayList<Socio> getAllSubscriptores(){
+		
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Socio> s= new ArrayList<Socio>();
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("SELECT * FROM socios s inner join tarjetas t ON id_tarjeta = t.id AND estado='activo'");
+			
+			if(rs!=null){
+				while(rs.next()){
+					Socio socio=new Socio(rs.getInt("id"));					
+					socio.setNombre(rs.getString("s.nombre"));
+					socio.setApellido(rs.getString("apellido"));
+					socio.setEstado(rs.getString("estado"));
+					socio.setMail(rs.getString("correo"));
+					socio.setRol(rs.getString("rol"));
+					socio.setUsername(rs.getString("usuario"));
+					socio.setPassword(rs.getString("password"));
+					Tarjeta tarjeta=new Tarjeta(rs.getInt("id_tarjeta"));
+					tarjeta.setNombre(rs.getString("t.nombre"));
+					socio.setSubscripcion(rs.getInt("subscripcion"));
+					socio.setTarjeta(tarjeta);
+					s.add(socio);
+				}
+			}
+		    return s;
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(rs!=null) rs.close();
+			if(stmt!=null) stmt.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);		}
+		
+		}
+		
+		return null;
+	}
+
+
+	public ArrayList<Socio> getAll(){
+	
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Socio> s= new ArrayList<Socio>();
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("SELECT * FROM socios s inner join tarjetas t ON id_tarjeta = t.id");
+			
+			if(rs!=null){
+				while(rs.next()){
+					Socio socio=new Socio(rs.getInt("id"));					
+					socio.setNombre(rs.getString("s.nombre"));
+					socio.setApellido(rs.getString("apellido"));
+					socio.setEstado(rs.getString("estado"));
+					socio.setMail(rs.getString("correo"));
+					socio.setRol(rs.getString("rol"));
+					socio.setUsername(rs.getString("usuario"));
+					socio.setPassword(rs.getString("password"));
+					Tarjeta tarjeta=new Tarjeta(rs.getInt("id_tarjeta"));
+					tarjeta.setNombre(rs.getString("t.nombre"));
+					socio.setSubscripcion(rs.getInt("subscripcion"));
+					socio.setTarjeta(tarjeta);
+					s.add(socio);
+				}
+			}
+		    return s;
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(rs!=null) rs.close();
+			if(stmt!=null) stmt.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);		}
+		
+		}
+		
+		return null;
+	}
+
 
 }

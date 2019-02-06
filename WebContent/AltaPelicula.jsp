@@ -45,6 +45,7 @@
  									
  									<option value="<%= gen.getId() %>"><%= gen.getDenominacion() %></option>
  								<%
+ 							
  								    }
  								%>     
                     </select>

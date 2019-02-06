@@ -1,18 +1,19 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import='java.util.*' %>
 <%@ page import='models.Genero' %>
 <%@ page import='models.Tarjeta' %>
 <%@ page import='models.Pelicula' %>
 <%@ page import='data.DataGenero' %>
 <%@ page import='data.DataPelicula' %>
 <%@ page import='data.DataTarjeta' %>
-
+<%@ page import='java.util.*' %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <title>One Movies an Entertainment Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
@@ -72,13 +73,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 <body>
 <!-- header -->
+	<% 
+			String link;
+			if((request.getSession(false).getAttribute("admin")== null) ){
+				link="IndexSocio.jsp";
+			}else{
+				link="IndexAdmin.jsp";
+			}
+	%>
 	<div class="header">
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="IndexSocio.jsp"><h1>One<span>Movies</span></h1></a>
+				<a href="<%=link%>"><h1>One<span>Movies</span></h1></a>
 			</div>
 			<div class="w3_search">
-				<form action="Busqueda" method="post">
+				<form action="ResultadoBusquedaGeneral.jsp">
 					<input type="text" name="buscar" placeholder="Buscar" required="">
 					<input type="submit" value="Ir">
 				</form>
@@ -86,6 +95,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="clearfix"> </div>
 		</div>
 	</div>
+<!-- //header -->
+    
 	<script>
 		$('.toggle').click(function(){
 		  // Switches the Icon
@@ -116,7 +127,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="IndexSocio.jsp">Inicio</a></li>
+							<li class="active"><a href="<%=link%>">Inicio</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Generos <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -173,17 +184,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</nav>	
 		</div>
 	</div>
-	
-	<div class="panel-body">
-		<h4>${mensaje}</h4>
-	</div>
-	<br><br>
-	<script>
-	  		setTimeout("window.history.go(-2)",2000);
-	</script>
-<!-- //Latest-tv-series -->
+<!-- //nav -->
+<!-- banner -->
+	<% 
+		String busqueda=request.getParameter("buscar");	
+		ArrayList<Pelicula> lista=null;
+		DataPelicula dp=new DataPelicula();
+		lista=dp.getByQuery(busqueda);
+		int i=1;
+	if(lista.size()!=0){
+		for(Pelicula p: lista){	
+ %>
+  		<br><br>
+		<table class="table table-striped">
+		  <tbody>
+		  	<tr>
+		  		<th scope="row"></th>
+		  		<p style="padding:0 20px;"> Resultados: <%=lista.size()%></p>
+		  	</tr>
+		  	<tr>
+		      <th scope="row"><%=i++%></th>
+		      <td><strong><%=p.getTitulo()%></strong></td>
+		    </tr>
+		    <tr>
+		      <th scope="row"></th>
+		      <td><a href="single.jsp"><img src="<%= request.getContextPath()%>/images/<%= p.getImagen() %>" alt=" "></a></td>
+		    </tr>
+		     <tr>
+		      <th scope="row"></th>
+		      <td>Duracion: <%=p.getDuracion() %></td>
+		    </tr>
+		    <tr>
+		      <th scope="row"></th>
+		      <td><%=p.getDescripcion() %></td>
+		    </tr>	
+		  </tbody>
+		</table>
+		<%}%>
+		<%}else{%>
+			<br><br>
+			<h4 style="text-align:center;">No se han encontrado resultados.</h4>
+			<br><br>
+		<%}%>
+  
+
 <!-- footer -->
-	<div class="footer">
+<div class="footer">
 		<div class="container">
 			<div class="w3ls_footer_grid">
 				<div class="col-md-6 w3ls_footer_grid_left">
@@ -198,7 +244,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
 				<div class="col-md-6 w3ls_footer_grid_right">
-					<a href="IndexSocio.jsp"><h2>One<span>Movies</span></h2></a>
+					<a href="<%=link%>"><h2>One<span>Movies</span></h2></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>

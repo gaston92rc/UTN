@@ -40,36 +40,37 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-		try { 
 		String usuario = request.getParameter("Username");
-		String password = request.getParameter("Password");
-		
-		HttpSession session=request.getSession();
+		String password = request.getParameter("Password"); 
+		Socio s=new Socio();
+		s.setUsername(usuario);
+		s.setPassword(password);
 		DataSocio ds=new DataSocio();
-		Socio socio=ds.login(usuario, password);
-		//Si devuelve null, entonces idSocio=0.
-		String msj="";
-				if(socio.getIdSocio()>0 && socio.getTarjeta().getId()==1) {
-					session.setAttribute("admin", socio);
-					LOGGER.info(socio.getUsername());
-					//msj="Bienvenido "+ socio.getUsername();
-		           request.getRequestDispatcher("/mensajeLoginAdmin.jsp").forward(request, response);					
-				}else if(socio.getIdSocio()>0 && socio.getRol().equals("socio")) {
-					session.setAttribute("socio", socio);
-					LOGGER.info(socio.getUsername());
-					//msj="Bienvenido "+ socio.getUsername();
-				    request.getRequestDispatcher("/mensajeLoginSocio.jsp").forward(request, response);
-				}else {
-					msj="Usuario y/o clave incorrecto/s"; 
-					LOGGER.warning(msj);
-				    request.setAttribute("mensaje", msj);
-				    request.getRequestDispatcher("/mensajeRegister.jsp").forward(request, response);
-				}
-				
-	        }catch(Exception e) {
-	        	   LOGGER.severe("ERROR: "+e);
-	        }
-	}
+		String validacion=ds.login(s);
+		System.out.println("ES "+validacion);
+		try{
+		 
+		 if(validacion.equalsIgnoreCase("admin")){
+		 
+			 HttpSession session = request.getSession(); 
+			 session.setAttribute("admin", usuario); 
+			 request.setAttribute("nombreUsuario", usuario);
+			 request.getRequestDispatcher("/IndexAdmin.jsp").forward(request, response);
+		 }else if(validacion.equalsIgnoreCase("socio")){
+		 
+			 HttpSession session = request.getSession();
+			 session.setMaxInactiveInterval(600); //10 minutos
+			 session.setAttribute("socio", usuario);
+			 request.setAttribute("nombreUsuario", usuario);
+			 request.getRequestDispatcher("/IndexSocio.jsp").forward(request, response);
+		 }
+		 else{
+			 request.setAttribute("error", validacion); 
+			 request.getRequestDispatcher("/Index.jsp").forward(request, response);
+		 }
+		 }catch(Exception e) {
+		  	   LOGGER.severe("ERROR: "+e);
+		  }
+		}
+
 }

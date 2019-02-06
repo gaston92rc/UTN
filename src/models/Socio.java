@@ -11,11 +11,11 @@ public class Socio {
 	private String usuario; 
 	private String rol;
 	private Tarjeta tarjeta;
+	private int subscripcion=0;
 	
 	
 
-	public Socio(int idSocio, String usuario,String password, String apellido, String nombre, String estado, String mail,String rol, Tarjeta tarjeta) {
-		this.idSocio = idSocio;
+	public Socio(String usuario,String password, String apellido, String nombre, String estado, String mail,String rol, Tarjeta tarjeta, int subscripcion) {
 		this.usuario = usuario;
 		this.password = password;
 		this.apellido = apellido;
@@ -24,6 +24,7 @@ public class Socio {
 		this.mail = mail;
 		this.rol = rol;
 		this.tarjeta = tarjeta;
+		this.subscripcion=subscripcion;
 	}
 	
 	public Socio(String usuario,String password, String apellido, String nombre, String estado, String mail,String rol, Tarjeta tarjeta) {
@@ -58,6 +59,7 @@ public class Socio {
 	public Socio(String usuario) {
 		this.usuario = usuario;
 	}
+	
 
 	public int getIdSocio() {
 		return idSocio;
@@ -128,6 +130,14 @@ public class Socio {
 		return "Socio [idSocio=" + idSocio + ", password=" + password + ", apellido=" + apellido + ", nombre=" + nombre
 				+ ", estado=" + estado + ", mail=" + mail + ", usuario=" + usuario + ", rol=" + rol + ", tarjeta="
 				+ tarjeta + "]";
+	}
+
+	public int getSubscripcion() {
+		return subscripcion;
+	}
+
+	public void setSubscripcion(int subscripcion) {
+		this.subscripcion = subscripcion;
 	}
     
 	
