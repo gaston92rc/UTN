@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 06-02-2019 a las 20:04:54
+-- Tiempo de generación: 08-02-2019 a las 19:25:54
 -- Versión del servidor: 5.7.23
 -- Versión de PHP: 7.2.10
 
@@ -36,10 +36,19 @@ CREATE TABLE IF NOT EXISTS `alquileres` (
   `fechaDevolucion` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `id_socio` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
+  `estado` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_socio` (`id_socio`),
   KEY `id_pelicula` (`id_pelicula`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `alquileres`
+--
+
+INSERT INTO `alquileres` (`id`, `importePorDia`, `fechaAlquiler`, `fechaDevolucion`, `id_socio`, `id_pelicula`, `estado`) VALUES
+(3, 1000, '2012/01/02', '', 1, 1, ''),
+(4, 1000, '', '', 1, 4, '');
 
 -- --------------------------------------------------------
 
@@ -96,16 +105,16 @@ CREATE TABLE IF NOT EXISTS `peliculas` (
   `anio` int(100) NOT NULL,
   `pais` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `trailer` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
-  `Detalle` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `detalle` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_genero` (`id_genero`)
-) ENGINE=MyISAM AUTO_INCREMENT=668 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=671 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `peliculas`
 --
 
-INSERT INTO `peliculas` (`id`, `duracion`, `titulo`, `descripcion`, `id_genero`, `imagen`, `anio`, `pais`, `trailer`, `Detalle`) VALUES
+INSERT INTO `peliculas` (`id`, `duracion`, `titulo`, `descripcion`, `id_genero`, `imagen`, `anio`, `pais`, `trailer`, `detalle`) VALUES
 (1, '140 minutos', 'Central Intelligence', 'Un agente de la CIA que solía sufrir acoso escolar se reencuentra con sus compañeros en una reunión de antiguos alumnos, aunque ahora él es musculoso y fuerte. ', 3, '4.jpg', 2006, 'USA', 'https://www.youtube.com/embed/MxEw3elSJ8M', 'principal'),
 (2, '120 minutos', 'X-Men', 'El profesor Xavier lidera a Wolverine y otros superhéroes contra Magneto, un mutante que dominará a la humanidad.', 1, 'm11.jpg', 1999, 'USA', 'https://www.youtube.com/embed/kyQKi5-k0UU', ''),
 (4, '90 minutos', 'Citizen Soldier', 'Cuenta la verdadera historia de un grupo de Soldados y su gira de servicio en Afganistán que les cambia la vida.', 1, 'm13.jpg', 2017, 'Francia', 'https://www.youtube.com/embed/-d-BcfRGl7c', 'popular'),
@@ -131,7 +140,8 @@ INSERT INTO `peliculas` (`id`, `duracion`, `titulo`, `descripcion`, `id_genero`,
 (24, '82 minutos', 'Assassin\'s Creed 3', 'Cuenta la historia de Callum Lynch, un criminal encerrado en prisión y condenado a ser ejecutado por sus delitos. Pero Lynch recibirá una nueva oportunidad de la organización Abstergo (Caballeros templarios actuales), entidad dirigida por Alan Rikkin.', 1, 'm22.jpg', 2009, 'USA', 'https://www.youtube.com/embed/YS8-Rd4NDdA', 'destacado'),
 (25, '130 minutos', 'Dead Island 2', 'La historia continúa después de que los sobrevivientes escapan de la isla de Banoi y llegan a la isla de Palanai, en donde la infección se expandió.', 1, 'm23.jpg', 2011, 'Inglaterra', 'https://www.youtube.com/embed/AWFaj4IQ4ro', 'popular'),
 (26, '87 minutos', 'Ice Age', 'Manny el mamut comienza a preocuparse cuando su hija Morita anuncia su compromiso y Sid, el perezoso se voluntariza para planificar la boda. ', 9, '6.jpg', 2013, 'Inglaterra', 'https://www.youtube.com/embed/Ohq6NmKMja8', 'principal'),
-(27, '150 minutos', 'X - Man', 'El profesor Xavier lidera a Wolverine y otros superhéroes contra Magneto, un mutante que dominará a la humanidad.', 1, '7.jpg', 2009, 'USA', 'https://www.youtube.com/embed/N0io2w_6vT8', 'principal');
+(27, '150 minutos', 'X - Man', 'El profesor Xavier lidera a Wolverine y otros superhéroes contra Magneto, un mutante que dominará a la humanidad.', 1, '7.jpg', 2009, 'USA', 'https://www.youtube.com/embed/N0io2w_6vT8', 'principal'),
+(670, 'eduardo', 'nestor', 'eduardo', 1, '7.jpg', 1990, 'eduardo', 'eduardo', 'eduardo');
 
 -- --------------------------------------------------------
 
@@ -153,16 +163,16 @@ CREATE TABLE IF NOT EXISTS `socios` (
   `subscripcion` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_tarjeta` (`id_tarjeta`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `socios`
 --
 
 INSERT INTO `socios` (`id`, `nombre`, `apellido`, `usuario`, `password`, `estado`, `correo`, `rol`, `id_tarjeta`, `subscripcion`) VALUES
-(1, 'nestor', 'amichetti', 'nestorami', '1234', 'Activo', 'nestor@gmail.com', 'socio', 2, 1),
-(2, 'Juan', 'Perez', 'juan1234', '1234', 'Activo', 'jperez@gmail.com', 'admin', 1, 0),
-(4, 'pepe', 'pepe', 'pepe1234', '1234', 'Activo', 'sadas@gmail.com', 'socio', 2, 0);
+(1, 'nestor', 'amichetti', 'nestorami', '1234', 'activo', 'nestor@gmail.com', 'socio', 2, 1),
+(2, 'Juan', 'Perez', 'juan1234', '1234', 'activo', 'jperez@gmail.com', 'admin', 1, 0),
+(5, 'Pedro', 'Pepe', 'pepe1234', '1234', 'activo', 'sadas@gmail.com', 'socio', 4, 0);
 
 -- --------------------------------------------------------
 
