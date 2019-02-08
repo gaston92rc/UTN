@@ -41,10 +41,10 @@ public class BajaSocios extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		String usuario=request.getParameter("usuario");
-		
+		String IdUsuario=request.getParameter("usuario");
+		System.out.println("ES "+IdUsuario);
 		DataSocio ds=new DataSocio();
-		Socio s=new Socio(usuario);
+		Socio s=new Socio(Integer.parseInt(IdUsuario));
 		
 		boolean b=ds.eliminarSocio(s);		
 		String msj=null;

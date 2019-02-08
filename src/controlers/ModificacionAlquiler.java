@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import data.DataPelicula;
-import models.Genero;
-import models.Pelicula;
+import data.DataAlquiler;
+import models.Alquiler;
 
 /**
- * Servlet implementation class BajaPeliculas
+ * Servlet implementation class ModificacionAlquiler
  */
-@WebServlet({ "/BajaPeliculas", "/bajapeliculas", "/Bajapeliculas", "/bajaPeliculas" })
-public class BajaPeliculas extends HttpServlet {
+@WebServlet({ "/ModificacionAlquiler", "/Modificacionalquiler", "/modificacionAlquiler", "/modificacionalquiler" })
+public class ModificacionAlquiler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER=Logger.getLogger("BajaPeliculas");
-   
+	private static final Logger LOGGER=Logger.getLogger("ModificacionAlquiler");   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BajaPeliculas() {
+    public ModificacionAlquiler() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,26 +41,33 @@ public class BajaPeliculas extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		String importePorDia=request.getParameter("monto");
+		DataAlquiler dp=new DataAlquiler();
 		
-		String titulo=request.getParameter("titulo");
-
-		DataPelicula dp=new DataPelicula();
-		Pelicula p=new Pelicula(Integer.parseInt(titulo));
-		
-		boolean b=dp.eliminarPelicula(p);		
+		if(importePorDia!=null) {
+		Alquiler a=new Alquiler(Double.parseDouble(importePorDia));
+		boolean b=dp.actualizarAlquiler(a);	
 		String msj=null;
 
 		if(b){
 						
-			msj="Se eliminó película correctamente"; 
+			msj="Se actualizó monto por día"; 
+			request.setAttribute("mensaje", msj);
+		    request.getRequestDispatcher("ModificarAlquiler.jsp").forward(request, response);
 			
-		}else {
-			msj="No se pudo eliminar película"; 
+		}else{
+			msj="No se pudo actualizar monto por día"; 
 			LOGGER.warning(msj);
+			request.setAttribute("mensaje", msj);
+		    request.getRequestDispatcher("ModificarAlquiler.jsp").forward(request, response);
+		}}else {
+			String msj="No se pudo actualizar monto por día"; 
+			LOGGER.warning(msj);
+			request.setAttribute("mensaje", msj);
+		    request.getRequestDispatcher("ModificarAlquiler.jsp").forward(request, response);
 		}
-		
-		request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/BajaPelicula.jsp").forward(request, response);	
-	}	
+			
+
+	}
 
 }

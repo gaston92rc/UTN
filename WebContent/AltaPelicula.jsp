@@ -26,7 +26,7 @@
 			  <form  action="ABMCPelicula" method="POST" role=form>
 				  <div class="form-group">
 				  	<label>Título Película</label><br>
-				  	 <input type="text" class="form-group" name="titulo">
+				  	 <input type="text" class="form-group" name="titulo" requerid>
 				  </div>
 	
 				  <%
@@ -69,7 +69,7 @@
 				  
 				  <div class="form-group">
 				  	<label>Año Película</label><br>
-				  	 <input type="text" class="form-group" name="anio">
+				  	 <input type="number" class="form-group" name="anio" min="1900" max="2019">
 				  </div>
 				  
 				   <div class="form-group">
@@ -79,14 +79,13 @@
 				  
 				   <div class="form-group">
 				  	<label>Trailer Película</label><br>
-				  	 <input type="text" class="form-group" name="trailer">
-				  	 <p>URL de Youtube</p>
+				  	 <input type="text" class="form-group" name="trailer" placeholder="URL Youtube">
 				  </div>
 				  
 				   <div class="form-group">
 				  	<label>Detalle Película</label><br>
-				  	 <input type="text" class="form-group" name="detalle">
-				  	 <p>Principal/popular/"sin detalle"</p>
+				  	 <input type="text" class="form-group" name="detalle"><br>
+				  	 <font size="2" color="red">Principal/ destacado/ reciente/ popular/ valorada</font>
 				  </div>
 				 
 				 <button class="btn btn-dark btn-block" type=submit>Agregar</button>

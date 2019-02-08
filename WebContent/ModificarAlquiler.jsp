@@ -1,10 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language='java' contentType='text/html;charset=iso-8859-1'%>
 <%@ page import='java.util.*' %>
-<%@ page import='models.Genero' %>
-<%@ page import='models.Pelicula' %>
-<%@ page import='data.DataGenero' %>
-<%@ page import='data.DataPelicula' %>
+<%@ page import='models.Alquiler' %>
+<%@ page import='data.DataAlquiler' %>
 <!DOCTYPE html>
 <html lang="es">
 <head> 
@@ -20,35 +18,22 @@
 
   	<div class="row">
 	  	<div class="col-sm-4" style="margin:auto;">
-	  		  <h1 style="font-weight: bold; margin-button:100px;">Eliminar Pelicula</h1>
+	  		  <h1 style="font-weight: bold; margin-button:100px;">Modificar monto por día</h1>
 	  		  <br><br>
-			  <form  action="BajaPeliculas" method="POST" role=form>
-				  
-				  <div class="form-group">
-				  	<label>Lista de películas</label><br>
-				  	  <%
-				    DataPelicula dataP = new DataPelicula();	
-					ArrayList<Pelicula> p;
-					p = dataP.getAll();  
-					
-					%>
-				  <div class="form-group">
-				
-					<select name="titulo">
-                            <option>Lista de películas...
- 								<% for(Pelicula pel:p){%>
- 									
- 									<option value="<%= pel.getId() %>"><%= pel.getTitulo() %></option>
- 								<%
- 								    }
- 								%>     
-                    </select>
-				  </div><br><br>
-				 <button class="btn btn-dark btn-block" type=submit>Eliminar</button>
+			  <form  action="ModificacionAlquiler" method="POST" role=form>
+				  	<div class="form-group">
+                    <div class="form-group">
+				  		<label>Monto por día</label>
+				  	 	<input type="text" class="form-group" name="monto">
+				  	</div>
+				  	
+				  </div><br>
+				 <button class="btn btn-dark btn-block" type=submit>Registrar</button>
 			  </form> <br><br>
 			  <p>${mensaje}</p>
-			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>
-			  </div>
+			 <div class="form-group">
+			    <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>
+			 </div>
  	</div>
  </div>
  

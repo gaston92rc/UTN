@@ -148,7 +148,7 @@ public class DataPelicula {
 	
 	public boolean altaPelicula(Pelicula pelicula) {
 
-		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero,imagen,anio,pais,trailer,detalle) VALUES (?,?,?,?,?,?)";
+		String query="INSERT INTO peliculas (duracion,titulo,descripcion,id_genero,imagen,anio,pais,trailer,detalle) VALUES (?,?,?,?,?,?,?,?,?)";
 		PreparedStatement ps=null;
 		try {
 			
@@ -319,6 +319,35 @@ public class DataPelicula {
 		
 	}
 	
+	public String getPeliculaById(int id) {
+		
+		String query="SELECT titulo FROM peliculas WHERE id=?";
+		PreparedStatement ps=null;
+		try {
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs=ps.executeQuery();
+			Pelicula pelicula;
+			String titulo=null;
+			while(rs.next()) {
+				titulo=rs.getString("titulo");
+			}
+		 return titulo;
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(ps!=null) ps.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+						LOGGER.severe("Error "+e);		}
+		
+		}
+		return null;	
+	}
+
 	public int getByCantPeliculas() {
 		
 		Statement stmt=null;
@@ -434,11 +463,11 @@ public class DataPelicula {
 	
 	public boolean eliminarPelicula(Pelicula pelicula) {
 		PreparedStatement ps=null;
-		String query="DELETE FROM peliculas WHERE titulo=?";
+		String query="DELETE FROM peliculas WHERE id=?";
 		try {
 			int row=0;
 			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
-			ps.setString(1, pelicula.getTitulo());
+			ps.setInt(1, pelicula.getId());
 			
 			row=ps.executeUpdate();
 			if(row>0) {

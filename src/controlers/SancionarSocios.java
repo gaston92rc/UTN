@@ -44,15 +44,19 @@ public class SancionarSocios extends HttpServlet {
 		//doGet(request, response);
 		
 		String estado=request.getParameter("estado");
-		String usuario=request.getParameter("usuario");
-		
+		String IdUsuario=request.getParameter("usuario");
+		System.out.println("ES "+IdUsuario+" y "+estado);
+		String msj=null;
+		if(IdUsuario.equals("Lista de socios...")) {
+			msj="No se pudo actualizar estado";
+		}else {
 		DataSocio data=new DataSocio();
-		Socio socio=new Socio(usuario,estado);
+		Socio socio=new Socio(Integer.parseInt(IdUsuario),estado);
 		boolean valor = data.altaSancionados(socio);
 		
-		String msj=null;
+		
 
-		if(!valor){
+		if(valor){
 			
 			msj="Se actualizó estado correctamente"; 
 			
@@ -60,6 +64,7 @@ public class SancionarSocios extends HttpServlet {
 			msj="No se pudo actualizar estado"; 
 			LOGGER.severe(msj);
 		}
+	}
 		
 		request.setAttribute("mensaje", msj);
 	    request.getRequestDispatcher("/SancionarSocio.jsp").forward(request, response);	

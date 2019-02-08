@@ -33,7 +33,7 @@
 					%>
 				  <div class="form-group">
 				
-					<select>
+					<select name="usuario">
                             <option>Lista de socios...
  								<% for(Socio soc:s){
  								     
@@ -47,12 +47,7 @@
  								    }}
  								%>     
                     </select>
-				  </div>
-				  
-				  <div class="form-group">
-				  	<label>Usuario a eliminar</label>
-				  	 <input type="text" class="form-group" name="usuario">
-				  </div>
+				  </div><br><br>
 				 <button class="btn btn-dark btn-block" type=submit>Eliminar</button>
 			  </form> <br><br>
 			  <p>${mensaje}</p>

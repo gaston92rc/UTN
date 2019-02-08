@@ -258,13 +258,19 @@ public class DataSocio {
 
 	public boolean altaSancionados(Socio socio) {
 		PreparedStatement ps = null;
-		String query="SELECT 1 FROM socios WHERE id=?";
+		String query="SELECT estado FROM socios WHERE id=?";
 			try {
 				ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);
 				ps.setInt(1, socio.getIdSocio());
 				ResultSet rs = ps.executeQuery();
-				this.actualizarEstadoSocio(socio);
+				
+				if(rs!=null){
+					while(rs.next()){
+						this.actualizarEstadoSocio(socio);
+					}
+				}
 				return true;
+
 
 			} catch (Exception e) {
 				LOGGER.severe("Error "+e);
@@ -284,12 +290,12 @@ public class DataSocio {
 	public boolean actualizarEstadoSocio(Socio socio) {
 		
 		PreparedStatement ps=null;
-		String query="UPDATE socios SET estado=?";
+		String query="UPDATE socios SET estado=? WHERE id=?";
 		try {
 			int row=0;
 			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
 			ps.setString(1, socio.getEstado());
-		
+			ps.setInt(2, socio.getIdSocio());
 			
 			row=ps.executeUpdate();
 			if(row>0) {
@@ -351,11 +357,11 @@ public class DataSocio {
 	
 	public boolean eliminarSocio(Socio socio) {
 		PreparedStatement ps=null;
-		String query="DELETE FROM socios WHERE usuario=?";
+		String query="DELETE FROM socios WHERE id=?";
 		try {
 			int row=0;
 			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
-			ps.setString(1, socio.getUsername());
+			ps.setInt(1, socio.getIdSocio());
 			
 			row=ps.executeUpdate();
 			if(row>0) {

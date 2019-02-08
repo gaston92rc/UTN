@@ -165,7 +165,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="index.jsp">Inicio</a></li>
+							<li class="active"><a href="IndexSocio.jsp">Inicio</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Generos <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -181,7 +181,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 %>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="genres.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
+											<li><a href="ListaPeliculas.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
 										</ul>
 									</div>
 									<% }
@@ -190,7 +190,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</li>
 								</ul>
 							</li>
-							<li><a href="news.jsp">Nuevas</a></li>
+							<li><a href="ListaPeliculas.jsp">Nuevas</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pais <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -205,7 +205,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						 			%>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="genres.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
+												<li><a href="ListaPeliculas.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
 											</ul>
 										</div>
 										<% }
@@ -258,9 +258,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						
 						%>
 					</div>
-						<div class="video-grid-single-page-agileits">
-						<iframe width="560" height="315" src="<%= p.getTrailer()%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-						</div>
+						<h3><strong><%=p.getTitulo() %></strong></h3><br>
+							<div class="embed-responsive embed-responsive-16by9">
+ 								 <iframe class="embed-responsive-item" src="<%=p.getTrailer() %>" allowfullscreen></iframe>
+							</div>
+ 
 					</div>
 
 					<div class="all-comments">
@@ -310,12 +312,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
 			</div>
-	
-				
+					
 					</div>
 				</div>
 			</div>
-	
 	<div class="footer">
 		<div class="container">
 			<div class="w3ls_footer_grid">
@@ -341,19 +341,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-7 w3ls_footer_grid1_right">
 				<ul>
 					<li>
-						<a href="genres.jsp">Peliculas</a>
+						<a href="ListaPeliculas.jsp">Peliculas</a>
 					</li>
 					<li>
-						<a href="faq.jsp">FAQ</a>
+						<a href="ListaPeliculas.jsp">Horror</a>
 					</li>
 					<li>
-						<a href="horror.jsp">Horror</a>
+						<a href="ListaPeliculas.jsp">Aventura</a>
 					</li>
 					<li>
-						<a href="genres.jsp">Aventura</a>
-					</li>
-					<li>
-						<a href="comedy.jsp">Comedia</a>
+						<a href="ListaPeliculas.jsp">Comedia</a>
 					</li>
 					<li>
 						<a href="contact.jsp">Contacto</a>

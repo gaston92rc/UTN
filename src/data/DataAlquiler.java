@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,7 +61,6 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 		} catch (SQLException e) {
 			
 			LOGGER.severe("Error "+e);
-			return null;
 			
 		}finally {
 		try {
@@ -73,7 +73,7 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 		}
 		
 		}
-		
+		return null;
 	}
 
 	public ArrayList<Alquiler> getAll() throws Exception{
@@ -83,7 +83,7 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 		ArrayList<Alquiler> a= new ArrayList<Alquiler>();
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT * FROM alquileres a inner join socios s inner join peliculas p");
+			rs = stmt.executeQuery("SELECT * FROM alquileres a inner join socios s inner join peliculas p WHERE s.id=id_socio AND p.id=id_pelicula");
 			Pelicula pelicula=new Pelicula();
 			Socio s=new Socio();
 			if(rs!=null){
@@ -93,7 +93,98 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 					pelicula.setDuracion(rs.getString("duracion"));
 					pelicula.setTitulo(rs.getString("titulo"));
 					Genero genero = new Genero(rs.getInt("id_genero"));
-					genero.setDenominacion(rs.getString("denominacion"));
+					pelicula.setImagen(rs.getString("imagen"));
+					pelicula.setAnio(rs.getInt("anio"));
+					pelicula.setPais(rs.getString("pais"));
+					pelicula.setTrailer(rs.getString("trailer"));
+					pelicula.setDetalle(rs.getString("detalle"));
+					pelicula.setGenero(genero);
+					s.setIdSocio(rs.getInt("s.id"));
+					s.setNombre(rs.getString("s.nombre"));
+					s.setApellido(rs.getString("apellido"));
+					s.setUsername(rs.getString("usuario"));
+					s.setPassword(rs.getString("password"));
+					s.setEstado(rs.getString("estado"));
+					s.setMail(rs.getString("correo"));
+					s.setRol(rs.getString("rol"));
+					s.setSubscripcion(rs.getInt("subscripcion"));
+					Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
+					s.setTarjeta(tarjeta);
+					Alquiler alquiler=new Alquiler(rs.getInt("a.id"), rs.getDouble("importePorDia"), rs.getString("fechaAlquiler"), rs.getString("fechaDevolucion"), s, pelicula);			
+					
+					a.add(alquiler);    
+				}
+			}
+			System.out.println(a.size());
+
+			return a;
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(rs!=null) rs.close();
+			if(stmt!=null) stmt.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+		}
+		
+		}
+		return null;
+	}
+	
+	public boolean eliminarAlquiler(Alquiler alquiler) {
+		PreparedStatement ps=null;
+		String query="UPDATE alquileres SET fechaDevolucion=? WHERE id=?";
+		try {
+			int row=0;
+			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
+			ps.setString(1, alquiler.getFechaDevolucion());
+			ps.setInt(2, alquiler.getId());
+			
+			row=ps.executeUpdate();
+			if(row>0) {
+				   return true;
+								
+				}else {
+					return false;
+			}
+			
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(ps!=null) ps.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+						LOGGER.severe("Error "+e);		}
+		
+		}
+		return false;
+		
+	}
+	
+	public ArrayList<Alquiler> getAlquilerByFechaDevolucion() {
+		Statement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Alquiler> a= new ArrayList<Alquiler>();
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("SELECT * FROM alquileres a inner join socios s inner join peliculas p WHERE s.id=id_socio AND p.id=id_pelicula AND fechaDevolucion=''");
+			Pelicula pelicula=new Pelicula();
+			Socio s=new Socio();
+			if(rs!=null){
+				while(rs.next()){                 
+					pelicula=new Pelicula(rs.getInt("p.id"));
+					pelicula.setDescripcion(rs.getString("descripcion"));
+					pelicula.setDuracion(rs.getString("duracion"));
+					pelicula.setTitulo(rs.getString("titulo"));
+					Genero genero = new Genero(rs.getInt("id_genero"));
 					pelicula.setImagen(rs.getString("imagen"));
 					pelicula.setAnio(rs.getInt("anio"));
 					pelicula.setPais(rs.getString("pais"));
@@ -106,8 +197,8 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 					s.setUsername(rs.getString("usuario"));
 					s.setPassword(rs.getString("password"));
 					s.setEstado(rs.getString("estado"));
-					s.setUsername(rs.getString("correo"));
-					s.setUsername(rs.getString("rol"));
+					s.setMail(rs.getString("correo"));
+					s.setRol(rs.getString("rol"));
 					s.setSubscripcion(rs.getInt("subscripcion"));
 					Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
 					s.setTarjeta(tarjeta);
@@ -116,12 +207,10 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 					a.add(alquiler);    
 				}
 			}
-		 return a;
+		    return a;
 		} catch (SQLException e) {
 			
-			LOGGER.severe("Error "+e);
-			return null;
-			
+			LOGGER.severe("Error "+e);			
 		}finally {
 		try {
 			if(rs!=null) rs.close();
@@ -129,10 +218,78 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 			FactoryConnection.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			
-			LOGGER.severe("Error "+e);
-		}
+			LOGGER.severe("Error "+e);		}
 		
 		}
+		return null;
+
+	}
+	
+	public boolean actualizarAlquiler(Alquiler alquiler) {
+		
+		PreparedStatement ps=null;
+		String query="UPDATE alquileres SET importePorDia=?";
+		try {
+			int row=0;
+			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
+			ps.setDouble(1, alquiler.getImporte());
+			
+			row=ps.executeUpdate();
+			if(row>0) {
+				   return true;
+								
+				}else {
+					return false;
+			}
+			
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(ps!=null) ps.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			LOGGER.severe("Error "+e);		
+			}
+		
+		}
+		return true;
+		
+	}
+	
+	public boolean actualizarEstadoAlquiler(Alquiler alquiler) {
+		
+		PreparedStatement ps=null;
+		String query="UPDATE alquileres SET estado=? WHERE id=?";
+		try {
+			int row=0;
+			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
+			ps.setString(1, alquiler.getEstado());
+			ps.setInt(2, alquiler.getId());
+			row=ps.executeUpdate();
+			if(row>0) {
+				   return true;
+								
+				}else {
+					return false;
+			}
+			
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(ps!=null) ps.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			LOGGER.severe("Error "+e);		
+			}
+		
+		}
+		return true;
 		
 	}
 

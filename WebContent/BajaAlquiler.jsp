@@ -1,10 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language='java' contentType='text/html;charset=iso-8859-1'%>
 <%@ page import='java.util.*' %>
-<%@ page import='models.Genero' %>
-<%@ page import='models.Pelicula' %>
-<%@ page import='data.DataGenero' %>
-<%@ page import='data.DataPelicula' %>
+<%@ page import='models.Alquiler' %>
+<%@ page import='data.DataAlquiler' %>
 <!DOCTYPE html>
 <html lang="es">
 <head> 
@@ -20,31 +18,47 @@
 
   	<div class="row">
 	  	<div class="col-sm-4" style="margin:auto;">
-	  		  <h1 style="font-weight: bold; margin-button:100px;">Eliminar Pelicula</h1>
+	  		  <h1 style="font-weight: bold; margin-button:100px;">Registrar Devolución</h1>
 	  		  <br><br>
-			  <form  action="BajaPeliculas" method="POST" role=form>
+			  <form  action="BajaAlquiler" method="POST" role=form>
 				  
-				  <div class="form-group">
-				  	<label>Lista de películas</label><br>
+				<div class="form-group">
+				  	<label>Lista de Alquileres</label><br>
 				  	  <%
-				    DataPelicula dataP = new DataPelicula();	
-					ArrayList<Pelicula> p;
-					p = dataP.getAll();  
-					
+				  	DataAlquiler data = new DataAlquiler();	
+					ArrayList<Alquiler> a;
+					a = data.getAlquilerByFechaDevolucion();  
+					ArrayList<Alquiler> b=a;
 					%>
 				  <div class="form-group">
 				
 					<select name="titulo">
-                            <option>Lista de películas...
- 								<% for(Pelicula pel:p){%>
+ 								<% for(Alquiler alq:a){
  									
- 									<option value="<%= pel.getId() %>"><%= pel.getTitulo() %></option>
+ 								%>
+ 									
+ 									<option value="<%=alq.getId() %>"><%=alq.getPelicula().getTitulo()%></option>
+ 					
  								<%
- 								    }
+ 								   }
  								%>     
                     </select>
-				  </div><br><br>
-				 <button class="btn btn-dark btn-block" type=submit>Eliminar</button>
+                    <% for(Alquiler alq:b){%>
+                    <br><br>
+                    <div class="form-group">
+				  		<label>Socio:</label>
+				  		<strong><%=alq.getSocio().getUsername()%></strong>
+				  	</div>
+                    <% }%>
+ 					
+				  </div>
+                    <div class="form-group">
+				  		<label>Fecha devolución</label>
+				  	 	<input type="text" class="form-group" name="fechaDevolucion" placeholder="YYYY/mm/dd">
+				  	</div>
+				  	
+				  </div><br>
+				 <button class="btn btn-dark btn-block" type=submit>Registrar</button>
 			  </form> <br><br>
 			  <p>${mensaje}</p>
 			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>

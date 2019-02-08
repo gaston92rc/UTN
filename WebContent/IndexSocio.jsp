@@ -311,10 +311,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        %>
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-							<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">
-							<a href="single.jsp">
+							<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">					
 								<img src="<%= request.getContextPath()%>/images/<%= pel1.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
-							</a>
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
 									<h4><%= pel1.getTitulo() %></h4>						
@@ -322,6 +320,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="mid-2 agile_mid_2_home">
 									
 									<input type="hidden" name="titulo" value="<%= pel1.getTitulo() %>">
+									<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">
 									<div class="clearfix"></div>
 								</div>
 							</div>
@@ -329,6 +328,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<p>Nueva</p>
 							</div>
 							<br>
+							</form>
 						</div>
 					</div>
 					  <% }
@@ -349,17 +349,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        %>
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-							<a href="single.jsp" class="hvr-shutter-out-horizontal"><img src="<%= request.getContextPath()%>/images/<%= pel2.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
-							</a>
+						 <form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">					
+							<img src="<%= request.getContextPath()%>/images/<%= pel2.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
-									<h6><a href="single.jsp"><%= pel2.getTitulo() %></a></h6>							
+									<h6><%= pel2.getTitulo() %></h6>							
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 								   <input type="hidden" name="titulo" value="<%= pel2.getTitulo() %>">
+									<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">
 									<div class="clearfix"></div>
 								</div>
 							</div>
+							</form>
 						</div>
 					</div>
 					  <% }
@@ -380,18 +382,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        %>
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+						 <form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">									
 							<a href="single.jsp" class="hvr-shutter-out-horizontal"><img src="<%= request.getContextPath()%>/images/<%= pel3.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
 							</a>
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
-									<h6><a href="single.jsp"><%= pel3.getTitulo() %></a></h6>							
+									<h6><%= pel3.getTitulo() %></h6>							
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 							<input type="hidden" name="titulo" value="<%= pel3.getTitulo() %>">
-								
+							<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">	
 									<div class="clearfix"></div>
 								</div>
 							</div>
+							</form>
 						</div>
 					</div>
 					  <% }

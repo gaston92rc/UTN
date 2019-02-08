@@ -19,7 +19,7 @@
 
   	<div class="row">
 	  	<div class="col-sm-4" style="margin:auto;">
-	  		  <h1 style="font-weight: bold; margin-button:100px;">Sanción socio</h1>
+	  		  <h1 style="font-weight: bold; margin-button:100px;">Sancionar socio</h1>
 	  		   <hr>
 	  		  <br><br>
 			  <form  action="SancionarSocios" method="POST" role=form>
@@ -34,7 +34,7 @@
 					%>
 				  <div class="form-group">
 				
-					<select>
+					<select name="usuario">
                             <option>Lista de socios...
  								<% for(Socio soc:s){
  								     
@@ -48,15 +48,11 @@
  								    }}
  								%>     
                     </select>
-				  </div>			  
-				 <div class="form-group">
-				  	<label>Usuario</label>
-				  	 <input type="text" class="form-group" name="usuario">
-				  </div>
+				  </div>			 
 				  
 				<div class="form-group">
 				  	<label>Estado usuario</label><br>
-				  	 <input type="text" class="form-group" id="estado" name="estado" value="Sancionado">
+				  	 <input type="text" class="form-group" id="estado" name="estado" value="sancionado">
 				  </div>
 				 
 				 <button class="btn btn-dark btn-block" type=submit name="sancionar">Sancionar socio </button>

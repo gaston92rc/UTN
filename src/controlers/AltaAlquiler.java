@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import data.DataPelicula;
-import models.Genero;
-import models.Pelicula;
+import data.DataAlquiler;
+import models.Alquiler;
 
 /**
- * Servlet implementation class BajaPeliculas
+ * Servlet implementation class AltaAlquiler
  */
-@WebServlet({ "/BajaPeliculas", "/bajapeliculas", "/Bajapeliculas", "/bajaPeliculas" })
-public class BajaPeliculas extends HttpServlet {
+@WebServlet({ "/AltaAlquiler", "/altaalquiler", "/altaAlquiler", "/Altaalquiler" })
+public class AltaAlquiler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER=Logger.getLogger("BajaPeliculas");
-   
+	private final static Logger LOGGER = Logger.getLogger("AltaAlquiler");
+  
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BajaPeliculas() {
+    public AltaAlquiler() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,26 +42,27 @@ public class BajaPeliculas extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		String alquiler=request.getParameter("alquiler");
+		String estado=request.getParameter("estado");
 		
-		String titulo=request.getParameter("titulo");
 
-		DataPelicula dp=new DataPelicula();
-		Pelicula p=new Pelicula(Integer.parseInt(titulo));
-		
-		boolean b=dp.eliminarPelicula(p);		
-		String msj=null;
-
-		if(b){
-						
-			msj="Se eliminó película correctamente"; 
+			Alquiler a=new Alquiler();
+			a.setEstado(estado);
+			a.setId(Integer.parseInt(alquiler));
+			String msj=null;
+			DataAlquiler data= new DataAlquiler();
+			System.out.println("ME da "+a.getEstado()+" "+a.getEstado());
+			boolean valor=data.actualizarEstadoAlquiler(a);
 			
-		}else {
-			msj="No se pudo eliminar película"; 
-			LOGGER.warning(msj);
-		}
-		
-		request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/BajaPelicula.jsp").forward(request, response);	
-	}	
+			if(valor) {
+				msj="Se actualizó estado correctamente";
+			}else {
+				msj="No se pudo actualizar estado"; 
+				LOGGER.warning(msj);
+			}
+			request.setAttribute("mensaje", msj);
+		    request.getRequestDispatcher("/AltaAlquiler.jsp").forward(request, response);
+			}
+			
 
 }

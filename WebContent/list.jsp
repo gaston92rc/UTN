@@ -156,58 +156,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="submit" value="Ir">
 				</form>
 			</div>
-			<div class="w3l_sign_in_register">
-				<ul>
-					<li><a href="#" data-toggle="modal" data-target="#myModal">Loguin</a></li>
-				</ul>
-			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
 <!-- //header -->
 <!-- bootstrap-pop-up -->
-	<div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					Registro
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-				</div>
-				<section>
-					<div class="modal-body">
-						<div class="w3_login_module">
-							<div class="module form-module">
-							  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
-								<div class="tooltip">Click Me</div>
-							  </div>
-							  <div class="form">
-								<h3>Loguear tu cuenta</h3>
-								<form id="formulario" action="Login" method="post">
-								  <input type="text" name="Username" placeholder="Username" required="">
-								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="submit"  id="btn-login" value="Login">
-								  <div id="resp"></div>
-								</form>
-							  </div>
-							  <div class="form">
-								<h3>Crear una cuenta</h3>
-								<form action="Register" method="post">
-								  <input type="text" name="Username" placeholder="Username" required="">
-								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="email" name="Email" placeholder="Email" required="">
-								  <input type="text" name="Name" placeholder="Nombre" required="">
-								   <input type="text" name="LastName" placeholder="Apellido" required="">
-								  <input type="submit" value="Registro">
-								</form>
-							  </div>
-							  <div class="cta"><a href="#">He olvidado mi clave</a></div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-	</div>
+
 	<script>
 		$('.toggle').click(function(){
 		  // Switches the Icon

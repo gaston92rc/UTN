@@ -51,21 +51,20 @@ public class ABMCPelicula extends HttpServlet {
 		String imagen=request.getParameter("imagen");
 		String anio=request.getParameter("anio");
 		String pais=request.getParameter("pais");
-		String trailer=request.getParameter("detalle");
+		String trailer=request.getParameter("trailer");
 		String detalle=request.getParameter("detalle");
 		
 		String img=imagen.substring(42, imagen.length()); //57-76
-		
-		Genero gen=new Genero(Integer.parseInt(genero));
 		DataPelicula dp=new DataPelicula();
-		Pelicula pelicula=new Pelicula(titulo, descripcion, duracion, gen, img,Integer.parseInt(anio),detalle,trailer,pais);
-			
 		String msj=null;
+		System.out.println("ESte "+img);
 
-		if(!titulo.isEmpty() && !descripcion.isEmpty() && !duracion.isEmpty() && !genero.isEmpty() && dp.altaPelicula(pelicula)){
+		if(!genero.equals("Elegir...") && !titulo.isEmpty() && !descripcion.isEmpty() && !duracion.isEmpty()) {
 			
-			
-			msj="Se añadió película correctamente"; 
+			Genero gen=new Genero(Integer.parseInt(genero));		
+			Pelicula pelicula=new Pelicula(titulo, descripcion, duracion, gen, img,Integer.parseInt(anio),detalle,trailer,pais);
+			msj="Se añadió película correctamente";
+			dp.altaPelicula(pelicula);		
 			
 		}else {
 			msj="No se pudo añadir película"; 
@@ -73,7 +72,7 @@ public class ABMCPelicula extends HttpServlet {
 		}
 		
 		request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/ABMCPeliculas.jsp").forward(request, response);	
+	    request.getRequestDispatcher("/AltaPelicula.jsp").forward(request, response);	
 	}	
 
 }

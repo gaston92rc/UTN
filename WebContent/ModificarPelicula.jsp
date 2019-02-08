@@ -35,7 +35,7 @@
 					%>
 				  <div class="form-group">
 				
-					<select>
+					<select name="titulo">
                             <option>Lista de películas...
  								<% for(Pelicula pel:p){%>
  									
@@ -44,11 +44,6 @@
  								    }
  								%>     
                     </select>
-				  </div>
-				  
-				  <div class="form-group">
-				  	<label>Título de película a modificar</label>
-				  	 <input type="text" class="form-group" name="titulo">
 				  </div>
 	
 				  <%

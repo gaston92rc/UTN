@@ -1,10 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language='java' contentType='text/html;charset=iso-8859-1'%>
 <%@ page import='java.util.*' %>
-<%@ page import='models.Genero' %>
 <%@ page import='models.Pelicula' %>
-<%@ page import='data.DataGenero' %>
+<%@ page import='models.Alquiler' %>
 <%@ page import='data.DataPelicula' %>
+<%@ page import='data.DataAlquiler' %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head> 
@@ -12,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
-    <title>AMBC Peliculas Administrador</title>
+    <title>AMBC Alquileres Administrador</title>
 </head>
 <body>
   
@@ -20,34 +21,44 @@
 
   	<div class="row">
 	  	<div class="col-sm-4" style="margin:auto;">
-	  		  <h1 style="font-weight: bold; margin-button:100px;">Eliminar Pelicula</h1>
+	  		  <h1 style="font-weight: bold; margin-button:100px;">Alta estado Alquiler</h1>
+	  		   <hr>
 	  		  <br><br>
-			  <form  action="BajaPeliculas" method="POST" role=form>
-				  
-				  <div class="form-group">
-				  	<label>Lista de películas</label><br>
-				  	  <%
-				    DataPelicula dataP = new DataPelicula();	
-					ArrayList<Pelicula> p;
-					p = dataP.getAll();  
+			  <form  action="AltaAlquiler" method="POST" role=form>
+	
+				  <%
+				    DataAlquiler data = new DataAlquiler();	
+					ArrayList<Alquiler> a;
+					a = data.getAll();  
 					
 					%>
 				  <div class="form-group">
-				
-					<select name="titulo">
-                            <option>Lista de películas...
- 								<% for(Pelicula pel:p){%>
+				  	<label>Alquileres</label><br>
+				  			
+
+					<select name="alquiler">
+ 								<% for(Alquiler alq:a){
  									
- 									<option value="<%= pel.getId() %>"><%= pel.getTitulo() %></option>
+ 								%>
+ 									
+ 									<option value="<%=alq.getId() %>"><%=alq.getPelicula().getTitulo()%></option>
+ 					
  								<%
- 								    }
+ 								   }
  								%>     
-                    </select>
-				  </div><br><br>
-				 <button class="btn btn-dark btn-block" type=submit>Eliminar</button>
-			  </form> <br><br>
-			  <p>${mensaje}</p>
-			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>
+                    </select>  
+				  </div>
+				  <div class="form-group">
+				  	<label>Estado Alquiler</label><br>
+				  	 <input type="text" class="form-group" name="estado" required>
+				  </div>
+				 
+				 <button class="btn btn-dark btn-block" type=submit>Agregar</button>
+				 <br> <br>
+				 <p>${mensaje}</p>
+				  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>
+			  </div>
+			  </form>
 			  </div>
  	</div>
  </div>

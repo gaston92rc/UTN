@@ -59,7 +59,8 @@ public class ActualizarPeliculas extends HttpServlet {
 		
 		Genero g=new Genero(Integer.parseInt(genero));
 		DataPelicula dp=new DataPelicula();
-		Pelicula p=new Pelicula(titulo,descripcion,duracion,g,img,Integer.parseInt(anio),detalle,trailer, pais);
+		String t=dp.getPeliculaById(Integer.parseInt(titulo));
+		Pelicula p=new Pelicula(t,descripcion,duracion,g,img,Integer.parseInt(anio),detalle,trailer, pais);
 		
 		boolean b=dp.actualizarPelicula(p);		
 		String msj=null;
@@ -75,7 +76,7 @@ public class ActualizarPeliculas extends HttpServlet {
 		}
 		
 		request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/ABMCPeliculas.jsp").forward(request, response);	
+	    request.getRequestDispatcher("/ModificarPelicula.jsp").forward(request, response);	
 	}	
 
 

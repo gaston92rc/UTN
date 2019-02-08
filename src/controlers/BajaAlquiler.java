@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import data.DataPelicula;
-import models.Genero;
-import models.Pelicula;
+import data.DataAlquiler;
+import models.Alquiler;
 
 /**
- * Servlet implementation class BajaPeliculas
+ * Servlet implementation class BajaAlquiler
  */
-@WebServlet({ "/BajaPeliculas", "/bajapeliculas", "/Bajapeliculas", "/bajaPeliculas" })
-public class BajaPeliculas extends HttpServlet {
+@WebServlet({ "/BajaAlquiler", "/bajaalquiler", "/bajaAlquiler", "/Bajaalquiler" })
+public class BajaAlquiler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER=Logger.getLogger("BajaPeliculas");
-   
+	private static final Logger LOGGER=Logger.getLogger("BajaAlquiler");
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BajaPeliculas() {
+    public BajaAlquiler() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,26 +42,35 @@ public class BajaPeliculas extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		
 		String titulo=request.getParameter("titulo");
-
-		DataPelicula dp=new DataPelicula();
-		Pelicula p=new Pelicula(Integer.parseInt(titulo));
+		String fechaDevolucion=request.getParameter("fechaDevolucion");
+		DataAlquiler dp=new DataAlquiler();
+		System.out.println("fecha es "+fechaDevolucion);
 		
-		boolean b=dp.eliminarPelicula(p);		
+		if(!fechaDevolucion.equals("")) {
+		Alquiler a=new Alquiler(Integer.parseInt(titulo),fechaDevolucion);
+		boolean b=dp.eliminarAlquiler(a);	
 		String msj=null;
 
 		if(b){
 						
-			msj="Se eliminó película correctamente"; 
+			msj="Se agregó fecha de devolución"; 
+			request.setAttribute("mensaje", msj);
+		    request.getRequestDispatcher("BajaAlquiler.jsp").forward(request, response);
 			
-		}else {
-			msj="No se pudo eliminar película"; 
+		}else{
+			msj="No se pudo agregar fecha de devolución"; 
 			LOGGER.warning(msj);
+			request.setAttribute("mensaje", msj);
+		    request.getRequestDispatcher("BajaAlquiler.jsp").forward(request, response);
+		}}else {
+			String msj="No se pudo agregar fecha de devolución"; 
+			LOGGER.warning(msj);
+			request.setAttribute("mensaje", msj);
+		    request.getRequestDispatcher("BajaAlquiler.jsp").forward(request, response);
 		}
-		
-		request.setAttribute("mensaje", msj);
-	    request.getRequestDispatcher("/BajaPelicula.jsp").forward(request, response);	
-	}	
+			
+
+	}
 
 }

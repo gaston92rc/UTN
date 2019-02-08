@@ -51,7 +51,7 @@
 				  
 				  <div class="form-group">
 				  	<label>Estado usuario</label><br>
-				  	 <input type="text" class="form-group" id="estado" name="estado" value="Activo">
+				  	 <input type="text" class="form-group" id="estado" name="estado" value="activo">
 				  </div>
 				 
 				 <button class="btn btn-dark btn-block" type=submit name="sancionar">Alta</button>
