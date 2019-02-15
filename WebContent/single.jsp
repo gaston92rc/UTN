@@ -274,7 +274,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									    DataTarjeta data = new DataTarjeta();	
 										ArrayList<Tarjeta> t;
 										t = data.getAll();  
-										String username = request.getParameter("username");
+										String usuario = (String)request.getSession(false).getAttribute("socio");
 										%>
 									  <img src="images/tarjetas.jpg" style="width:30%; height: 30%; " alt=""><br><br>
 									  <div class="form-group">
@@ -294,16 +294,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					                 </div>	
 					                 <%
 					                 java.util.Date fecha=new java.util.Date();
-								        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM-dd-yyyy");
+								        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 								        String f = DATE_FORMAT.format(fecha);
 					                 
 					                 %>	
 					                 <br>
 					                 Fecha de Alquiler<br>           					   
-									<input type="text" disabled value="<%=f %>" name="fechaAlquiler"><br><br>
+									<input type="text" disabled value="<%=f %>"><br><br>
 									<p>Cantidad: 1</p> <br>
 									<input type="hidden" name="titulo" value="<%= titulo%>">
-									<input type="hidden" name="username" value="<%= username%>">﻿﻿
+									<input type="hidden" name="username" value="<%= usuario%>">﻿﻿
 									<input type="submit" value="Alquilar"><br>  
 									<div class="clearfix"> </div>
 								</form>

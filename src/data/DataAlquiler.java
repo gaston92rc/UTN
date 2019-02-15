@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,14 +18,14 @@ public class DataAlquiler {
 	
 private static final Logger LOGGER = Logger.getLogger("DataAlquiler"); 
 
-	public ArrayList<Alquiler> getAlquilerByIdSocio(int id) throws Exception{
+	public ArrayList<Alquiler> getAlquilerByUsuarioSocio(String usuario) throws Exception{
 		
 		Statement stmt=null;
 		ResultSet rs=null;
 		ArrayList<Alquiler> a= new ArrayList<Alquiler>();
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT * FROM alquileres a inner join socios s inner join peliculas p inner join generos g WHERE id_pelicula=p.id AND id_socio=s.id AND p.id_genero=g.id AND fechaDevolucion  IS NOT NULL");
+			rs = stmt.executeQuery("SELECT * FROM alquileres a inner join socios s inner join peliculas p inner join generos g WHERE id_pelicula=p.id AND id_socio=s.id AND p.id_genero=g.id AND fechaDevolucion  IS NULL AND usuario='"+usuario+"'");
 			Pelicula pelicula=new Pelicula();
 			Socio s=new Socio();
 			if(rs!=null){
@@ -52,7 +53,7 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 					s.setSubscripcion(rs.getInt("subscripcion"));
 					Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
 					s.setTarjeta(tarjeta);
-					Alquiler alquiler=new Alquiler(rs.getInt("a.id"), rs.getDouble("importePorDia"), rs.getString("fechaAlquiler"), rs.getString("fechaDevolucion"), s, pelicula);			
+					Alquiler alquiler=new Alquiler(rs.getInt("a.id"), rs.getDouble("importePorDia"), rs.getDate("fechaAlquiler"), rs.getDate("fechaDevolucion"), s, pelicula);			
 					
 					a.add(alquiler);    
 				}
@@ -110,7 +111,7 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 					s.setSubscripcion(rs.getInt("subscripcion"));
 					Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
 					s.setTarjeta(tarjeta);
-					Alquiler alquiler=new Alquiler(rs.getInt("a.id"), rs.getDouble("importePorDia"), rs.getString("fechaAlquiler"), rs.getString("fechaDevolucion"), s, pelicula);			
+					Alquiler alquiler=new Alquiler(rs.getInt("a.id"), rs.getDouble("importePorDia"), rs.getDate("fechaAlquiler"), rs.getDate("fechaDevolucion"), s, pelicula);			
 					
 					a.add(alquiler);    
 				}
@@ -138,12 +139,14 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 	
 	public boolean eliminarAlquiler(Alquiler alquiler) {
 		PreparedStatement ps=null;
-		String query="UPDATE alquileres SET fechaDevolucion=? WHERE id=?";
+		String estado="finalizado";
+		String query="UPDATE alquileres SET fechaDevolucion=?, estado=? WHERE id=?";
 		try {
 			int row=0;
 			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
-			ps.setString(1, alquiler.getFechaDevolucion());
-			ps.setInt(2, alquiler.getId());
+			ps.setDate(1, (Date) alquiler.getFechaDevolucion());
+			ps.setString(2,estado);
+			ps.setInt(3, alquiler.getId());
 			
 			row=ps.executeUpdate();
 			if(row>0) {
@@ -202,7 +205,7 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 					s.setSubscripcion(rs.getInt("subscripcion"));
 					Tarjeta tarjeta = new Tarjeta(rs.getInt("id_tarjeta"));
 					s.setTarjeta(tarjeta);
-					Alquiler alquiler=new Alquiler(rs.getInt("a.id"), rs.getDouble("importePorDia"), rs.getString("fechaAlquiler"), rs.getString("fechaDevolucion"), s, pelicula);			
+					Alquiler alquiler=new Alquiler(rs.getInt("a.id"), rs.getDouble("importePorDia"), rs.getDate("fechaAlquiler"), rs.getDate("fechaDevolucion"), s, pelicula);			
 					
 					a.add(alquiler);    
 				}
@@ -292,5 +295,42 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 		return true;
 		
 	}
+	
+	public boolean altaAlquiler(int idPelicula, int idSocio, String titulo, Date fechaAlquiler, String estado) {
+
+		String query="INSERT INTO alquileres (fechaAlquiler, id_socio, id_pelicula, estado) VALUES (?,?,?,?)";
+		PreparedStatement ps=null;
+		try {		
+			int row=0;	
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setDate(1, fechaAlquiler);
+			ps.setInt(2, idSocio);
+			ps.setInt(3,idPelicula);
+			ps.setString(4, estado);
+			row =ps.executeUpdate();
+			
+			if(row>0) {
+			   return true;
+							
+			}else {
+				return false;
+			}
+			
+		}catch(Exception e) {
+			LOGGER.severe("ERROR: "+e);
+			
+		}finally {
+			if (ps!= null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}		
+		}	
+		return false;
+		
+	}
+	
 
 }

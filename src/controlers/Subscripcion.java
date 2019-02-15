@@ -23,7 +23,7 @@ import models.Socio;
 /**
  * Servlet implementation class Subscripcion
  */
-@WebServlet({ "/Subscripcion", "/SUBSCRIPCION", "/sunscripcion" })
+@WebServlet({ "/Subscripcion", "/SUBSCRIPCION", "/subscripcion" })
 public class Subscripcion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER=Logger.getLogger("Subscripcion");
@@ -57,59 +57,57 @@ public class Subscripcion extends HttpServlet {
 			
 			if(!existe) {
 				
-			msj="Sucripción satisfactoria.";;
-				
+			 msj="Subscripción satisfactoria.";
+			 
+			}
 			
-			Socio socio=dataSocio.getSubscriptores(subscripcion);
+			Socio socio=dataSocio.getSocioByEmail(subscripcion);
 			socio.setSubscripcion(1);
-			dataSocio.addSubscripcion(socio);
-			
+			if(dataSocio.addSubscripcion(socio)){
+		
+			    String remitente = "cosmic.keys.emperor@gmail.com";  
+			    String clave = "Realmadrid13*";
+			    String cuerpo="Le llegarán novedades mensualmente.";
+			    String asunto="Subscripción";
+			    
+			    Properties props = System.getProperties();
+			    props.put("mail.smtp.host", "smtp.gmail.com"); 
+			    props.put("mail.smtp.user", remitente);
+			    props.put("mail.smtp.clave", clave);    
+			    props.put("mail.smtp.auth", "true");    
+			    props.put("mail.smtp.starttls.enable", "true"); 
+			    props.put("mail.smtp.port", "587"); 
+			    props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-			Properties props=new Properties();
-			props.setProperty("mail.smtp.host", "smtp.gmail.com");
-			props.setProperty("mail.smtp.starttls.enable", "true");
-			props.setProperty("mail.smtp.port", "587");
-			props.setProperty("mail.smtp.auth", "true");
-			
-			Session session=Session.getDefaultInstance(props);
-			
-			String correoRemitente="cosmic.keys.emperor@gmail.com";
-			String passwordRemitente="Realmadrid13*";
-			String correoReceptor=subscripcion;
-			String asuntoMensaje="Subcripción añadida correctamente";
-			String mensaje="Recibirá nuevas notificaciones periódicamente.\n\n Saludos.";
-			MimeMessage message=new MimeMessage(session);
-			message.setFrom(new InternetAddress(correoRemitente));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
-			message.setSubject(asuntoMensaje);
-			message.setText(mensaje);
-			Transport t=session.getTransport("smtp");
-			t.connect(correoRemitente,passwordRemitente);
-			t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-			t.close();
+			    Session session = Session.getDefaultInstance(props);
+			    MimeMessage message = new MimeMessage(session);
 
-			request.setAttribute("mensaje", msj);
-			request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);
+			    try {
+			        message.setFrom(new InternetAddress(remitente));
+			        message.addRecipients(Message.RecipientType.TO, subscripcion);  
+			        message.setSubject(asunto);
+			        message.setText(cuerpo);
+			        Transport transport = session.getTransport("smtp");
+			        transport.connect("smtp.gmail.com", remitente, clave);
+			        transport.sendMessage(message, message.getAllRecipients());
+			        transport.close();
+			        request.setAttribute("mensaje", msj);
+					request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);
+			    }
+			    catch (MessagingException e) {
+			    	LOGGER.severe("ERROR: "+e);   
+			    }
+			}else{
+				request.setAttribute("mensaje", msj);
+				request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);
+			}
 			
-		}else {
-			request.setAttribute("mensaje", msj);
-			request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);
-		}
-			
-			
-		}catch(AddressException e) {
+		}catch(Exception e) {
 			
 			LOGGER.severe("ERROR: "+e);
 			request.setAttribute("mensaje", msj);
 			request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);
 			
 		}
-		catch(MessagingException e) {
-			
-			LOGGER.severe("ERROR: "+e);
-			request.setAttribute("mensaje", msj);
-			request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);
-		}
-	}
-
+	}	
 }

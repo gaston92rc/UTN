@@ -1,10 +1,13 @@
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
+import models.Socio;
 import models.Tarjeta;
 
 public class DataTarjeta {
@@ -45,37 +48,35 @@ public ArrayList<Tarjeta> getAll() throws Exception{
 		
 	}
 
-	public Tarjeta getById(int id) throws Exception{
-		
-		Statement stmt=null;
+	public Tarjeta getById(int id) throws Exception{	
 		ResultSet rs=null;
-		Tarjeta tarjeta = null;
+		Tarjeta tarjeta = null;		
+		String query = "SELECT id FROM tarjetas WHERE id=?";
+		PreparedStatement ps = null;
 		try {
-			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT * FROM tarjetas WHERE id <> 1");
-			
-			if(rs!=null){
-				while(rs.next()){
-				   tarjeta=new Tarjeta(rs.getInt("id"), rs.getString("nombre"));					
+				ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);
+				ps.setInt(1,id);
+				rs = ps.executeQuery();				
+				if(rs!=null){
+					while(rs.next()){
+					  tarjeta=new Tarjeta(rs.getInt("id"));					
+					}
+				}
+			    return tarjeta;
+
+		} catch (Exception e) {
+				LOGGER.severe(""+e);
+		}finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+						LOGGER.severe("ERROR: " + e);
 				}
 			}
-		    return tarjeta;
-		} catch (SQLException e) {
-			
-			LOGGER.severe("Error "+e);
-			
-		}finally {
-		try {
-			if(rs!=null) rs.close();
-			if(stmt!=null) stmt.close();
-			FactoryConnection.getInstancia().releaseConn();
-		} catch (SQLException e) {
-			
-			LOGGER.severe("Error "+e);		}
-		
 		}
-		return null;
-
+			return null;
 	}
 
 }

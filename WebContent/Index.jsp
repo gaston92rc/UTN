@@ -161,6 +161,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								   <input type="text" name="LastName" placeholder="Apellido" required="">
 								  <input type="submit" value="Registro">
 								</form>
+								<% String usuario;
+								    usuario=request.getParameter("Username");%>
 							  </div>
 							</div>
 						</div>

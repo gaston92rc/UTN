@@ -208,7 +208,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    </tr>
 		    <tr>
 		      <th scope="row"></th>
-		      <td><a href="single.jsp"><img src="<%= request.getContextPath()%>/images/<%= p.getImagen() %>" alt=" "></a></td>
+		      <td>
+				<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">					
+		      		<img src="<%= request.getContextPath()%>/images/<%= p.getImagen() %>" alt=" "><br><br>
+		      		<input type="hidden" name="titulo" value="<%= p.getTitulo() %>">
+					<input type="submit" style="margin-left:55px;" class="btn btn-warning" name="titulo" value="Alquilar"><br>
+		      	</form>
+		      </td>
 		    </tr>
 		     <tr>
 		      <th scope="row"></th>

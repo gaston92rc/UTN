@@ -305,7 +305,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						
 										  <tr>
 											<td><%= i++%></td>
-											<td class="w3-list-img"><a href="single.jsp"><img src="<%= request.getContextPath()%>/images/<%= pel.getImagen() %>" alt="" /> <span><%=pel.getTitulo() %></span></a></td>
+											<td class="w3-list-img">
+											
+											<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">					
+												<img src="<%= request.getContextPath()%>/images/<%= pel.getImagen() %>" alt="" /> 
+												<br><span style="padding:0 30px;"><%=pel.getTitulo() %></span>
+		      									<input type="hidden" name="titulo" value="<%= pel.getTitulo() %>"><br><br>
+												<input type="submit" style="margin-left:55px;" class="btn btn-warning" name="titulo" value="Alquilar"><br>
+		      									<br>
+		      								</form>	
+		     								</td>
 											<td><%= pel.getAnio() %></td>
 											<td class="w3-list-info"><a href="ListaPeliculas.jsp"><%=pel.getPais() %></a></td>
 											<td class="w3-list-info"><a href="ListaPeliculas.jsp"><%= pel.getGenero().getDenominacion() %></a></td>

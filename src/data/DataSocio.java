@@ -32,7 +32,6 @@ public class DataSocio {
 				return "ok";
 			} catch (SQLException e) {
 				LOGGER.severe("ERROR: " + e);
-				return "fallo";
 			} finally {
 				if (ps != null)
 					try {
@@ -43,6 +42,7 @@ public class DataSocio {
 					}
 
 			}
+			
 		}
 		return "fallo";
 	}
@@ -61,7 +61,6 @@ public class DataSocio {
 
 		} catch (Exception e) {
 			LOGGER.severe(""+e);
-			return false;
 		}finally {
 			if(ps!=null) {
 				try {
@@ -72,34 +71,42 @@ public class DataSocio {
 				}
 			}
 		}
+		return false;
 	}
 	
 	
 	public boolean addSubscripcion(Socio socio) {
 
-		String query = "SELECT 1 FROM socios WHERE correo = ?";
-
-		PreparedStatement ps = null;
-
+		PreparedStatement ps=null;
+		String query="UPDATE socios SET subscripcion=? WHERE correo=?";
 		try {
-			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);
-			ps.setString(1, socio.getMail());
-			ResultSet rs = ps.executeQuery();
-			return rs.next();
-
-		} catch (Exception e) {
-			LOGGER.severe(""+e);
-			return false;
-		}finally {
-			if(ps!=null) {
-				try {
-					ps.close();
-					FactoryConnection.getInstancia().releaseConn();
-				} catch (SQLException e) {
-					LOGGER.severe("ERROR: " + e);
-				}
+			int row=0;
+			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
+			ps.setInt(1, socio.getSubscripcion());
+			ps.setString(2, socio.getMail());
+			
+			row=ps.executeUpdate();
+			if(row>0) {
+				   return true;
+								
+				}else {
+					return false;
 			}
+			
+		} catch (SQLException e) {
+			
+			LOGGER.severe("Error "+e);
+			
+		}finally {
+		try {
+			if(ps!=null) ps.close();
+			FactoryConnection.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			LOGGER.severe("Error "+e);		
+			}
+		
 		}
+		return true;	
 	}
 	
 	public String login(Socio socio) {
@@ -168,7 +175,7 @@ public class DataSocio {
 		}catch(Exception e){
 			
 			LOGGER.severe("ERROR: "+e);	
-			return null;
+
 		}finally {
 			if (ps != null)
 				try {
@@ -177,7 +184,8 @@ public class DataSocio {
 				} catch (SQLException e) {
 					LOGGER.severe("ERROR: " + e);
 				}		
-		}	
+		}
+		return null;
 	}
 	
 	public Socio getSocioByNombreUsuario(String nombreUsuario){
@@ -198,7 +206,7 @@ public class DataSocio {
 		}catch(Exception e){
 			
 			LOGGER.severe("ERROR: "+e);	
-			return null;
+		
 		}finally {
 			if (ps != null)
 				try {
@@ -207,7 +215,39 @@ public class DataSocio {
 				} catch (SQLException e) {
 					LOGGER.severe("ERROR: " + e);
 				}		
-		}	
+		}
+		return null;
+	}
+	
+	public Socio getSocioByEmail(String correo){
+		
+		String query="SELECT correo FROM socios WHERE correo=?";
+		PreparedStatement ps=null;
+		try {
+			
+			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
+			ps.setString(1, correo );
+			ResultSet rs=ps.executeQuery();
+			Socio s=new Socio(0);
+			while(rs.next()) {
+				s.setMail(rs.getString("correo"));
+			}
+			return s;
+			
+		}catch(Exception e){
+			
+			LOGGER.severe("ERROR: "+e);	
+		
+		}finally {
+			if (ps != null)
+				try {
+					ps.close();
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					LOGGER.severe("ERROR: " + e);
+				}		
+		}
+		return null;
 	}
 	
 	public ArrayList<Socio> getSancionado(){
@@ -389,7 +429,7 @@ public class DataSocio {
 	
 	public boolean existeSubscripcion(String correo) {
 		PreparedStatement ps = null;
-		String query="SELECT * FROM socios WHERE correo=?";
+		String query="SELECT * FROM socios WHERE correo=? AND subscripcion='1'";
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
 			ps.setString(1, correo);

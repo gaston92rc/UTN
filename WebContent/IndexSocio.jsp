@@ -112,19 +112,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<form action="Busqueda" method="post">
 					<input type="text" name="buscar" placeholder="Buscar" required="">
 					<input type="submit" value="Ir"><br><br>
-				<% 
+				<%   
 					if((request.getSession(false).getAttribute("socio")== null) )
-						{
+						{ 
 						%>
 						<jsp:forward page="Index.jsp"></jsp:forward>
 						<%}else if(request.getAttribute("nombreUsuario")!=null){ %>
-						<div class="alert alert-success alert-dismissible">
+						<div class="alert alert-success alert-dismissible" id="mensaje">
     						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    						Bienvenido <strong><%=request.getAttribute("nombreUsuario") %></strong>.
+    						Bienvenido <strong><%=request.getAttribute("nombreUsuario")%></strong>.
     					</div>	
     						
     					<%}%>
+    					<script>
+						setTimeout("document.getElementById('mensaje').style.display='none';", 3000);	
+					</script>
 				</form>
+				
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
@@ -315,10 +319,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<img src="<%= request.getContextPath()%>/images/<%= pel1.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
-									<h4><%= pel1.getTitulo() %></h4>						
+									<h4><%= pel1.getTitulo() %></h4>
 								</div>
 								<div class="mid-2 agile_mid_2_home">
-									
 									<input type="hidden" name="titulo" value="<%= pel1.getTitulo() %>">
 									<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">
 									<div class="clearfix"></div>

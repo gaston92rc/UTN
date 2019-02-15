@@ -1,16 +1,18 @@
 package models;
 
+import java.util.Date;
+
 public class Alquiler {
 	
 	private int id;	
 	private double importePorDia;
-	private String fechaAlquiler;
-	private String fechaDevolucion;
+	private Date fechaAlquiler;
+	private Date fechaDevolucion;
 	private Socio socio;
 	private Pelicula pelicula;
 	private String estado;	
 	
-	public Alquiler(int id, double importePorDia, String fechaAlquiler, String fechaDevolucion, Socio socio, Pelicula pelicula) {
+	public Alquiler(int id, double importePorDia, Date fechaAlquiler, Date fechaDevolucion, Socio socio, Pelicula pelicula) {
 		
 		this.id = id;
 		this.importePorDia = importePorDia;
@@ -20,7 +22,7 @@ public class Alquiler {
 		this.socio = socio;
 	}
 	
-	public Alquiler(int id, String fechaDevolucion) {
+	public Alquiler(int id, Date fechaDevolucion) {
 		
 		this.id = id;
 		this.fechaDevolucion=fechaDevolucion;
@@ -47,16 +49,16 @@ public class Alquiler {
 	public void setImporte(double importePorDia) {
 		this.importePorDia = importePorDia;
 	}
-	public String getFechaAlquiler() {
+	public Date getFechaAlquiler() {
 		return fechaAlquiler;
 	}
-	public void setFechaAlquiler(String fechaAlquiler) {
+	public void setFechaAlquiler(Date fechaAlquiler) {
 		this.fechaAlquiler = fechaAlquiler;
 	}
-	public String getFechaDevolucion() {
+	public Date getFechaDevolucion() {
 		return fechaDevolucion;
 	}
-	public void setFechaDevolucion(String fechaDevolucion) {
+	public void setFechaDevolucion(Date fechaDevolucion) {
 		this.fechaDevolucion = fechaDevolucion;
 	}
 

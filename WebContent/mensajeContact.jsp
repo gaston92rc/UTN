@@ -179,7 +179,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<br><br>
 	<script>
-	  		setTimeout("window.history.go(-2)",2000);
+	  		setTimeout("window.history.go(-1)",2000);
 	</script>
 <!-- //Latest-tv-series -->
 <!-- footer -->

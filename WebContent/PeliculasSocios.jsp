@@ -28,7 +28,7 @@
 			DataSocio ds=new DataSocio();
 			Socio socio=ds.getSocioByNombreUsuario((String)request.getAttribute("nombreUsuario"));
 			DataAlquiler da=new DataAlquiler();
-			a=da.getAlquilerByIdSocio(socio.getIdSocio());
+			a=da.getAlquilerByUsuarioSocio((String)request.getSession(false).getAttribute("socio"));
 		%>
   
   <div class="container" style="padding-top:20px; padding-bottom:20px;">
@@ -54,7 +54,6 @@
 			    	    <th>Género</th>
 			    	    <th>Fecha alquiler</th>
 			    	    <th>Importe por día</th>
-			    	    <th>Eliminar</th>
 			    	  </tr>
 			    	</thead>
 			        <tbody>
@@ -67,9 +66,6 @@
 			    	    <td><%= alq.getPelicula().getGenero().getDenominacion()%></td>
 			    	    <td><%= alq.getFechaAlquiler()%></td>
 			    	    <td>$<%= alq.getImporte()%></td>   
-			    	    <td>
-			    	    	<button type="button" class="close" aria-label="Close"><span aria-hidden="true" style="color:red;">&times;</span></button>
-						</td>
 			    	  </tr>
 	   			      <% }
 	   			      %>

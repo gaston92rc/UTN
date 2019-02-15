@@ -52,53 +52,46 @@ public class Contact extends HttpServlet {
 		String msjError="No se pudo enviar el mensaje";
 
 		try {
-			String name=request.getParameter("nombre");
-			String lastName=request.getParameter("apellido");
-		    String email=request.getParameter("correo");
-			String subject=request.getParameter("asunto");
-			String messageUser=request.getParameter("mensaje");
+		String name=request.getParameter("nombre");
+		String lastName=request.getParameter("apellido");
+		String email=request.getParameter("correo");
+		String subject=request.getParameter("asunto");
+		String messageUser=request.getParameter("mensaje");
+		String remitente = "cosmic.keys.emperor@gmail.com";  
+		String clave = "Realmadrid13*";    
+		
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", "smtp.gmail.com"); 
+		props.put("mail.smtp.user", remitente);
+		props.put("mail.smtp.clave", clave);    
+		props.put("mail.smtp.auth", "true");    
+		props.put("mail.smtp.starttls.enable", "true"); 
+		props.put("mail.smtp.port", "587"); 
+	    Session session = Session.getDefaultInstance(props);
+	    MimeMessage message = new MimeMessage(session);
 
-			Properties props=new Properties();
-			props.setProperty("mail.smtp.host", "smtp.gmail.com");
-			props.setProperty("mail.smtp.starttls.enable", "true");
-			props.setProperty("mail.smtp.port", "587");
-			props.setProperty("mail.smtp.auth", "true");
+			    try {
+			        message.setFrom(new InternetAddress(remitente));
+			        message.addRecipients(Message.RecipientType.TO, remitente);  
+			        message.setSubject(subject);
+			        message.setText(messageUser+"\n\n\n"+name+", "+lastName+": "+email);
+			        Transport transport = session.getTransport("smtp");
+			        transport.connect("smtp.gmail.com", remitente, clave);
+			        transport.sendMessage(message, message.getAllRecipients());
+			        transport.close();
+			        request.setAttribute("mensaje", msj);
+					request.getRequestDispatcher("/mensajeContact.jsp").forward(request, response);
+			    	}
+			    		catch (MessagingException e) {
+			    		LOGGER.severe("ERROR: "+e);   
+			    	}
 			
-			Session session=Session.getDefaultInstance(props);
+		}catch(Exception e) {
 			
-			String correoRemitente="cosmic.keys.emperor@gmail.com";
-			String passwordRemitente="Realmadrid13*";
-			String correoReceptor=email;
-			String asuntoMensaje=subject;
-			String mensaje=messageUser;
-			MimeMessage message=new MimeMessage(session);
-			message.setFrom(new InternetAddress(correoRemitente));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
-			message.setSubject(asuntoMensaje);
-			message.setText(mensaje);
-			Transport t=session.getTransport("smtp");
-			t.connect(correoRemitente,passwordRemitente);
-			t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-			t.close();
-
+			LOGGER.severe("ERROR: "+e);
 			request.setAttribute("mensaje", msj);
 			request.getRequestDispatcher("/mensajeContact.jsp").forward(request, response);
 			
-			
-			
-		}catch(AddressException e) {
-			
-			LOGGER.severe("ERROR: "+e);
-			request.setAttribute("mensaje", msjError);
-			request.getRequestDispatcher("/mensajeContact.jsp").forward(request, response);
-			
 		}
-		catch(MessagingException e) {
-			
-			LOGGER.severe("ERROR: "+e);
-			request.setAttribute("mensaje", msjError);
-			request.getRequestDispatcher("/mensajeContact.jsp").forward(request, response);
-		}
-	}
-
+	}	
 }

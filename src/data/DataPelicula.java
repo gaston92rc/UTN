@@ -20,7 +20,7 @@ public class DataPelicula {
 
 	public ArrayList<Pelicula> getByQuery(String busqueda){
 		
-		String query="SELECT * FROM peliculas WHERE (titulo LIKE ? OR descripcion LIKE ?)";
+		String query="SELECT * FROM peliculas WHERE (titulo LIKE ? OR descripcion LIKE ?) AND detalle <> 'principal'";
 		PreparedStatement ps=null;
 		try {
 			
@@ -196,7 +196,7 @@ public class DataPelicula {
 		ArrayList<Pelicula> p= new ArrayList<Pelicula>();
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, anio, pais, trailer, detalle FROM peliculas p inner join generos g ON id_genero = g.id");
+			rs = stmt.executeQuery("SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, anio, pais, trailer, detalle FROM peliculas p inner join generos g ON id_genero = g.id AND detalle<>'principal'");
 			
 			if(rs!=null){
 				while(rs.next()){
@@ -236,7 +236,7 @@ public class DataPelicula {
 	
 	public ArrayList<Pelicula> getByInicial(String inicial) throws Exception{
 		
-		String query="SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, pais, trailer, anio, detalle FROM peliculas p inner join generos g ON (id_genero = g.id AND titulo LIKE ?)";
+		String query="SELECT  p.id, titulo, duracion, descripcion, id_genero, denominacion, imagen, pais, trailer, anio, detalle FROM peliculas p inner join generos g ON (id_genero = g.id AND titulo LIKE ?) AND detalle <> 'principal'";
 		PreparedStatement ps=null;
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);

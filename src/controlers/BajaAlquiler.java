@@ -1,6 +1,7 @@
 package controlers;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -48,7 +49,7 @@ public class BajaAlquiler extends HttpServlet {
 		System.out.println("fecha es "+fechaDevolucion);
 		
 		if(!fechaDevolucion.equals("")) {
-		Alquiler a=new Alquiler(Integer.parseInt(titulo),fechaDevolucion);
+		Alquiler a=new Alquiler(Integer.parseInt(titulo),Date.valueOf(fechaDevolucion));
 		boolean b=dp.eliminarAlquiler(a);	
 		String msj=null;
 

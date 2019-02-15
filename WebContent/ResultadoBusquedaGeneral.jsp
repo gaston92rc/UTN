@@ -186,21 +186,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //nav -->
 <!-- banner -->
+
 	<% 
 		String busqueda=request.getParameter("buscar");	
 		ArrayList<Pelicula> lista=null;
 		DataPelicula dp=new DataPelicula();
 		lista=dp.getByQuery(busqueda);
 		int i=1;
+	%>
+ <%
 	if(lista.size()!=0){
 		for(Pelicula p: lista){	
  %>
   		<br><br>
+ 
 		<table class="table table-striped">
 		  <tbody>
 		  	<tr>
 		  		<th scope="row"></th>
-		  		<p style="padding:0 20px;"> Resultados: <%=lista.size()%></p>
 		  	</tr>
 		  	<tr>
 		      <th scope="row"><%=i++%></th>
@@ -208,7 +211,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    </tr>
 		    <tr>
 		      <th scope="row"></th>
-		      <td><a href="single.jsp"><img src="<%= request.getContextPath()%>/images/<%= p.getImagen() %>" alt=" "></a></td>
+		      <td>
+				<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">					
+		      		<img src="<%= request.getContextPath()%>/images/<%= p.getImagen() %>" alt=" "><br><br>
+		      		<input type="hidden" name="titulo" value="<%= p.getTitulo() %>">
+					<input type="submit" style="margin-left:55px;" class="btn btn-warning" name="titulo" value="Alquilar">
+		      	</form>		      
+		      	<br><br>
+		      	</td>
 		    </tr>
 		     <tr>
 		      <th scope="row"></th>
