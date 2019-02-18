@@ -308,7 +308,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<img src="<%= request.getContextPath()%>/images/<%= pel1.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
-									<h4><%= pel1.getTitulo() %></h4>						
+									<h4><%= pel1.getTitulo() %></h4>	
+									<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">						
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 									
@@ -349,6 +350,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 								<input type="hidden" name="titulo" value="<%= pel2.getTitulo() %>">
+								<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">		
 									<div class="clearfix"></div>
 								</div>
 							</div>
@@ -381,6 +383,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 									<input type="hidden" name="titulo" value="<%= pel3.getTitulo() %>">
+									<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">
 									<div class="clearfix"></div>
 								</div>
 							</div>
