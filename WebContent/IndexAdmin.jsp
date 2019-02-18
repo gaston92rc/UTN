@@ -109,7 +109,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a href="IndexAdmin.jsp"><h1>One<span>Movies</span></h1></a>
 			</div>
 			<div class="w3_search">
-				<form action="Busqueda" method="post">
+				<form action="BusquedaAdmin" method="post">
 					<input type="text" name="buscar" placeholder="Buscar" required="">
 					<input type="submit" value="Ir"><br><br>
 					<% 
@@ -225,7 +225,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 %>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="ListaPeliculas.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
+											<li><a href="ListaPeliculasAdmin.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
 										</ul>
 									</div>
 									<% }
@@ -234,7 +234,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</li>
 								</ul>
 							</li>
-							<li><a href="ListaPeliculas.jsp">Nuevas</a></li>
+							<li><a href="ListaPeliculasAdmin.jsp">Nuevas</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pais <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -249,7 +249,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						 			%>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="ListaPeliculas.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
+												<li><a href="ListaPeliculasAdmin.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
 											</ul>
 										</div>
 										<% }
@@ -258,7 +258,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</li>
 								</ul>
 							</li>
-							<li><a href="list.jsp">Lista A - z</a></li>
+							<li><a href="listAdmin.jsp">Lista A - z</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -436,11 +436,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<p class="fexi_header_para"><span>Fecha<label>:</label></span> <%=pel4.getAnio() %> </p>
 									<p class="fexi_header_para">
 									<span>Genero<label>:&nbsp;&nbsp;&nbsp; <%=   pel4.getGenero().getDenominacion().substring(0,1).toUpperCase() +  pel4.getGenero().getDenominacion().substring(1) %></label> </span>
-										<a href="ListaPeliculas.jsp"></a> <br> 							
+										<a href="ListaPeliculasAdmin.jsp"></a> <br> 							
 									</p>
 									<p class="fexi_header_para">
 									<span>Pais<label>:&nbsp;&nbsp;&nbsp; <%=   pel4.getPais().substring(0,1).toUpperCase() +  pel4.getPais().substring(1) %></label> </span>
-										<a href="ListaPeliculas.jsp"></a> <br><br><br> 							
+										<a href="ListaPeliculasAdmin.jsp"></a> <br><br><br> 							
 									</p>
 										
 								</div>								
@@ -514,19 +514,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-7 w3ls_footer_grid1_right">
 				<ul>
 					<li>
-						<a href="ListaPeliculas.jsp">Peliculas</a>
+						<a href="ListaPeliculasAdmin.jsp">Peliculas</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Horror</a>
+						<a href="ListaPeliculasAdmin.jsp">Horror</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Aventura</a>
+						<a href="ListaPeliculasAdmin.jsp">Aventura</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Comedia</a>
+						<a href="ListaPeliculasAdmin.jsp">Comedia</a>
 					</li>
 					<li>
-						<a href="ListaPeliculas.jsp">Contacto</a>
+						<a href="ListaPeliculasAdmin.jsp">Contacto</a>
 					</li>
 				</ul>
 			</div>

@@ -88,10 +88,10 @@
 				    	  <a href="ConsultarAlquiler.jsp" class="btn btn-info" role="button" name="consultar">Consulta</a>
 			    	  </td>
 			    	  </tr>
-			        </tbody>
-			        			   <a style="text-decoration:none; font-hegiht:10px; text-align:center;" href="IndexAdmin.jsp" class="glyphicon"> Volver</a>
-			        
+			        </tbody>			        
 			    </table>
+			    			        			   <a style="text-decoration:none; font-hegiht:10px; text-align:center;" href="IndexAdmin.jsp" class="glyphicon"> Volver</a>
+			    
 			  </div>
 			</div>
  </div>

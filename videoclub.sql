@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 08-02-2019 a las 19:25:54
--- Versión del servidor: 5.7.23
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 15-02-2019 a las 21:19:54
+-- Versión del servidor: 5.7.24
+-- Versión de PHP: 7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,24 +31,29 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `alquileres`;
 CREATE TABLE IF NOT EXISTS `alquileres` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `importePorDia` double NOT NULL,
-  `fechaAlquiler` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
-  `fechaDevolucion` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
+  `importePorDia` double NOT NULL DEFAULT '1000',
+  `fechaAlquiler` date DEFAULT NULL,
+  `fechaDevolucion` date DEFAULT NULL,
   `id_socio` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
   `estado` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_socio` (`id_socio`),
   KEY `id_pelicula` (`id_pelicula`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `alquileres`
 --
 
 INSERT INTO `alquileres` (`id`, `importePorDia`, `fechaAlquiler`, `fechaDevolucion`, `id_socio`, `id_pelicula`, `estado`) VALUES
-(3, 1000, '2012/01/02', '', 1, 1, ''),
-(4, 1000, '', '', 1, 4, '');
+(3, 1000, NULL, NULL, 1, 1, ''),
+(4, 1000, NULL, NULL, 1, 4, 'ewrew'),
+(6, 1000, '2019-02-15', NULL, 1, 21, 'activo'),
+(7, 1000, '2019-02-15', NULL, 1, 2, 'activo'),
+(8, 1000, '2019-02-15', NULL, 1, 2, 'activo'),
+(9, 1000, '2019-02-15', NULL, 1, 15, 'activo'),
+(10, 1000, '2019-02-15', NULL, 1, 5, 'activo');
 
 -- --------------------------------------------------------
 
@@ -108,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `peliculas` (
   `detalle` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_genero` (`id_genero`)
-) ENGINE=MyISAM AUTO_INCREMENT=671 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=676 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `peliculas`
@@ -126,14 +131,14 @@ INSERT INTO `peliculas` (`id`, `duracion`, `titulo`, `descripcion`, `id_genero`,
 (10, '100 minutos', 'Light B/t Oceans', 'Un farero y su esposa que viven en la costa de Australia Occidental crían a un bebé que rescatan de un bote de remos a la deriva.\r\n', 6, 'm7.jpg', 2018, 'USA', 'https://www.youtube.com/embed/g3uULkvZh1w', 'reciente'),
 (11, '122 minutos', 'Central Intelligence', 'Un agente de la CIA que solía sufrir acoso escolar se reencuentra con sus compañeros en una reunión de antiguos alumnos, aunque ahora él es musculoso y fuerte. ', 3, 'm9.jpg', 2014, 'USA', 'https://www.youtube.com/embed/MxEw3elSJ8M', 'popular'),
 (12, '130 minutos', 'Don\'t Think Twice', 'Un grupo de humoristas de improvisación de Nueva York se soprende cuando uno de sus miembros anuncia que protagonizará un programa de televisión. Los demás comediantes tienen miedo de nunca alcanzar el éxito.', 10, 'm10.jpg', 1998, 'USA', 'https://www.youtube.com/embed/9RFTpObS95U', 'valorada'),
-(13, '85 minutos', 'Pedro', 'Pedro pasa su vida atormentado después de haber negado la existencia de Cristo, él enfrenta la ejecución a manos de Nerón y está decidido a no desfallecer de nuevo.', 16, 'm17.jpg', 1990, 'España', 'https://www.youtube.com/embed/-V9KUpPprTk', ''),
-(14, '89 minutos', 'God’s Compass', 'En la noche en que Suzanne Waters celebra su retiro, se enfrenta a una serie de crisis que no podría haber imaginado.', 16, 'm15.jpg', 1998, 'USA', 'https://www.youtube.com/embed/qLtD4orE2r4', ''),
+(13, '85 minutos', 'Pedro', 'Pedro pasa su vida atormentado después de haber negado la existencia de Cristo, él enfrenta la ejecución a manos de Nerón y está decidido a no desfallecer de nuevo.', 16, 'm17.jpg', 1990, 'España', 'https://www.youtube.com/embed/-V9KUpPprTk', 'valorada'),
+(14, '89 minutos', 'God’s Compass', 'En la noche en que Suzanne Waters celebra su retiro, se enfrenta a una serie de crisis que no podría haber imaginado.', 16, 'm15.jpg', 2018, 'USA', 'https://www.youtube.com/embed/qLtD4orE2r4', 'reciente'),
 (15, '80 minutos', 'Bad Moms', 'Parece que la vida de Amy es perfecta en todos los sentidos. Madre ejemplar, con un gran marido y unos hijos maravillosos. Sin embargo, harta de tantas responsabilidades, decide explorar el lado salvaje de la vida, y arrastra en su aventura a otras dos mamás saturadas de todo.', 10, 'm2.jpg', 2003, 'USA', 'https://www.youtube.com/embed/iKCw-kqo3cs', 'destacado'),
 (16, '150 minutos', 'Rezort', 'Despúes de dominar a los zombis, los humanos los envían a un resort de lujo. Será muy divertido hasta que falle el sistema de seguridad.', 5, 'm16.jpg', 2014, 'China', 'https://www.youtube.com/embed/Hdos6JaXcBo', 'popular'),
 (17, '100 minutos', 'Jason Bourne', 'Han pasado 10 años desde que Jason Bourne desapareciera, pero ahora deberá luchar contra una organización que utiliza la tecnología para sembrar el terror. ', 5, 'm5.jpg', 2014, 'Italia', 'https://www.youtube.com/embed/v71ce1Dqqns', 'popular'),
 (18, '156 minutos', 'ISRA 88', 'Un científico y un piloto voluntario viajan en una misión de alto peligro para alcanzar el fin del universo. Después de 13 años, la nave se estrella hasta el final del universo y lo desconocido.', 12, 'm18.jpg', 2014, 'Francia', 'https://www.youtube.com/embed/u4prn8EXG3k', 'popular'),
 (19, '146 minutos', 'War Dogs', 'Con la guerra en Irak en toda su furia, un joven ofrece a su amigo de la infancia la oportunidad de ganar mucho dinero al convertirse en un vendedor internacional de armas.', 16, 'm1.jpg', 2018, 'USA', 'https://www.youtube.com/embed/Rwh9c_E3dJk', 'reciente'),
-(20, '80 miunutos', 'The Other Side', 'Hace 20 años, Vesna se mudó con su familia a Zagreb, lejos de los eventos que casi destruyeron sus vidas. Sin embargo, una llamada inesperada le devolverá el recuerdo de un viejo secreto.', 11, 'm14.jpg', 2010, 'USA', 'https://www.youtube.com/embed/YErbLF5Q09o', ''),
+(20, '80 miunutos', 'The Other Side', 'Hace 20 años, Vesna se mudó con su familia a Zagreb, lejos de los eventos que casi destruyeron sus vidas. Sin embargo, una llamada inesperada le devolverá el recuerdo de un viejo secreto.', 11, 'm14.jpg', 2010, 'USA', 'https://www.youtube.com/embed/YErbLF5Q09o', 'destacado'),
 (21, '97 minutos', 'Civil War', 'Después de que otro incidente internacional, en el que se ven envueltos los Vengadores, produzca daños colaterales, la presión política obliga a poner en marcha un sistema para depurar responsabilidades.', 13, 'm19.jpg', 2018, 'USA', 'https://www.youtube.com/embed/FkTybqcX-Yo', 'reciente'),
 (22, '133 minutos', 'The Secret Life of Pets', 'Max es un terrier malcriado que disfruta de una vida cómoda en un edificio de Nueva York hasta que su dueño adopta a Duke, un perro gigante y rebelde.', 14, 'm20.jpg', 1996, 'USA', 'https://www.youtube.com/embed/UZ4WBlveGfw', 'valorada'),
 (23, '110 minutos', 'The Jungle Book', 'Después de ser rescatado por la pantera Bagheera en la selva, una manada de lobos cría al recién nacido Mowgli. La vida feliz y apacible de Mowgli junto a su familia adoptiva se rompe en mil pedazos cuando llega el peligroso tigre Shere Khan.', 14, 'm21.jpg', 2005, 'USA', 'https://www.youtube.com/embed/HcgJRQWxKnw', 'valorada'),
@@ -141,7 +146,11 @@ INSERT INTO `peliculas` (`id`, `duracion`, `titulo`, `descripcion`, `id_genero`,
 (25, '130 minutos', 'Dead Island 2', 'La historia continúa después de que los sobrevivientes escapan de la isla de Banoi y llegan a la isla de Palanai, en donde la infección se expandió.', 1, 'm23.jpg', 2011, 'Inglaterra', 'https://www.youtube.com/embed/AWFaj4IQ4ro', 'popular'),
 (26, '87 minutos', 'Ice Age', 'Manny el mamut comienza a preocuparse cuando su hija Morita anuncia su compromiso y Sid, el perezoso se voluntariza para planificar la boda. ', 9, '6.jpg', 2013, 'Inglaterra', 'https://www.youtube.com/embed/Ohq6NmKMja8', 'principal'),
 (27, '150 minutos', 'X - Man', 'El profesor Xavier lidera a Wolverine y otros superhéroes contra Magneto, un mutante que dominará a la humanidad.', 1, '7.jpg', 2009, 'USA', 'https://www.youtube.com/embed/N0io2w_6vT8', 'principal'),
-(670, 'eduardo', 'nestor', 'eduardo', 1, '7.jpg', 1990, 'eduardo', 'eduardo', 'eduardo');
+(671, '120 minutos', 'Tarzan', 'Tarzán regresa al Congo engañado, pensando que va a servir de emisario; sin saber que en realidad es un peón del malévolo plan que ha trazado un capitán belga que pretende entregar a Tarzán a cambio de diamantes.', 9, 'm3.jpg', 2006, 'Inglaterra', 'https://www.youtube.com/embed/Aj7ty6sViiU', 'destacado'),
+(672, '90 minutos', 'El Conjuro', 'Supuesto hecho paranormal, real, basado en la pareja Warren.', 5, 'conjuro.jpg', 2016, 'USA', 'https://www.youtube.com/embed/chAT_cFcQk0?controls=0', 'popular'),
+(673, '90 minutos', 'El Conjuro', 'Supuesto hecho real basado en la pareja Warren.', 5, '7.jpg', 2016, 'USA', 'https://www.youtube.com/embed/chAT_cFcQk0?controls=0', 'principal'),
+(674, '87 minutos', 'Ice Age', 'Manny el mamut comienza a preocuparse cuando su hija Morita anuncia su compromiso y Sid, el perezoso se voluntariza para planificar la boda. ', 9, 'hielo.jpg', 2013, 'Inglaterra', 'https://www.youtube.com/embed/Ohq6NmKMja8', 'popular'),
+(675, '90 minutos', 'Maximum Ride', 'Seis niños, genéticamente modificados con ADN aviar, vuelan alrededor del país para descubrir sus orígenes.', 19, 'maximum.jpg', 2000, 'USA', 'https://www.youtube.com/embed/lhQiwVi3jdo', 'popular');
 
 -- --------------------------------------------------------
 
@@ -157,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `socios` (
   `usuario` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `estado` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `correo` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `correo` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `rol` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `id_tarjeta` int(100) NOT NULL,
   `subscripcion` tinyint(1) NOT NULL,
@@ -170,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `socios` (
 --
 
 INSERT INTO `socios` (`id`, `nombre`, `apellido`, `usuario`, `password`, `estado`, `correo`, `rol`, `id_tarjeta`, `subscripcion`) VALUES
-(1, 'nestor', 'amichetti', 'nestorami', '1234', 'activo', 'nestor@gmail.com', 'socio', 2, 1),
+(1, 'nestor', 'amichetti', 'nestorami', '1234', 'sancionado', 'your.name.be.gloriana@gmail.com', 'socio', 2, 1),
 (2, 'Juan', 'Perez', 'juan1234', '1234', 'activo', 'jperez@gmail.com', 'admin', 1, 0),
 (5, 'Pedro', 'Pepe', 'pepe1234', '1234', 'activo', 'sadas@gmail.com', 'socio', 4, 0);
 

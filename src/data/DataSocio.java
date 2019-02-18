@@ -114,7 +114,8 @@ public class DataSocio {
 		String usuario = null;
 		String clave = null;
 		String rol = null;
-		String query="SELECT usuario, password, rol FROM socios WHERE usuario=? AND password=? AND estado='activo' LIMIT 1";
+		String estado=null;
+		String query="SELECT usuario, password, rol, estado FROM socios WHERE usuario=? AND password=?";
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
 			ps.setString(1, socio.getUsername());
@@ -124,14 +125,16 @@ public class DataSocio {
 				usuario=rs.getString("usuario");
 				clave=rs.getString("password");	
 				rol=rs.getString("rol");	
-			
-			System.out.println("ES "+usuario+clave+rol);
+				estado=rs.getString("estado");
+			System.out.println("ESte es "+usuario+clave+rol+ estado);
 			if(usuario.equalsIgnoreCase(socio.getUsername()) && clave.equals(socio.getPassword()) && rol.equalsIgnoreCase("admin"))
 				return "admin";
-			else if (usuario.equalsIgnoreCase(socio.getUsername()) && clave.equals(socio.getPassword()) && rol.equalsIgnoreCase("socio")){
+			else if (usuario.equalsIgnoreCase(socio.getUsername()) && clave.equals(socio.getPassword()) && rol.equalsIgnoreCase("socio") && estado.equalsIgnoreCase("activo")){
 				return "socio";
+			}else if (usuario.equalsIgnoreCase(socio.getUsername()) && clave.equals(socio.getPassword()) && rol.equalsIgnoreCase("socio") && estado.equalsIgnoreCase("sancionado")){
+				return "Socio sancionado";
 			}
-			}
+		  }
 		} catch (Exception e) {
 			LOGGER.severe("ERROR: " + e.getMessage());
 		} finally {
