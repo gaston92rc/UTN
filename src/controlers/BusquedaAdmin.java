@@ -17,7 +17,7 @@ import models.Pelicula;
 /**
  * Servlet implementation class Busqueda
  */
-@WebServlet({ "/Busqueda", "/BUSQUEDA", "/busqueda" })
+@WebServlet({ "/BusquedaAdmin", "/BUSQUEDAADMIN", "/busquedaadmin" })
 public class BusquedaAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
