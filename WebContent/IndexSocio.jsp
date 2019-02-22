@@ -132,7 +132,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
-					<li><a href="PeliculasSocios.jsp" name="AdminPeliculas">Mis pel�culas</a></li><a href="<%=request.getContextPath()%>/SalirController">Salir</a><br><br>
+					<li><a href="PeliculasSocios.jsp" name="AdminPeliculas">Mis peliculas</a></li><a href="<%=request.getContextPath()%>/SalirController">Salir</a><br><br>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -519,9 +519,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-6 w3ls_footer_grid_left">
 					<div class="w3ls_footer_grid_left1">
 						<h2>Subscribirse</h2>
+						<% String usuario=(String)request.getSession(false).getAttribute("socio"); %>
 						<div class="w3ls_footer_grid_left1_pos">
 							<form action="Subscripcion" method="post">
 								<input type="email" name="subscripcion" placeholder="Tu email..." required="">
+								<input type="hidden" name="username" value="<%=usuario %>">﻿﻿
 								<input type="submit" value="Enviar">
 							</form>
 						</div>

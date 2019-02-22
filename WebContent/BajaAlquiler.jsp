@@ -28,28 +28,23 @@
 				  	DataAlquiler data = new DataAlquiler();	
 					ArrayList<Alquiler> a;
 					a = data.getAlquilerByFechaDevolucion();  
-					ArrayList<Alquiler> b=a;
+					ArrayList<Alquiler> b=a;	
 					%>
 				  <div class="form-group">
 				
 					<select name="titulo">
+							<option>
  								<% for(Alquiler alq:a){
  									
  								%>
  									
  									<option value="<%=alq.getId() %>"><%=alq.getPelicula().getTitulo()%></option>
- 					
+ 									
  								<%
  								   }
  								%>     
                     </select>
-                    <% for(Alquiler alq:b){%>
-                    <br><br>
-                    <div class="form-group">
-				  		<label>Socio:</label>
-				  		<strong><%=alq.getSocio().getUsername()%></strong>
-				  	</div>
-                    <% }%>
+                  
  					
 				  </div>
                     <div class="form-group">

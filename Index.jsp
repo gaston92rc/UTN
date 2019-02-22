@@ -1,12 +1,12 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language='java' contentType='text/html;charset=iso-8859-1'%>
 <%@ page import='java.util.*' %>
 <%@ page import='models.Genero' %>
-<%@ page import='models.Tarjeta' %>
 <%@ page import='models.Pelicula' %>
 <%@ page import='data.DataGenero' %>
 <%@ page import='data.DataPelicula' %>
-<%@ page import='data.DataTarjeta' %>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -54,6 +54,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 
 	}); 
 </script> 
+
+<script>
+	$(document).ready(function() { 
+		$("#owl-demo1").owlCarousel({
+	 
+		  autoPlay: 3000, //Set AutoPlay to 3 seconds
+	 
+		  items : 5,
+		  itemsDesktop : [640,4],
+		  itemsDesktopSmall : [414,3]
+	 
+		});
+	 
+	}); 
+</script>
+
+<script>
+	$(document).ready(function() { 
+		$("#owl-demo2").owlCarousel({
+	 
+		  autoPlay: 3000, //Set AutoPlay to 3 seconds
+	 
+		  items : 5,
+		  itemsDesktop : [640,4],
+		  itemsDesktopSmall : [414,3]
+	 
+		});
+	 
+	}); 
+</script>
+
 <!-- //banner-bottom-plugin -->
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
@@ -75,30 +106,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="index.html"><h1>One<span>Movies</span></h1></a>
+				<a href="Index.jsp"><h1>One<span>Movies</span></h1></a>
 			</div>
 			<div class="w3_search">
 				<form action="Busqueda" method="post">
 					<input type="text" name="buscar" placeholder="Buscar" required="">
 					<input type="submit" value="Ir"><br><br>
-					<% 
-					if((request.getSession(false).getAttribute("socio")== null) )
-						{
-						%>
-						<jsp:forward page="Index.jsp"></jsp:forward>
-						<%}else if(request.getAttribute("nombreUsuario")!=null){ %>
-						<div class="alert alert-success alert-dismissible">
-    						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    						Bienvenido <strong><%=request.getAttribute("nombreUsuario") %></strong>.
-    					</div>	
-    						
-    					<%}%>
+					<span id="mensaje" style="color:red; display:block"><%=(request.getAttribute("error") == null) ? "" : request.getAttribute("error")%></span>
+					<script>
+						setTimeout("document.getElementById('mensaje').style.display='none';", 3000);	
+					</script>
 				</form>
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
-					<li><a href="PeliculasSocios.jsp" name="AdminPeliculas">Mis películas</a></li><a href="<%=request.getContextPath()%>/SalirController">Salir</a><br><br>
-									
+					<li><a href="#" data-toggle="modal" data-target="#myModal">Loguin</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -106,8 +128,50 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //header -->
 <!-- bootstrap-pop-up -->
-
-	
+	<div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					Registro
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+				</div>
+				<section>
+					<div class="modal-body">
+						<div class="w3_login_module">
+							<div class="module form-module">
+							  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+								<div class="tooltip">Click Me</div>
+							  </div>
+							  <div class="form">
+								<h3>Loguear tu cuenta</h3>
+								<form id="formulario" action="Login" method="post">
+								  <input type="text" name="Username" placeholder="Username" required="">
+								  <input type="password" name="Password" placeholder="Password" required="">
+								  <input type="submit"  id="btn-login" value="Login">
+								  <div id="resp"></div>
+								</form>
+							  </div>
+							  <div class="form">
+								<h3>Crear una cuenta</h3>
+								<form action="Register" method="post">
+								  <input type="text" name="Username" placeholder="Username" required="">
+								  <input type="password" name="Password" placeholder="Password" required="">
+								  <input type="email" name="Email" placeholder="Email" required="">
+								  <input type="text" name="Name" placeholder="Nombre" required="">
+								   <input type="text" name="LastName" placeholder="Apellido" required="">
+								  <input type="submit" value="Registro">
+								</form>
+								<% String usuario;
+								    usuario=request.getParameter("Username");%>
+							  </div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+    
 	<script>
 		$('.toggle').click(function(){
 		  // Switches the Icon
@@ -123,7 +187,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 <!-- //bootstrap-pop-up -->
 <!-- nav -->
-<div class="movies_nav">
+	<div class="movies_nav">
 		<div class="container">
 			<nav class="navbar navbar-default">
 				<div class="navbar-header navbar-left">
@@ -138,7 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="index.jsp">Inicio</a></li>
+							<li class="active"><a href="Index.jsp">Inicio</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Generos <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -154,7 +218,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 %>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="genres.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
+											<li><a href="ListaPeliculas.jsp"><%=gen.getDenominacion().substring(0,1).toUpperCase() +  gen.getDenominacion().substring(1) %></a></li>
 										</ul>
 									</div>
 									<% }
@@ -163,7 +227,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</li>
 								</ul>
 							</li>
-							<li><a href="news.jsp">Nuevas</a></li>
+							<li><a href="ListaPeliculas.jsp">Nuevas</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pais <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
@@ -178,7 +242,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						 			%>
 										<div class="col-sm-4">
 											<ul class="multi-column-dropdown">
-												<li><a href="genres.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
+												<li><a href="ListaPeliculas.jsp"> <%=   pel0.getPais().substring(0,1).toUpperCase() +   pel0.getPais().substring(1) %></a></li>
 											</ul>
 										</div>
 										<% }
@@ -197,7 +261,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //nav -->
 <!-- banner -->
-   <div id="slidey" style="display:none;">
+	<div id="slidey" style="display:none;">
 		<ul>
 		
 		 <% 
@@ -241,12 +305,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
 							<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">
-							<a href="genres.jsp">
 								<img src="<%= request.getContextPath()%>/images/<%= pel1.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
-							</a>
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
-									<h4><%= pel1.getTitulo() %></h4>						
+									<h4><%= pel1.getTitulo() %></h4>	
+									<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">						
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 									
@@ -258,6 +321,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<p>Nueva</p>
 							</div>
 							<br>
+							</form>
 						</div>
 					</div>
 					  <% }
@@ -278,16 +342,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        %>
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-							<a href="single.jsp" class="hvr-shutter-out-horizontal"><img src="<%= request.getContextPath()%>/images/<%= pel2.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
-							</a>
+						<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">
+							<img src="<%= request.getContextPath()%>/images/<%= pel2.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
 									<h6><a href="single.jsp"><%= pel2.getTitulo() %></a></h6>							
 								</div>
 								<div class="mid-2 agile_mid_2_home">
+								<input type="hidden" name="titulo" value="<%= pel2.getTitulo() %>">
+								<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">		
 									<div class="clearfix"></div>
 								</div>
 							</div>
+							</form>
 						</div>
 					</div>
 					  <% }
@@ -308,16 +375,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        %>
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-							<a href="single.jsp" class="hvr-shutter-out-horizontal"><img src="<%= request.getContextPath()%>/images/<%= pel3.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
-							</a>
+						<form action="single.jsp" method="GET" class="hvr-shutter-out-horizontal">
+							<img src="<%= request.getContextPath()%>/images/<%= pel3.getImagen() %>" title="album-name" class="img-responsive" alt=" " />
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
 									<h6><a href="single.jsp"><%= pel3.getTitulo() %></a></h6>							
 								</div>
 								<div class="mid-2 agile_mid_2_home">
+									<input type="hidden" name="titulo" value="<%= pel3.getTitulo() %>">
+									<input type="submit" class="btn btn-warning" name="titulo" value="Alquilar">
 									<div class="clearfix"></div>
 								</div>
 							</div>
+							</form>
 						</div>
 					</div>
 					  <% }
@@ -338,6 +408,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</ul>
   </nav>
 </div>
+
 <!-- Latest-tv-series -->
 	<div class="Latest-tv-series">
 		<h4 class="latest-text w3_latest_text w3_home_popular">Proximas peliculas</h4>
@@ -370,11 +441,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<p class="fexi_header_para"><span>Fecha<label>:</label></span> <%=pel4.getAnio() %> </p>
 									<p class="fexi_header_para">
 									<span>Genero<label>:&nbsp;&nbsp;&nbsp; <%=   pel4.getGenero().getDenominacion().substring(0,1).toUpperCase() +  pel4.getGenero().getDenominacion().substring(1) %></label> </span>
-										<a href="genres.jsp"></a> <br> 							
+										<a href="ListaPeliculas.jsp"></a> <br> 							
 									</p>
 									<p class="fexi_header_para">
 									<span>Pais<label>:&nbsp;&nbsp;&nbsp; <%=   pel4.getPais().substring(0,1).toUpperCase() +  pel4.getPais().substring(1) %></label> </span>
-										<a href="genres.jsp"></a> <br><br><br> 							
+										<a href="ListaPeliculas.jsp"></a> <br><br><br> 							
 									</p>
 										
 								</div>								
@@ -435,18 +506,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="w3ls_footer_grid">
 				<div class="col-md-6 w3ls_footer_grid_left">
-					<div class="w3ls_footer_grid_left1">
-						<h2>Subscribirse</h2>
-						<div class="w3ls_footer_grid_left1_pos">
-							<form action="Subscripcion" method="post">
-								<input type="email" name="subscripcion" placeholder="Tu email..." required="">
-								<input type="submit" value="Enviar">
-							</form>
-						</div>
-					</div>
+					
 				</div>
 				<div class="col-md-6 w3ls_footer_grid_right">
-					<a href="index.jsp"><h2>One<span>Movies</span></h2></a>
+					<a href="Index.jsp"><h2>One<span>Movies</span></h2></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -456,19 +519,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-7 w3ls_footer_grid1_right">
 				<ul>
 					<li>
-						<a href="genres.jsp">Peliculas</a>
+						<a href="ListaPeliculas.jsp">Peliculas</a>
 					</li>
 					<li>
-						<a href="faq.jsp">FAQ</a>
+						<a href="ListaPeliculas.jsp">Horror</a>
 					</li>
 					<li>
-						<a href="horror.jsp">Horror</a>
+						<a href="ListaPeliculas.jsp">Aventura</a>
 					</li>
 					<li>
-						<a href="genres.jsp">Aventura</a>
-					</li>
-					<li>
-						<a href="comedy.jsp">Comedia</a>
+						<a href="ListaPeliculas.jsp">Comedia</a>
 					</li>
 					<li>
 						<a href="contact.jsp">Contacto</a>

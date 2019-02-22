@@ -178,7 +178,7 @@ private static final Logger LOGGER = Logger.getLogger("DataAlquiler");
 		ArrayList<Alquiler> a= new ArrayList<Alquiler>();
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("SELECT * FROM alquileres a inner join socios s inner join peliculas p WHERE s.id=id_socio AND p.id=id_pelicula AND fechaDevolucion=''");
+			rs = stmt.executeQuery("SELECT * FROM alquileres a inner join socios s inner join peliculas p WHERE s.id=id_socio AND p.id=id_pelicula AND fechaDevolucion IS NULL");
 			Pelicula pelicula=new Pelicula();
 			Socio s=new Socio();
 			if(rs!=null){

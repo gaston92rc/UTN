@@ -53,7 +53,7 @@ public class Register extends HttpServlet {
 		String usuario=request.getParameter("Username");
 	    String password=request.getParameter("Password");
 	    Tarjeta tarjeta = new Tarjeta();
-	    tarjeta.setIdTarjeta(1);
+	    tarjeta.setIdTarjeta(6);// sin tarjeta aún, el 1 es para el admin.
 	    
 	    Socio socio=new Socio(usuario.toLowerCase(), password, apellido, nombre, "activo", correo,"socio",tarjeta, 0);
 	    

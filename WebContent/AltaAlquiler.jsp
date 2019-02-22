@@ -50,7 +50,7 @@
 				  </div>
 				  <div class="form-group">
 				  	<label>Estado Alquiler</label><br>
-				  	 <input type="text" class="form-group" name="estado" required>
+				  	 <input type="text" class="form-group" name="estado" required value="activo">
 				  </div>
 				 
 				 <button class="btn btn-dark btn-block" type=submit>Agregar</button>

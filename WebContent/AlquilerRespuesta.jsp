@@ -181,7 +181,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //Latest-tv-series -->
 <!-- footer -->
 	<script>
-		setTimeout("window.history.go(-1)",3000);
+		setTimeout("window.history.go(-2)",3000);
 	</script>	
 	<div class="footer">
 		<div class="container">

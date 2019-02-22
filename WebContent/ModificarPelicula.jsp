@@ -102,11 +102,13 @@
 				  
 				   <div class="form-group">
 				  	<label>Detalle Película</label><br>
-				  	 <input type="text" class="form-group" name="detalle">
-				  	 <p>Principal/popular/"sin detalle"</p>
-				  </div>
+				  	 <input type="text" class="form-group" name="detalle"><br>
+						<font size="2" color="red">Principal/ destacado/ reciente/ popular/ valorada</font>				 
+					 </div>
 				  
 				 <button class="btn btn-dark btn-block" type=submit>Actualizar</button>
+				 <br> <br>
+				 <p>${mensaje}</p>
 			  </form> <br>
 			  <a style="text-decoration:none; font-hegiht:10px;" href="ABMCPeliculaSocio.jsp" class="glyphicon"> Volver</a>
 			  </div>

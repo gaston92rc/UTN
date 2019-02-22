@@ -48,20 +48,21 @@ public class Subscripcion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-		String msj="Error al subscribirse.\n\nEl correo ingresado ya está en uso.";
+		String msj=null;
+		String usuario = request.getParameter("username");
+		String subscripcion=request.getParameter("subscripcion");
+		DataSocio dataSocio=new DataSocio();
+		boolean existe=dataSocio.existeSubscripcion(usuario);
+		System.out.println("ES "+ usuario+" está subscripto "+existe );
 
 		try {
-			String subscripcion=request.getParameter("subscripcion");
-			DataSocio dataSocio=new DataSocio();
-			boolean existe=dataSocio.existeSubscripcion(subscripcion);
-			
 			if(!existe) {
 				
 			 msj="Subscripción satisfactoria.";
 			 
-			}
 			
-			Socio socio=dataSocio.getSocioByEmail(subscripcion);
+			
+			Socio socio=dataSocio.getSocioByNombreUsuario(usuario);
 			socio.setSubscripcion(1);
 			if(dataSocio.addSubscripcion(socio)){
 		
@@ -97,13 +98,15 @@ public class Subscripcion extends HttpServlet {
 			    catch (MessagingException e) {
 			    	LOGGER.severe("ERROR: "+e);   
 			    }
+			}
 			}else{
+				msj="Ya está subscripto.";
 				request.setAttribute("mensaje", msj);
 				request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);
 			}
 			
 		}catch(Exception e) {
-			
+			msj="Ya está subscripto.";
 			LOGGER.severe("ERROR: "+e);
 			request.setAttribute("mensaje", msj);
 			request.getRequestDispatcher("/mensajeSubscripcion.jsp").forward(request, response);

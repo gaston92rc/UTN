@@ -78,12 +78,12 @@ public class DataSocio {
 	public boolean addSubscripcion(Socio socio) {
 
 		PreparedStatement ps=null;
-		String query="UPDATE socios SET subscripcion=? WHERE correo=?";
+		String query="UPDATE socios SET subscripcion=? WHERE id=?";
 		try {
 			int row=0;
 			ps = FactoryConnection.getInstancia().getConn().prepareStatement(query);	
 			ps.setInt(1, socio.getSubscripcion());
-			ps.setString(2, socio.getMail());
+			ps.setInt(2, socio.getIdSocio());
 			
 			row=ps.executeUpdate();
 			if(row>0) {
@@ -430,17 +430,19 @@ public class DataSocio {
 		return false;
 	}
 	
-	public boolean existeSubscripcion(String correo) {
+	public boolean existeSubscripcion(String usuario) {
 		PreparedStatement ps = null;
-		String query="SELECT * FROM socios WHERE correo=? AND subscripcion='1'";
+		String query="SELECT * FROM socios WHERE usuario=? AND subscripcion='1'";
 		try {
 			ps=FactoryConnection.getInstancia().getConn().prepareStatement(query);
-			ps.setString(1, correo);
+			ps.setString(1, usuario);
 			boolean existe=false;
 			ResultSet rs=ps.executeQuery();
 			while(rs.next() && rs!=null) {			
 				existe=true;
 			}
+			System.out.println("está subscripto "+existe );
+
 			return existe;
 				
 		} catch (SQLException e) {

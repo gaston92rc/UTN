@@ -118,13 +118,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						%>
 						<jsp:forward page="Index.jsp"></jsp:forward>
 						<%}else if(request.getAttribute("nombreUsuario")!=null){ %>
-						<div class="alert alert-success alert-dismissible">
+						<div class="alert alert-success alert-dismissible" id="mensaje">
     						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     						Bienvenido <strong><%=request.getAttribute("nombreUsuario") %></strong>.
     					</div>	
     						
     					<%}%>
 				</form>
+				<script>
+						setTimeout("document.getElementById('mensaje').style.display='none';", 3000);	
+				</script>
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
