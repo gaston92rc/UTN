@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-02-2019 a las 21:19:54
+-- Tiempo de generación: 22-02-2019 a las 21:08:04
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.14
 
@@ -40,20 +40,19 @@ CREATE TABLE IF NOT EXISTS `alquileres` (
   PRIMARY KEY (`id`),
   KEY `id_socio` (`id_socio`),
   KEY `id_pelicula` (`id_pelicula`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `alquileres`
 --
 
 INSERT INTO `alquileres` (`id`, `importePorDia`, `fechaAlquiler`, `fechaDevolucion`, `id_socio`, `id_pelicula`, `estado`) VALUES
-(3, 1000, NULL, NULL, 1, 1, ''),
-(4, 1000, NULL, NULL, 1, 4, 'ewrew'),
-(6, 1000, '2019-02-15', NULL, 1, 21, 'activo'),
+(6, 1000, '2019-02-15', '2002-08-12', 1, 21, 'finalizado'),
 (7, 1000, '2019-02-15', NULL, 1, 2, 'activo'),
 (8, 1000, '2019-02-15', NULL, 1, 2, 'activo'),
-(9, 1000, '2019-02-15', NULL, 1, 15, 'activo'),
-(10, 1000, '2019-02-15', NULL, 1, 5, 'activo');
+(9, 1000, '2019-02-15', '2002-12-31', 1, 15, 'finalizado'),
+(10, 1000, '2019-02-15', NULL, 1, 5, 'activo'),
+(11, 1000, '2019-02-18', '2019-02-06', 1, 21, 'finalizado');
 
 -- --------------------------------------------------------
 
@@ -113,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `peliculas` (
   `detalle` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_genero` (`id_genero`)
-) ENGINE=MyISAM AUTO_INCREMENT=676 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=677 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `peliculas`
@@ -172,14 +171,14 @@ CREATE TABLE IF NOT EXISTS `socios` (
   `subscripcion` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_tarjeta` (`id_tarjeta`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `socios`
 --
 
 INSERT INTO `socios` (`id`, `nombre`, `apellido`, `usuario`, `password`, `estado`, `correo`, `rol`, `id_tarjeta`, `subscripcion`) VALUES
-(1, 'nestor', 'amichetti', 'nestorami', '1234', 'sancionado', 'your.name.be.gloriana@gmail.com', 'socio', 2, 1),
+(1, 'nestor', 'amichetti', 'nestorami', '1234', 'activo', 'unemialcualquiera@gmail.com', 'socio', 2, 1),
 (2, 'Juan', 'Perez', 'juan1234', '1234', 'activo', 'jperez@gmail.com', 'admin', 1, 0),
 (5, 'Pedro', 'Pepe', 'pepe1234', '1234', 'activo', 'sadas@gmail.com', 'socio', 4, 0);
 
@@ -194,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `tarjetas` (
   `id` int(100) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tarjetas`
@@ -205,7 +204,8 @@ INSERT INTO `tarjetas` (`id`, `nombre`) VALUES
 (2, 'Visa'),
 (3, 'Mastercard'),
 (4, 'Cabal'),
-(5, 'Maestro');
+(5, 'Maestro'),
+(6, '');
 
 --
 -- Restricciones para tablas volcadas
